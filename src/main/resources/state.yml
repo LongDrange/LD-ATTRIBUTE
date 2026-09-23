@@ -1,0 +1,282 @@
+# ================================================
+#   战斗状态属性
+#   Condition 格式:
+#     HP_BELOW:30        血量低于 30%
+#     HP_ABOVE:80        血量高于 80%
+#     KILL_STREAK:3      连杀 3 次以上
+#   Attributes: 满足条件时临时附加的属性
+# ================================================
+
+States:
+  low_hp_rage:
+    Name: "低血狂暴"
+    Condition: "HP_BELOW:30"
+    Attributes:
+    - "&c攻击力: +200"
+    - "&cPVP攻击力: +100"
+    Message: "&c✘ 低血狂暴触发！"
+
+  high_hp_guard:
+    Name: "满血守护"
+    Condition: "HP_ABOVE:80"
+    Attributes:
+    - "&b防御力: +100"
+    - "&bPVP防御: +80"
+
+  kill_streak_boost:
+    Name: "连杀加成"
+    Condition: "KILL_STREAK:3"
+    Attributes:
+    - "&e暴击机率: +20"
+    - "&e暴击伤害: +50"
+
+  desperate:
+    Name: "背水一战"
+    Condition: "HP_BELOW:10"
+    Attributes:
+    - "&4攻击力: +500"
+    - "&4PVP攻击力: +300"
+    - "&a吸血: +30"
+    Message: "&4✦ 背水一战！"
+
+  full_hp_crit:
+    Name: "满血暴击"
+    Condition: "HP_ABOVE:90"
+    Attributes:
+    - "&6暴击机率: +30"
+    - "&6暴击伤害: +80"
+    Message: "&6✦ 满血暴击状态！"
+
+  low_hp_dodge:
+    Name: "残血闪避"
+    Condition: "HP_BELOW:20"
+    Attributes:
+    - "&f闪避: +50"
+    - "&f格挡: +30"
+    Message: "&f✦ 残血闪避状态！"
+
+  kill_streak_5:
+    Name: "五杀狂暴"
+    Condition: "KILL_STREAK:5"
+    Attributes:
+    - "&4攻击力: +300"
+    - "&4PVP攻击力: +200"
+    - "&c暴击机率: +30"
+    - "&a吸血: +20"
+    Message: "&4&l✦ 五杀狂暴！"
+
+  kill_streak_10:
+    Name: "十杀无双"
+    Condition: "KILL_STREAK:10"
+    Attributes:
+    - "&4攻击力: +800"
+    - "&4PVP攻击力: +500"
+    - "&c暴击机率: +50"
+    - "&c暴击伤害: +200"
+    - "&a吸血: +50"
+    Message: "&4&l✦✦ 十杀无双！！！"
+
+  half_hp_balance:
+    Name: "半血均衡"
+    Condition: "HP_BELOW:50"
+    Attributes:
+    - "&c暴击抵抗: +30"
+    - "&b防御力: +50"
+    - "&b韧性: +30"
+    Message: "&b✦ 半血均衡状态"
+
+  full_hp_power:
+    Name: "满血全力"
+    Condition: "HP_ABOVE:100"
+    Attributes:
+    - "&c攻击力: +200"
+    - "&cPVP攻击力: +150"
+    Message: "&c✦ 满血全力！"
+
+  half_hp_offense:
+    Name: "半血进攻"
+    Condition: "HP_BELOW:50"
+    Attributes:
+    - "&c暴击机率: +20"
+    - "&c暴击伤害: +50"
+    Message: "&6✦ 半血进攻状态"
+
+  critical_hp:
+    Name: "濒死反击"
+    Condition: "HP_BELOW:5"
+    Attributes:
+    - "&4攻击力: +800"
+    - "&4PVP攻击力: +600"
+    - "&a吸血: +50"
+    - "&c暴击机率: +50"
+    Message: "&4&l✦ 濒死反击！！！"
+
+  kill_streak_2:
+    Name: "连杀 2"
+    Condition: "KILL_STREAK:2"
+    Attributes:
+    - "&c攻击力: +50"
+    Message: "&c✦ 连杀 2！"
+
+  kill_streak_7:
+    Name: "七杀"
+    Condition: "KILL_STREAK:7"
+    Attributes:
+    - "&4攻击力: +500"
+    - "&c暴击机率: +35"
+    Message: "&4✦ 七杀！"
+
+  kill_streak_15:
+    Name: "十五杀"
+    Condition: "KILL_STREAK:15"
+    Attributes:
+    - "&4攻击力: +1500"
+    - "&c暴击机率: +70"
+    - "&c暴击伤害: +300"
+    - "&a吸血: +80"
+    - "&b防御力: +200"
+    Message: "&4&l✦✦ 十五杀无双！！！"
+
+  hp_90:
+    Name: "巅峰状态"
+    Condition: "HP_ABOVE:90"
+    Attributes:
+    - "&c攻击力: +100"
+    Message: "&6✦ 巅峰状态"
+  hp_70:
+    Name: "稳定状态"
+    Condition: "HP_ABOVE:70"
+    Attributes:
+    - "&b防御力: +50"
+    Message: ""
+  hp_30:
+    Name: "中等危机"
+    Condition: "HP_BELOW:30"
+    Attributes:
+    - "&c攻击力: +150"
+    - "&c暴击机率: +10"
+    Message: "&e✦ 中等危机"
+  hp_15:
+    Name: "危险血线"
+    Condition: "HP_BELOW:15"
+    Attributes:
+    - "&c攻击力: +400"
+    - "&4PVP攻击力: +300"
+    - "&a吸血: +25"
+    Message: "&c✦ 危险血线！"
+  hp_3:
+    Name: "最后挣扎"
+    Condition: "HP_BELOW:3"
+    Attributes:
+    - "&4攻击力: +1500"
+    - "&4PVP攻击力: +1000"
+    - "&a吸血: +100"
+    - "&c暴击机率: +80"
+    - "&f闪避: +50"
+    Message: "&4&l✦✦ 最后挣扎！！！"
+
+  ks_1:
+    Name: "首杀"
+    Condition: "KILL_STREAK:1"
+    Attributes:
+    - "&c攻击力: +20"
+    Message: ""
+  ks_4:
+    Name: "四杀"
+    Condition: "KILL_STREAK:4"
+    Attributes:
+    - "&c攻击力: +200"
+    - "&c暴击机率: +15"
+    Message: "&e✦ 四杀！"
+  ks_6:
+    Name: "六杀"
+    Condition: "KILL_STREAK:6"
+    Attributes:
+    - "&4攻击力: +400"
+    - "&c暴击机率: +25"
+    - "&a吸血: +15"
+    Message: "&c✦ 六杀！"
+  ks_10:
+    Name: "十杀"
+    Condition: "KILL_STREAK:10"
+    Attributes:
+    - "&4攻击力: +800"
+    - "&4PVP攻击力: +500"
+    - "&c暴击机率: +50"
+    - "&a吸血: +40"
+    - "&b防御力: +200"
+    Message: "&4&l✦ 十杀！"
+  ks_20:
+    Name: "二十杀"
+    Condition: "KILL_STREAK:20"
+    Attributes:
+    - "&4攻击力: +2000"
+    - "&4PVP攻击力: +1200"
+    - "&c暴击机率: +90"
+    - "&c暴击伤害: +400"
+    - "&a吸血: +100"
+    - "&b防御力: +400"
+    - "&b暴击抵抗: +60"
+    Message: "&4&l✦✦✦ 二十杀屠戮！！！"
+
+  mana_full:
+    Name: "法力充盈"
+    Condition: "HP_ABOVE:100"
+    Attributes:
+    - "&5法术伤害: +100"
+    Message: ""
+  mana_low:
+    Name: "法力枯竭"
+    Condition: "HP_BELOW:10"
+    Attributes:
+    - "&c攻击力: +50"
+    Message: ""
+
+  ks_25:
+    Name: "二十五杀"
+    Condition: "KILL_STREAK:25"
+    Attributes:
+    - "&4攻击力: +3000"
+    - "&4PVP攻击力: +2000"
+    - "&c暴击机率: +100"
+    - "&c暴击伤害: +500"
+    - "&a吸血: +150"
+    - "&b防御力: +500"
+    Message: "&4&l✦✦✦ 二十五杀神威！！！"
+
+  ks_30:
+    Name: "三十杀"
+    Condition: "KILL_STREAK:30"
+    Attributes:
+    - "&4攻击力: +5000"
+    - "&4PVP攻击力: +3000"
+    - "&4PVE攻击力: +3000"
+    - "&c暴击机率: +100"
+    - "&c暴击伤害: +800"
+    - "&a吸血: +200"
+    - "&b防御力: +800"
+    - "&b暴击抵抗: +100"
+    - "&f闪避: +80"
+    Message: "&4&l✦✦✦✦✦ 三十杀无上！！！！！"
+
+  hp_50:
+    Name: "半血"
+    Condition: "HP_BELOW:50"
+    Attributes:
+    - "&c攻击力: +80"
+    Message: ""
+
+  hp_80:
+    Name: "八成血量"
+    Condition: "HP_ABOVE:80"
+    Attributes:
+    - "&a生命恢复: +3"
+    Message: ""
+
+  hp_full:
+    Name: "满血"
+    Condition: "HP_ABOVE:100"
+    Attributes:
+    - "&a生命恢复: +10"
+    - "&b防御力: +100"
+    Message: ""

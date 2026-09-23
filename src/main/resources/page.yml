@@ -1,0 +1,74 @@
+# ================================================
+#   卡片背包页面定义
+#
+#   Unlock: 整页解锁（点 INFO 红玻璃按钮触发）
+#   SlotUnlock: 逐格解锁（点格子内红玻璃触发）
+#     DefaultSlots: 初始已解锁格数
+#     Tiers: 逐档解锁配置，每档解锁 Slots 格
+# ================================================
+
+Pages:
+  Page1:
+    Slots: 45
+    Unlock:
+      Points: 0
+      Vault: 0
+      Permission: ""
+      Items: []
+      Commands: []
+    SlotUnlock:
+      DefaultSlots: 9
+      Tiers:
+      - Slots: 9
+        Points: 500
+        Vault: 0
+        Items: ["DIAMOND:10"]
+        Commands: []
+      - Slots: 9
+        Points: 2000
+        Vault: 0
+        Items: ["DIAMOND:32"]
+        Commands: []
+      - Slots: 18
+        Points: 5000
+        Vault: 5000
+        Items: ["DIAMOND:64"]
+        Commands: ["say {player} 解锁了第一页全部格子！"]
+
+  Page2:
+    Slots: 45
+    Unlock:
+      Points: 10000
+      Vault: 10000
+      Permission: ""
+      Items: ["DIAMOND:64"]
+      Commands: ["say {player} 解锁了第二页！"]
+    SlotUnlock:
+      DefaultSlots: 9
+      Tiers:
+      - Slots: 9
+        Points: 1000
+        Items: ["DIAMOND:16"]
+      - Slots: 9
+        Points: 3000
+        Items: ["DIAMOND:32"]
+      - Slots: 18
+        Points: 8000
+        Vault: 20000
+        Items: ["DIAMOND:64"]
+
+  Page3:
+    Slots: 45
+    Unlock:
+      Points: 50000
+      Vault: 100000
+      Permission: "ldattribute.page.vip"
+      Items: []
+      Commands: ["say {player} 解锁了VIP第三页！"]
+    SlotUnlock:
+      DefaultSlots: 9
+      Tiers:
+      - Slots: 36
+        Points: 10000
+        Vault: 50000
+        Items: ["NETHER_STAR:3"]

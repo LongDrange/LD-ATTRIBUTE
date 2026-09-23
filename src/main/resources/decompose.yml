@@ -1,0 +1,76 @@
+# ================================================
+#   卡片分解
+#   Default: 未配置的卡片用此产出
+#   Cards: 每张卡的专属产出
+#
+#   欄位：
+#     Points: 點券
+#     Vault: 金幣（Vault）
+#     Items: 物品清單（"材質:數量"）
+#     Random: 隨機池（"卡ID:機率" 機率 0~100）
+#     Disabled: true 表示不可分解
+# ================================================
+
+Default:
+  Points: 10
+  Vault: 0
+  Items: []
+  Random: []
+
+Cards:
+  孙逊:
+    Points: 100
+    Vault: 0
+    Items:
+    - "DIAMOND:2"
+    Random:
+    - "exp_stone_all:50"
+  貂蝉:
+    Points: 100
+    Vault: 0
+    Items:
+    - "EMERALD:2"
+    Random: []
+  庞德:
+    Points: 100
+    Vault: 0
+    Items:
+    - "GOLD_INGOT:5"
+    Random: []
+  exp_stone_sunxun:
+    Disabled: true
+  exp_stone_all:
+    Disabled: true
+  exp_stone_t1:
+    Disabled: true
+  cooldown_skip_scroll:
+    Disabled: true
+
+  zhaoyun_t2:
+    Points: 500
+    Vault: 0
+    Items:
+    - "DIAMOND:10"
+    Random:
+    - "exp_stone_t2:30"
+  zhangfei_t2:
+    Points: 500
+    Vault: 0
+    Items:
+    - "EMERALD:10"
+    Random:
+    - "exp_stone_t2:30"
+  lubu_t3:
+    Points: 2000
+    Vault: 5000
+    Items:
+    - "DIAMOND:64"
+    Random:
+    - "exp_stone_t3:50"
+  guanyu_t3:
+    Points: 2000
+    Vault: 5000
+    Items:
+    - "EMERALD:64"
+    Random:
+    - "exp_stone_t3:50"

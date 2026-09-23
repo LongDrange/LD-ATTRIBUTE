@@ -1,0 +1,822 @@
+# ================================================
+#   法術配置（改完 /ldc reload 生效）
+#
+#   可用變量：
+#     {base}           法術 Base 值
+#     {magic_damage}   玩家「法术伤害」屬性
+#     {magic_pen}      玩家「法术穿透」屬性
+#     {magic_crit}     玩家「法术暴击几率」屬性
+#     {magic_crit_dmg} 玩家「法术暴击倍率」屬性
+#
+#   Target 類型：
+#     SELF    對自己
+#     SINGLE  視線前方單體
+#     AOE     周圍範圍
+#     BEAM    直線穿透
+#     CONE    扇形範圍
+#
+#   Effects 格式：
+#     PARTICLE:<粒子名>:<數量>
+#     SOUND:<音效名>
+#
+#   MythicSkill: 如果裝了 MythicMobs，額外觸發技能名（可留空）
+# ================================================
+
+Spells:
+  fireball:
+    Name: "&c&l火球術"
+    Mana: 20
+    Cooldown: 3
+    Target: SINGLE
+    Range: 15
+    Radius: 3
+    Base: 30
+    DamageFormula: "{base} + {magic_damage}"
+    Effects:
+    - "PARTICLE:FLAME:30"
+    - "SOUND:ENTITY_GHAST_SHOOT"
+
+  heal:
+    Name: "&a&l治療術"
+    Mana: 30
+    Cooldown: 10
+    Target: SELF
+    Base: 50
+    HealFormula: "{base} + {magic_damage} * 0.5"
+    Effects:
+    - "PARTICLE:HEART:20"
+    - "SOUND:ENTITY_PLAYER_LEVELUP"
+
+  lightning:
+    Name: "&e&l閃電鏈"
+    Mana: 40
+    Cooldown: 8
+    Target: AOE
+    Radius: 6
+    Base: 25
+    DamageFormula: "{base} + {magic_damage} * 1.5"
+    Effects:
+    - "PARTICLE:CRIT:40"
+    - "SOUND:ENTITY_LIGHTNING_THUNDER"
+
+  ice_nova:
+    Name: "&b&l冰霜新星"
+    Mana: 35
+    Cooldown: 12
+    Target: AOE
+    Radius: 5
+    Base: 40
+    DamageFormula: "{base} + {magic_damage} * 0.8"
+    Effects:
+    - "PARTICLE:SNOW_SHOVEL:50"
+    - "SOUND:BLOCK_GLASS_BREAK"
+
+  arcane_beam:
+    Name: "&5&l奧術光束"
+    Mana: 60
+    Cooldown: 6
+    Target: BEAM
+    Range: 20
+    Base: 80
+    DamageFormula: "{base} + {magic_damage} * 2.0"
+    Effects:
+    - "PARTICLE:SPELL_WITCH:60"
+    - "SOUND:ENTITY_ENDERDRAGON_SHOOT"
+
+  # ===== 擴展法術（第 1 批） =====
+  summon_skeleton:
+    Name: "&7&l召喚骷髏"
+    Mana: 50
+    Cooldown: 30
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 0
+    Effects:
+    - "PARTICLE:SMOKE_LARGE:40"
+    - "SOUND:ENTITY_SKELETON_AMBIENT"
+    NativeEffect: "SUMMON:SKELETON:3"
+
+  teleport:
+    Name: "&d&l瞬間移動"
+    Mana: 15
+    Cooldown: 5
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 0
+    Effects:
+    - "PARTICLE:PORTAL:50"
+    - "SOUND:ENTITY_ENDERMEN_TELEPORT"
+    NativeEffect: "TELEPORT:10"
+
+  invisibility:
+    Name: "&7&l隱身術"
+    Mana: 40
+    Cooldown: 20
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 0
+    Effects:
+    - "PARTICLE:SPELL_INSTANT:20"
+    - "SOUND:ENTITY_ILLUSION_ILLAGER_MIRROR_MOVE"
+
+  haste:
+    Name: "&a&l疾風加速"
+    Mana: 20
+    Cooldown: 15
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 0
+    Effects:
+    - "PARTICLE:VILLAGER_HAPPY:30"
+    - "SOUND:ENTITY_HORSE_GALLOP"
+
+  mana_shield:
+    Name: "&b&l法力護盾"
+    Mana: 60
+    Cooldown: 25
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 0
+    HealFormula: "{base} + {magic_damage} * 2.0"
+    Effects:
+    - "PARTICLE:SPELL_INSTANT:50"
+    - "SOUND:BLOCK_ANVIL_USE"
+
+  lifesteal_field:
+    Name: "&4&l吸血領域"
+    Mana: 80
+    Cooldown: 20
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: AOE
+    Radius: 8
+    Base: 40
+    DamageFormula: "{base} + {magic_damage} * 1.2"
+    Effects:
+    - "PARTICLE:REDSTONE:100"
+    - "SOUND:ENTITY_WITHER_SHOOT"
+
+  fire_rain:
+    Name: "&6&l火雨術"
+    Mana: 100
+    Cooldown: 40
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: AOE
+    Radius: 12
+    Base: 60
+    DamageFormula: "{base} + {magic_damage} * 2.0 + {magic_pen}"
+    Effects:
+    - "PARTICLE:LAVA:200"
+    - "SOUND:ENTITY_BLAZE_SHOOT"
+
+  frost_nova:
+    Name: "&b&l冰霜風暴"
+    Mana: 70
+    Cooldown: 25
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: AOE
+    Radius: 10
+    Base: 50
+    DamageFormula: "{base} + {magic_damage} * 1.3"
+    Effects:
+    - "PARTICLE:SNOWBALL:150"
+    - "SOUND:BLOCK_GLASS_BREAK"
+
+  meteor:
+    Name: "&c&l隕石術"
+    Mana: 150
+    Cooldown: 60
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SINGLE
+    Range: 25
+    Base: 200
+    DamageFormula: "{base} + {magic_damage} * 3.0"
+    Effects:
+    - "PARTICLE:EXPLOSION_HUGE:5"
+    - "SOUND:ENTITY_GENERIC_EXPLODE"
+
+  lightning_storm:
+    Name: "&e&l閃電風暴"
+    Mana: 120
+    Cooldown: 45
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: AOE
+    Radius: 15
+    Base: 80
+    DamageFormula: "{base} + {magic_damage} * 2.5"
+    Effects:
+    - "PARTICLE:CRIT_MAGIC:300"
+    - "SOUND:ENTITY_LIGHTNING_THUNDER"
+    MythicSkill: "LightningStorm"
+
+  group_heal:
+    Name: "&a&l群体治疗"
+    Mana: 80
+    Cooldown: 30
+    Target: AOE
+    Radius: 8
+    Base: 100
+    HealFormula: "{base} + {magic_damage} * 1.5"
+    Effects:
+    - "PARTICLE:HEART:100"
+    - "SOUND:BLOCK_ENCHANTMENT_TABLE_USE"
+
+  fire_wall:
+    Name: "&6&l火墙术"
+    Mana: 70
+    Cooldown: 20
+    Target: CONE
+    Range: 10
+    Base: 50
+    DamageFormula: "{base} + {magic_damage} * 1.5"
+    Effects:
+    - "PARTICLE:FLAME:200"
+    - "SOUND:ENTITY_BLAZE_BURN"
+
+  frost_shield:
+    Name: "&b&l冰霜护盾"
+    Mana: 60
+    Cooldown: 35
+    Target: SELF
+    Base: 0
+    HealFormula: "{base} + {magic_damage} * 2.5"
+    Effects:
+    - "PARTICLE:SNOW_SHOVEL:60"
+    - "SOUND:BLOCK_GLASS_PLACE"
+
+  death_ray:
+    Name: "&4&l死亡射线"
+    Mana: 150
+    Cooldown: 45
+    Target: BEAM
+    Range: 30
+    Base: 300
+    DamageFormula: "{base} + {magic_damage} * 3.5 + {magic_pen}"
+    Effects:
+    - "PARTICLE:REDSTONE:200"
+    - "SOUND:ENTITY_WITHER_SHOOT"
+
+  time_stop:
+    Name: "&5&l时空停止"
+    Mana: 200
+    Cooldown: 90
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:SLOW:100:5"
+    Effects:
+    - "PARTICLE:SPELL_WITCH:150"
+    - "SOUND:ENTITY_ENDERDRAGON_GROWL"
+
+  berserk:
+    Name: "&c&l狂暴术"
+    Mana: 50
+    Cooldown: 40
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:INCREASE_DAMAGE:200:2"
+    Effects:
+    - "PARTICLE:VILLAGER_ANGRY:50"
+    - "SOUND:ENTITY_WOLF_GROWL"
+
+  heal_self:
+    Name: "&a&l紧急治疗"
+    Mana: 30
+    Cooldown: 15
+    Target: SELF
+    Base: 50
+    HealFormula: "{base} + {magic_damage} * 1.0"
+    Effects:
+    - "PARTICLE:HEART:30"
+    - "SOUND:ENTITY_PLAYER_BURP"
+
+  ice_ray:
+    Name: "&b&l冰霜射线"
+    Mana: 50
+    Cooldown: 12
+    Target: BEAM
+    Range: 20
+    Base: 60
+    DamageFormula: "{base} + {magic_damage} * 1.2"
+    Effects:
+    - "PARTICLE:SNOW_SHOVEL:80"
+    - "SOUND:BLOCK_GLASS_BREAK"
+
+  # ===== 追加法术 =====
+  poison_cloud:
+    Name: "&2&l毒云术"
+    Mana: 60
+    Cooldown: 20
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: AOE
+    Radius: 8
+    Base: 30
+    DamageFormula: "{base} + {magic_damage} * 1.0"
+    Effects:
+    - "PARTICLE:SPELL_MOB:150"
+    - "SOUND:ENTITY_WITCH_DRINK"
+
+  soul_drain:
+    Name: "&4&l灵魂吸取"
+    Mana: 80
+    Cooldown: 25
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SINGLE
+    Range: 15
+    Base: 120
+    DamageFormula: "{base} + {magic_damage} * 1.8 + {magic_lifesteal} * 10"
+    Effects:
+    - "PARTICLE:SPELL_WITCH:100"
+    - "SOUND:ENTITY_WITHER_HURT"
+
+  chain_lightning:
+    Name: "&e&l连锁闪电"
+    Mana: 90
+    Cooldown: 15
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: AOE
+    Radius: 10
+    Base: 100
+    DamageFormula: "{base} + {magic_damage} * 2.0"
+    Effects:
+    - "PARTICLE:CRIT_MAGIC:250"
+    - "SOUND:ENTITY_LIGHTNING_THUNDER"
+
+  holy_light:
+    Name: "&f&l圣光术"
+    Mana: 100
+    Cooldown: 35
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: AOE
+    Radius: 10
+    Base: 150
+    HealFormula: "{base} + {magic_damage} * 2.0"
+    Effects:
+    - "PARTICLE:HEART:150"
+    - "SOUND:BLOCK_ENCHANTMENT_TABLE_USE"
+
+  shadow_step:
+    Name: "&8&l暗影步"
+    Mana: 40
+    Cooldown: 10
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "TELEPORT:15"
+    Effects:
+    - "PARTICLE:SMOKE_LARGE:50"
+    - "SOUND:ENTITY_ENDERMEN_TELEPORT"
+
+  thunder_spear:
+    Name: "&e&l雷霆之枪"
+    Mana: 130
+    Cooldown: 30
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: BEAM
+    Range: 25
+    Base: 180
+    DamageFormula: "{base} + {magic_damage} * 2.5"
+    Effects:
+    - "PARTICLE:CRIT:200"
+    - "SOUND:ENTITY_LIGHTNING_THUNDER"
+
+  earth_spike:
+    Name: "&6&l大地尖刺"
+    Mana: 70
+    Cooldown: 18
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: CONE
+    Range: 12
+    Base: 80
+    DamageFormula: "{base} + {magic_damage} * 1.5"
+    Effects:
+    - "PARTICLE:BLOCK_CRACK:150"
+    - "SOUND:BLOCK_STONE_BREAK"
+
+  regeneration_field:
+    Name: "&a&l生命领域"
+    Mana: 120
+    Cooldown: 45
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:REGENERATION:400:2"
+    Effects:
+    - "PARTICLE:HEART:100"
+    - "SOUND:BLOCK_ENCHANTMENT_TABLE_USE"
+
+  strength_aura:
+    Name: "&c&l力量光环"
+    Mana: 100
+    Cooldown: 40
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:INCREASE_DAMAGE:300:2"
+    Effects:
+    - "PARTICLE:VILLAGER_HAPPY:80"
+    - "SOUND:ENTITY_WOLF_GROWL"
+
+  protection_aura:
+    Name: "&b&l保护光环"
+    Mana: 100
+    Cooldown: 40
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:DAMAGE_RESISTANCE:300:2"
+    Effects:
+    - "PARTICLE:SPELL_INSTANT:80"
+    - "SOUND:BLOCK_ANVIL_USE"
+
+  invisibility_veil:
+    Name: "&7&l隐身纱"
+    Mana: 60
+    Cooldown: 30
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:INVISIBILITY:200:1"
+    Effects:
+    - "PARTICLE:SPELL_INSTANT:50"
+    - "SOUND:ENTITY_ILLUSION_ILLAGER_MIRROR_MOVE"
+
+  jump_boost:
+    Name: "&a&l跳跃强化"
+    Mana: 30
+    Cooldown: 15
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:JUMP:400:3"
+    Effects:
+    - "PARTICLE:CLOUD:40"
+    - "SOUND:ENTITY_RABBIT_JUMP"
+
+  flash_bomb:
+    Name: "&f&l闪光弹"
+    Mana: 80
+    Cooldown: 25
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: AOE
+    Radius: 6
+    Base: 40
+    DamageFormula: "{base} + {magic_damage} * 1.0"
+    NativeEffect: "POTION:BLINDNESS:60:1"
+    Effects:
+    - "PARTICLE:EXPLOSION_NORMAL:50"
+    - "SOUND:ENTITY_FIREWORK_BLAST"
+
+  flame_breath:
+    Name: "&6&l火焰吐息"
+    Mana: 100
+    Cooldown: 25
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: CONE
+    Range: 15
+    Base: 120
+    DamageFormula: "{base} + {magic_damage} * 2.0"
+    Effects:
+    - "PARTICLE:LAVA:200"
+    - "SOUND:ENTITY_ENDERDRAGON_SHOOT"
+
+  frost_armor:
+    Name: "&b&l寒霜护甲"
+    Mana: 90
+    Cooldown: 40
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:DAMAGE_RESISTANCE:400:3"
+    Effects:
+    - "PARTICLE:SNOW_SHOVEL:80"
+    - "SOUND:BLOCK_GLASS_PLACE"
+
+  death_grasp:
+    Name: "&4&l死亡之握"
+    Mana: 120
+    Cooldown: 35
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: SINGLE
+    Range: 20
+    Base: 200
+    DamageFormula: "{base} + {magic_damage} * 2.5"
+    NativeEffect: "POTION:SLOW:100:3"
+    Effects:
+    - "PARTICLE:SMOKE_LARGE:100"
+    - "SOUND:ENTITY_WITHER_DEATH"
+
+  arcane_explosion:
+    Name: "&5&l奥术爆发"
+    Mana: 150
+    Cooldown: 40
+    MaxLevel: 5
+    LevelMultiplier: 1.25
+    Target: AOE
+    Radius: 12
+    Base: 250
+    DamageFormula: "{base} + {magic_damage} * 3.0"
+    Effects:
+    - "PARTICLE:SPELL_WITCH:300"
+    - "SOUND:ENTITY_ENDERDRAGON_GROWL"
+
+  divine_punishment:
+    Name: "&f&l神圣裁决"
+    Mana: 200
+    Cooldown: 60
+    MaxLevel: 5
+    LevelMultiplier: 1.3
+    Target: AOE
+    Radius: 15
+    Base: 400
+    DamageFormula: "{base} + {magic_damage} * 3.5 + {magic_pen}"
+    Effects:
+    - "PARTICLE:END_ROD:300"
+    - "SOUND:ENTITY_LIGHTNING_THUNDER"
+
+  healing_wave:
+    Name: "&a&l治疗波"
+    Mana: 60
+    Cooldown: 20
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 80
+    HealFormula: "{base} + {magic_damage} * 1.5"
+    Effects:
+    - "PARTICLE:HEART:60"
+    - "SOUND:ENTITY_PLAYER_LEVELUP"
+
+  summon_wolves:
+    Name: "&7&l召唤狼群"
+    Mana: 80
+    Cooldown: 35
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "SUMMON:WOLF:3"
+    Effects:
+    - "PARTICLE:SMOKE_LARGE:50"
+    - "SOUND:ENTITY_WOLF_GROWL"
+
+  summon_zombies:
+    Name: "&2&l召唤僵尸"
+    Mana: 100
+    Cooldown: 40
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "SUMMON:ZOMBIE:4"
+    Effects:
+    - "PARTICLE:SMOKE_NORMAL:60"
+    - "SOUND:ENTITY_ZOMBIE_AMBIENT"
+
+  summon_blaze:
+    Name: "&6&l召唤烈焰使者"
+    Mana: 150
+    Cooldown: 60
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "SUMMON:BLAZE:2"
+    Effects:
+    - "PARTICLE:FLAME:100"
+    - "SOUND:ENTITY_BLAZE_AMBIENT"
+
+  wither_strike:
+    Name: "&8&l凋零打击"
+    Mana: 130
+    Cooldown: 30
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: BEAM
+    Range: 20
+    Base: 160
+    DamageFormula: "{base} + {magic_damage} * 2.2"
+    NativeEffect: "POTION:WITHER:80:1"
+    Effects:
+    - "PARTICLE:SPELL_WITHER:200"
+    - "SOUND:ENTITY_WITHER_SHOOT"
+
+  magic_shield:
+    Name: "&b&l魔法护盾"
+    Mana: 80
+    Cooldown: 30
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:ABSORPTION:400:3"
+    Effects:
+    - "PARTICLE:SPELL_INSTANT:100"
+    - "SOUND:BLOCK_ANVIL_USE"
+
+  blood_rage:
+    Name: "&4&l嗜血狂暴"
+    Mana: 100
+    Cooldown: 60
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:INCREASE_DAMAGE:200:3"
+    Effects:
+    - "PARTICLE:REDSTONE:100"
+    - "SOUND:ENTITY_WOLF_GROWL"
+
+  ghost_walk:
+    Name: "&7&l鬼影步"
+    Mana: 60
+    Cooldown: 25
+    MaxLevel: 5
+    LevelMultiplier: 1.1
+    Target: SELF
+    Base: 0
+    NativeEffect: "POTION:SPEED:300:4"
+    Effects:
+    - "PARTICLE:SMOKE_NORMAL:80"
+    - "SOUND:ENTITY_ENDERMEN_TELEPORT"
+
+  revive:
+    Name: "&a&l复苏"
+    Mana: 200
+    Cooldown: 120
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: SELF
+    Base: 200
+    HealFormula: "{base} + {magic_damage} * 3.0"
+    NativeEffect: "POTION:REGENERATION:200:2"
+    Effects:
+    - "PARTICLE:HEART:200"
+    - "SOUND:ENTITY_PLAYER_LEVELUP"
+
+  frost_bite:
+    Name: "&b&l寒冰之咬"
+    Mana: 50
+    Cooldown: 15
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: SINGLE
+    Range: 12
+    Base: 80
+    DamageFormula: "{base} + {magic_damage} * 1.8"
+    NativeEffect: "POTION:SLOW:100:2"
+    Effects:
+    - "PARTICLE:SNOW_SHOVEL:100"
+    - "SOUND:ENTITY_PLAYER_HURT_FREEZE"
+
+  poison_arrow:
+    Name: "&2&l毒箭"
+    Mana: 40
+    Cooldown: 12
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: SINGLE
+    Range: 20
+    Base: 60
+    DamageFormula: "{base} + {magic_damage} * 1.5"
+    NativeEffect: "POTION:POISON:120:1"
+    Effects:
+    - "PARTICLE:SPELL_MOB:80"
+    - "SOUND:ENTITY_ARROW_SHOOT"
+
+  whirlwind:
+    Name: "&6&l旋风斩"
+    Mana: 90
+    Cooldown: 20
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: AOE
+    Radius: 5
+    Base: 100
+    DamageFormula: "{base} + {magic_damage} * 1.8"
+    Effects:
+    - "PARTICLE:SWEEP_ATTACK:150"
+    - "SOUND:ENTITY_PLAYER_ATTACK_SWEEP"
+
+  void_rift:
+    Name: "&5&l虚空裂隙"
+    Mana: 180
+    Cooldown: 50
+    MaxLevel: 5
+    LevelMultiplier: 1.3
+    Target: AOE
+    Radius: 10
+    Base: 300
+    DamageFormula: "{base} + {magic_damage} * 3.0 + {magic_pen}"
+    Effects:
+    - "PARTICLE:PORTAL:300"
+    - "SOUND:ENTITY_ENDERDRAGON_GROWL"
+
+  sun_burst:
+    Name: "&6&l烈日爆"
+    Mana: 120
+    Cooldown: 30
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: AOE
+    Radius: 8
+    Base: 150
+    DamageFormula: "{base} + {magic_damage} * 2.0"
+    Effects:
+    - "PARTICLE:EXPLOSION_LARGE:5"
+    - "SOUND:ENTITY_GENERIC_EXPLODE"
+
+  moonlight:
+    Name: "&f&l月光束"
+    Mana: 80
+    Cooldown: 20
+    MaxLevel: 5
+    LevelMultiplier: 1.15
+    Target: BEAM
+    Range: 20
+    Base: 100
+    DamageFormula: "{base} + {magic_damage} * 2.0"
+    Effects:
+    - "PARTICLE:END_ROD:150"
+    - "SOUND:BLOCK_BEACON_ACTIVATE"
+
+  blood_sacrifice:
+    Name: "&4&l血祭"
+    Mana: 0
+    Cooldown: 60
+    MaxLevel: 5
+    LevelMultiplier: 1.3
+    Target: AOE
+    Radius: 12
+    Base: 200
+    DamageFormula: "{base} + {magic_damage} * 3.0 + {magic_lifesteal} * 20"
+    Effects:
+    - "PARTICLE:REDSTONE:300"
+    - "SOUND:ENTITY_WITHER_DEATH"
+
+  judgement:
+    Name: "&f&l审判之剑"
+    Mana: 200
+    Cooldown: 50
+    MaxLevel: 5
+    LevelMultiplier: 1.25
+    Target: SINGLE
+    Range: 25
+    Base: 300
+    DamageFormula: "{base} + {magic_damage} * 3.5"
+    Effects:
+    - "PARTICLE:SWEEP_ATTACK:200"
+    - "SOUND:ENTITY_LIGHTNING_THUNDER"
+
+  dragon_breath:
+    Name: "&6&l龙息"
+    Mana: 250
+    Cooldown: 60
+    MaxLevel: 5
+    LevelMultiplier: 1.3
+    Target: CONE
+    Range: 20
+    Base: 400
+    DamageFormula: "{base} + {magic_damage} * 4.0"
+    Effects:
+    - "PARTICLE:DRAGON_BREATH:400"
+    - "SOUND:ENTITY_ENDERDRAGON_GROWL"
+
+  time_warp:
+    Name: "&5&l时空扭曲"
+    Mana: 150
+    Cooldown: 45
+    MaxLevel: 5
+    LevelMultiplier: 1.2
+    Target: AOE
+    Radius: 10
+    Base: 80
+    DamageFormula: "{base} + {magic_damage} * 1.5"
+    NativeEffect: "POTION:SLOW:200:3"
+    Effects:
+    - "PARTICLE:SPELL_WITCH:200"
+    - "SOUND:ENTITY_ENDERMEN_TELEPORT"

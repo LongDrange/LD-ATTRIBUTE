@@ -1,0 +1,79 @@
+DropToCards:
+  SkeletonKing:
+    zhaoyun_t2: 0.01
+    exp_stone_t2: 0.1
+    "DIAMOND:2:0.5": 1.0
+  AbyssLord:
+    guanyu_t3: 0.005
+    exp_stone_t3: 0.05
+  GoblinChief:
+    lubu_t3: 0.02
+    exp_stone_t2: 0.15
+
+RuneDrops:
+  SkeletalMinion:
+    attack_1: 0.05
+  StaticallyChargedSheep:
+    utility_1: 0.05
+  AngrySludge:
+    defense_1: 0.05
+  SkeletalKnight:
+    attack_1: 0.15
+    defense_1: 0.15
+    magic_1: 0.05
+  SkeletonKing:
+    attack_1: 0.4
+    attack_2: 0.1
+    defense_1: 0.4
+    defense_2: 0.1
+    magic_1: 0.2
+    special_1: 0.03
+  Goblin:
+    attack_1: 0.1
+    defense_1: 0.1
+  GoblinArcher:
+    attack_1: 0.15
+    utility_1: 0.1
+  GoblinChief:
+    attack_2: 0.2
+    defense_2: 0.2
+    utility_2: 0.1
+    special_1: 0.05
+  AbyssHound:
+    attack_2: 0.15
+    defense_1: 0.15
+  AbyssWraith:
+    magic_1: 0.3
+    magic_2: 0.1
+    utility_1: 0.15
+  AbyssPriest:
+    magic_2: 0.25
+    defense_2: 0.2
+    special_1: 0.08
+  AbyssLord:
+    attack_3: 0.3
+    defense_3: 0.3
+    magic_3: 0.3
+    special_2: 0.15
+    special_3: 0.03
+  CAVE_SPIDER:
+    attack_1: 0.1
+  WITHER_SKELETON:
+    attack_1: 0.2
+    defense_1: 0.2
+    magic_1: 0.1
+  GIANT:
+    attack_3: 0.5
+    defense_3: 0.5
+    special_2: 0.2
+  ZOMBIE:
+    attack_1: 0.02
+  SKELETON:
+    attack_1: 0.02
+    defense_1: 0.02
+  CREEPER:
+    utility_1: 0.03
+  SPIDER:
+    attack_1: 0.02
+  ENDERMAN:
+    magic_1: 0.05

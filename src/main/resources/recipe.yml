@@ -1,0 +1,194 @@
+# ================================================
+#   合成配方
+#   Display: 顯示名（GUI）
+#   Icon: GUI 圖示（可選，預設用輸出卡）
+#   Input.Cards: 需要卡片（"卡ID:數量"）
+#   Cost:
+#     Points: 點券 / Vault: 金幣 / Items: 物品 / Permission: 權限
+#   Output.Cards: 固定產出
+#   Output.Random: 隨機池（"卡ID:權重"）
+# ================================================
+
+Recipes:
+  upgrade_sunxun:
+    Display: "&6孙逊 進階"
+    Input:
+      Cards:
+      - "孙逊:3"
+    Cost:
+      Points: 500
+    Output:
+      Cards:
+      - "孙逊:1"
+  three_heroes:
+    Display: "&d三俠合璧"
+    Input:
+      Cards:
+      - "孙逊:1"
+      - "貂蝉:1"
+      - "庞德:1"
+    Cost:
+      Points: 5000
+      Vault: 5000
+    Output:
+      Cards:
+      - "貂蝉:1"
+  strengthen_pangde:
+    Display: "&c庞德 強化"
+    Input:
+      Cards:
+      - "庞德:1"
+    Cost:
+      Points: 500
+      Items:
+      - "DIAMOND:5"
+    Output:
+      Cards:
+      - "庞德:1"
+  gacha_basic:
+    Display: "&e隨機抽卡"
+    Input:
+      Cards: []
+    Cost:
+      Points: 1000
+    Output:
+      Random:
+      - "孙逊:40"
+      - "貂蝉:30"
+      - "庞德:30"
+
+  # ===== 经验石合成 =====
+  craft_expstone_sunxun:
+    Display: "&6孙逊经验石"
+    Input:
+      Cards: []
+    Cost:
+      Points: 500
+      Items:
+        - "DIAMOND:3"
+    Output:
+      Cards:
+        - "exp_stone_sunxun:1"
+
+  craft_expstone_all:
+    Display: "&6通用经验石"
+    Input:
+      Cards: []
+    Cost:
+      Points: 800
+      Items:
+        - "EMERALD:5"
+    Output:
+      Cards:
+        - "exp_stone_all:1"
+
+  craft_expstone_t1:
+    Display: "&6T1通用经验石"
+    Input:
+      Cards: []
+    Cost:
+      Points: 600
+      Items:
+        - "DIAMOND:5"
+    Output:
+      Cards:
+        - "exp_stone_t1:1"
+
+  # ================================================
+  #   进阶配方（保留最高等级 / 星级）
+  # ================================================
+  advance_sunxun:
+    Display: "&6孙逊 → 赵云(进阶)"
+    Input:
+      Cards:
+      - "孙逊:3"
+    Cost:
+      Points: 10000
+      Vault: 20000
+      Items:
+      - "DIAMOND:64"
+    Output:
+      Cards:
+      - "zhaoyun_t2:1"
+    RequireMaxLevel: true
+    RequireMaxStar: true
+    KeepLevel: true
+    KeepStar: true
+    Broadcast: "&6✦ &e{player} &6进阶出了 &e{card}&6！"
+
+  advance_diaochan:
+    Display: "&d貂蝉 → 关羽(进阶)"
+    Input:
+      Cards:
+      - "貂蝉:3"
+    Cost:
+      Points: 10000
+      Vault: 20000
+      Items:
+      - "EMERALD:64"
+    Output:
+      Cards:
+      - "guanyu_t3:1"
+    RequireMaxLevel: true
+    RequireMaxStar: true
+    KeepLevel: true
+    KeepStar: true
+    Broadcast: "&d✦ &e{player} &d进阶出了 &e{card}&d！"
+
+  advance_pangde:
+    Display: "&c庞德 → 张飞(进阶)"
+    Input:
+      Cards:
+      - "庞德:3"
+    Cost:
+      Points: 10000
+      Vault: 20000
+      Items:
+      - "GOLD_INGOT:64"
+    Output:
+      Cards:
+      - "zhangfei_t2:1"
+    RequireMaxLevel: true
+    RequireMaxStar: true
+    KeepLevel: true
+    KeepStar: true
+    Broadcast: "&c✦ &e{player} &c进阶出了 &e{card}&c！"
+
+  advance_zhaoyun:
+    Display: "&b赵云 → 吕布(进阶)"
+    Input:
+      Cards:
+      - "zhaoyun_t2:2"
+    Cost:
+      Points: 30000
+      Vault: 50000
+      Items:
+      - "DIAMOND:128"
+    Output:
+      Cards:
+      - "lubu_t3:1"
+    RequireMaxLevel: true
+    RequireMaxStar: true
+    KeepLevel: true
+    KeepStar: true
+    Broadcast: "&b✦ &e{player} &b进阶出了 &e{card}&b！"
+
+  advance_max:
+    Display: "&4&l终极进阶"
+    Input:
+      Cards:
+      - "lubu_t3:1"
+      - "guanyu_t3:1"
+    Cost:
+      Points: 100000
+      Vault: 500000
+      Items:
+      - "NETHER_STAR:10"
+    Output:
+      Cards:
+      - "lubu_t3:1"
+    RequireMaxLevel: true
+    RequireMaxStar: true
+    KeepLevel: true
+    KeepStar: true
+    Broadcast: "&4&l✦✦ &e{player} &4&l达成了终极进阶！"

@@ -1,0 +1,412 @@
+# ================================================
+#   卡片共鳴
+#   RewardOnce.Commands: 一次性奖励指令（{player} 替换）
+#   RewardOnce.Message:  一次性奖励提示（可留空）
+# ================================================
+
+Resonances:
+  蜀国英魂:
+    Name: "蜀國英魂"
+    Cards: [zhaoyun_t2, guanyu_t3]
+    Required: 2
+    Attributes:
+    - "&b防御力: +50"
+    - "&bPVP防御: +30"
+    Message: "&b✦ 蜀國英魂共鳴激活！"
+    RewardOnce:
+      Message: "&6✦ 首次集齊蜀國英魂！獲得獎勵"
+      Commands:
+      - "say {player} 首次集齊蜀國英魂"
+      - "ldp add {player} 2000"
+      - "ldc give exp_stone_t2 {player} 3"
+
+  魏武之志:
+    Name: "魏武之志"
+    Cards: [zhangfei_t2, lubu_t3]
+    Required: 2
+    Attributes:
+    - "&c攻击力: +80"
+    - "&c破甲: +20"
+    Message: "&c✦ 魏武之志共鳴激活！"
+    RewardOnce:
+      Message: "&6✦ 首次集齊魏武之志！獲得獎勵"
+      Commands:
+      - "say {player} 首次集齊魏武之志"
+      - "ldp add {player} 2000"
+      - "ldc give exp_stone_t2 {player} 3"
+
+  三國無雙:
+    Name: "三國無雙"
+    Cards: [孙逊, 貂蝉, 庞德, zhaoyun_t2, zhangfei_t2, lubu_t3, guanyu_t3]
+    Required: 7
+    Attributes:
+    - "&6攻击力: +300"
+    - "&a生命上限: +800"
+    - "&b防御力: +150"
+    - "&c法术伤害: +100"
+    Message: "&6✦ 三國無雙！"
+    RewardOnce:
+      Message: "&6&l✦ 你集齊了三國無雙！獲得超級獎勵！"
+      Commands:
+      - "say {player} 達成了三國無雙！"
+      - "ldp add {player} 50000"
+      - "eco give {player} 100000"
+      - "ldc give exp_stone_t3 {player} 10"
+
+  蜀漢英魂:
+    Name: "蜀漢英魂"
+    Cards: [zhaoyun_t2, guanyu_t3]
+    Required: 2
+    Attributes:
+    - "&c攻击力: +100"
+    - "&a生命上限: +200"
+    Message: "&c✦ 蜀漢英魂共鳴！"
+    RewardOnce:
+      Message: "&6首次集齊蜀漢英魂！"
+      Commands:
+      - "ldp add {player} 5000"
+
+  群雄逐鹿:
+    Name: "群雄逐鹿"
+    Cards: [lubu_t3, zhangfei_t2]
+    Required: 2
+    Attributes:
+    - "&c攻击力: +150"
+    - "&c破甲: +30"
+    Message: "&c✦ 群雄逐鹿共鳴！"
+    RewardOnce:
+      Message: "&6首次集齊群雄逐鹿！"
+      Commands:
+      - "ldp add {player} 5000"
+
+  三俠客:
+    Name: "三俠客"
+    Cards: [孙逊, 貂蝉, 庞德]
+    Required: 3
+    Attributes:
+    - "&c攻击力: +80"
+    - "&b防御力: +40"
+    - "&a生命上限: +100"
+    Message: "&a✦ 三俠客共鳴！"
+    RewardOnce:
+      Message: "&6首次集齊三俠客！"
+      Commands:
+      - "ldp add {player} 3000"
+
+  魏蜀吳三國:
+    Name: "魏蜀吳三國"
+    Cards: [zhangfei_t2, zhaoyun_t2, lubu_t3]
+    Required: 3
+    Attributes:
+    - "&c攻击力: +250"
+    - "&a生命上限: +600"
+    Message: "&6✦ 魏蜀吳三國共鳴！"
+    RewardOnce:
+      Message: "&6首次集齊魏蜀吳三國！"
+      Commands: ["ldp add {player} 15000"]
+
+  T1英雄:
+    Name: "T1英雄"
+    Cards: [孙逊, 貂蝉, 庞德]
+    Required: 3
+    Attributes:
+    - "&c攻击力: +100"
+    - "&a生命上限: +300"
+    Message: "&a✦ T1英雄共鳴！"
+
+  T2精英:
+    Name: "T2精英"
+    Cards: [zhaoyun_t2, zhangfei_t2]
+    Required: 2
+    Attributes:
+    - "&c攻击力: +150"
+    - "&b防御力: +80"
+    Message: "&b✦ T2精英共鳴！"
+
+  T3傳說:
+    Name: "T3傳說"
+    Cards: [lubu_t3, guanyu_t3]
+    Required: 2
+    Attributes:
+    - "&4攻击力: +300"
+    - "&5法术伤害: +100"
+    Message: "&4✦ T3傳說共鳴！"
+
+  蜀漢五虎:
+    Name: "蜀漢五虎"
+    Cards: [zhaoyun_t2, guanyu_t3, zhangfei_t2]
+    Required: 3
+    Attributes:
+    - "&c攻击力: +200"
+    - "&cPVP攻击力: +150"
+    - "&b防御力: +100"
+    Message: "&c✦ 蜀漢五虎共鳴！"
+
+  攻守兼備:
+    Name: "攻守兼備"
+    Cards: [孙逊, zhaoyun_t2]
+    Required: 2
+    Attributes:
+    - "&c攻击力: +80"
+    - "&b防御力: +60"
+    Message: "&b✦ 攻守兼備共鳴！"
+
+  一騎當千:
+    Name: "一騎當千"
+    Cards: [lubu_t3, 庞德]
+    Required: 2
+    Attributes:
+    - "&4攻击力: +200"
+    - "&c暴击机率: +20"
+    Message: "&4✦ 一騎當千共鳴！"
+
+  智謀之士:
+    Name: "智謀之士"
+    Cards: [貂蝉, 孙逊]
+    Required: 2
+    Attributes:
+    - "&d法术伤害: +50"
+    - "&9法力上限: +200"
+    Message: "&d✦ 智謀之士共鳴！"
+
+  群英會:
+    Name: "群英會"
+    Cards: [zhaoyun_t2, zhangfei_t2, lubu_t3, guanyu_t3]
+    Required: 4
+    Attributes:
+    - "&6攻击力: +400"
+    - "&6PVP攻击力: +200"
+    - "&a生命上限: +1000"
+    Message: "&6✦ 群英會！"
+    RewardOnce:
+      Message: "&6首次集齊群英會！"
+      Commands:
+      - "say {player} 集齊群英會！"
+      - "ldp add {player} 30000"
+
+  # ===== T4 共鸣 =====
+  T4傳奇:
+    Name: "T4傳奇"
+    Cards: [huangzhong_t4, machao_t4, jiangwei_t4, simayi_t4]
+    Required: 4
+    Attributes:
+    - "&6攻击力: +500"
+    - "&5法术伤害: +400"
+    - "&a生命上限: +2000"
+    - "&b防御力: +200"
+    Message: "&d✦ T4傳奇共鳴！"
+    RewardOnce:
+      Message: "&6首次集齊T4傳奇！"
+      Commands: ["ldp add {player} 50000"]
+
+  五虎上將Plus:
+    Name: "五虎上將Plus"
+    Cards: [huangzhong_t4, machao_t4, zhaoyun_god_t5, guanyu_god_t5, zhangfei_t2]
+    Required: 5
+    Attributes:
+    - "&4攻击力: +800"
+    - "&4PVP攻击力: +500"
+    - "&c暴击机率: +50"
+    - "&a暴击伤害: +150"
+    - "&a吸血: +30"
+    Message: "&c&l✦ 五虎上將Plus！"
+    RewardOnce:
+      Message: "&6集齊五虎上將Plus！"
+      Commands:
+      - "say {player} 集齊五虎上將Plus！"
+      - "ldp add {player} 80000"
+      - "eco give {player} 200000"
+
+  謀士組合:
+    Name: "謀士組合"
+    Cards: [jiangwei_t4, simayi_t4, zhugeliang_t5]
+    Required: 3
+    Attributes:
+    - "&5法术伤害: +600"
+    - "&d法术穿透: +150"
+    - "&e技能极速: +40"
+    - "&9法力上限: +1500"
+    Message: "&5✦ 謀士組合共鳴！"
+
+  # ===== T5 神話共鸣 =====
+  神話雙雄:
+    Name: "神話雙雄"
+    Cards: [lubu_god_t5, zhaoyun_god_t5]
+    Required: 2
+    Attributes:
+    - "&4攻击力: +600"
+    - "&4PVP攻击力: +400"
+    - "&c暴击机率: +40"
+    Message: "&4✦ 神話雙雄！"
+
+  諸葛神算:
+    Name: "諸葛神算"
+    Cards: [zhugeliang_t5, jiangwei_t4]
+    Required: 2
+    Attributes:
+    - "&5法术伤害: +500"
+    - "&5法术暴击几率: +30"
+    - "&9法力恢复: +20"
+    Message: "&5✦ 諸葛神算共鳴！"
+
+  終極陣容:
+    Name: "終極陣容"
+    Cards: [lubu_god_t5, zhaoyun_god_t5, guanyu_god_t5, zhugeliang_t5]
+    Required: 4
+    Attributes:
+    - "&4攻击力: +1200"
+    - "&4PVP攻击力: +800"
+    - "&5法术伤害: +800"
+    - "&a生命上限: +5000"
+    - "&b防御力: +500"
+    - "&c暴击机率: +60"
+    - "&a暴击伤害: +300"
+    Message: "&6&l✦✦ 終極陣容！！！"
+    RewardOnce:
+      Message: "&6&l✦ 恭喜集齊終極陣容！"
+      Commands:
+      - "say {player} 達成終極陣容！"
+      - "ldp add {player} 200000"
+      - "eco give {player} 1000000"
+      - "ldc give exp_stone_t3 {player} 100"
+
+  龍膽虎威:
+    Name: "龍膽虎威"
+    Cards: [zhaoyun_god_t5, guanyu_god_t5]
+    Required: 2
+    Attributes:
+    - "&4攻击力: +500"
+    - "&a生命上限: +2500"
+    - "&b防御力: +200"
+    - "&b韧性: +100"
+    Message: "&6✦ 龍膽虎威！"
+
+  傳奇四天王:
+    Name: "傳奇四天王"
+    Cards: [huangzhong_t4, machao_t4, jiangwei_t4, simayi_t4]
+    Required: 4
+    Attributes:
+    - "&4攻击力: +600"
+    - "&5法术伤害: +500"
+    - "&a生命上限: +3000"
+    - "&b防御力: +250"
+    Message: "&d&l✦ 傳奇四天王！"
+    RewardOnce:
+      Message: "&6集齊傳奇四天王！"
+      Commands: ["ldp add {player} 50000"]
+
+  五虎上將絕:
+    Name: "五虎上將絕"
+    Cards: [zhaoyun_t2, guanyu_t3, zhangfei_t2, huangzhong_t4, machao_t4]
+    Required: 5
+    Attributes:
+    - "&4攻击力: +1000"
+    - "&cPVP攻击力: +600"
+    - "&c破甲: +80"
+    - "&c暴击机率: +50"
+    - "&a生命上限: +3000"
+    Message: "&4&l✦ 五虎上將絕！"
+    RewardOnce:
+      Message: "&6達成五虎上將絕！"
+      Commands: ["ldp add {player} 100000"]
+
+  三國智者:
+    Name: "三國智者"
+    Cards: [zhugeliang_t5, simayi_t4, jiangwei_t4]
+    Required: 3
+    Attributes:
+    - "&5法术伤害: +800"
+    - "&5法术穿透: +200"
+    - "&5法术暴击几率: +50"
+    - "&9法力上限: +2000"
+    - "&e技能极速: +40"
+    Message: "&5&l✦ 三國智者！"
+    RewardOnce:
+      Message: "&6達成三國智者！"
+      Commands: ["ldp add {player} 80000"]
+
+  全能之王:
+    Name: "全能之王"
+    Cards: [lubu_god_t5, zhugeliang_t5, guanyu_god_t5, zhaoyun_god_t5]
+    Required: 4
+    Attributes:
+    - "&4攻击力: +1000"
+    - "&4PVP攻击力: +600"
+    - "&5法术伤害: +800"
+    - "&a生命上限: +5000"
+    - "&b防御力: +500"
+    - "&9法力上限: +3000"
+    Message: "&6&l✦ 全能之王！"
+    RewardOnce:
+      Message: "&6達成全能之王！"
+      Commands:
+      - "say {player} 達成了全能之王！"
+      - "ldp add {player} 300000"
+      - "eco give {player} 2000000"
+
+  三國君主:
+    Name: "三國君主"
+    Cards: [caocao_t5, liubei_t5, sunquan_t5]
+    Required: 3
+    Attributes:
+    - "&4攻击力: +800"
+    - "&4PVP攻击力: +500"
+    - "&5法术伤害: +600"
+    - "&a生命上限: +4000"
+    - "&b防御力: +400"
+    Message: "&6&l✦ 三國君主！"
+    RewardOnce:
+      Message: "&6集齊三國君主！"
+      Commands: ["ldp add {player} 200000"]
+
+  江東雙傑:
+    Name: "江東雙傑"
+    Cards: [zhouyu_t25, sunquan_t5]
+    Required: 2
+    Attributes:
+    - "&5法术伤害: +400"
+    - "&9法力上限: +1500"
+    - "&e技能极速: +30"
+    Message: "&d✦ 江東雙傑！"
+
+  桃園兄弟:
+    Name: "桃園兄弟"
+    Cards: [liubei_t5, guanyu_god_t5]
+    Required: 2
+    Attributes:
+    - "&c攻击力: +500"
+    - "&a生命上限: +3000"
+    - "&b防御力: +300"
+    Message: "&a✦ 桃園兄弟！"
+
+  梟雄對決:
+    Name: "梟雄對決"
+    Cards: [caocao_t5, lubu_god_t5]
+    Required: 2
+    Attributes:
+    - "&4攻击力: +700"
+    - "&4PVP攻击力: +400"
+    - "&c暴击机率: +40"
+    Message: "&c✦ 梟雄對決！"
+
+  三國演義:
+    Name: "三國演義"
+    Cards: [caocao_t5, liubei_t5, sunquan_t5, zhugeliang_t5, lubu_god_t5, zhaoyun_god_t5, guanyu_god_t5]
+    Required: 7
+    Attributes:
+    - "&4攻击力: +2000"
+    - "&4PVP攻击力: +1200"
+    - "&5法术伤害: +1500"
+    - "&a生命上限: +10000"
+    - "&b防御力: +1000"
+    - "&c暴击机率: +100"
+    - "&a暴击伤害: +500"
+    - "&a吸血: +100"
+    Message: "&6&l✦✦✦ 三國演義！！！"
+    RewardOnce:
+      Message: "&6&l✦✦✦ 恭喜集齊三國演義！"
+      Commands:
+      - "say {player} 集齊了三國演義！"
+      - "ldp add {player} 500000"
+      - "eco give {player} 5000000"
+      - "ldc give exp_stone_t5 {player} 50"

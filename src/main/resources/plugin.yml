@@ -1,0 +1,63 @@
+name: LD-Attribute
+version: 1.0.0
+main: com.longdrange.ldattribute.LDAttribute
+api-version: "1.12"
+author: LongDrange
+description: 自定義 RPG 屬性 + 多頁卡片 + 圖鑑 + 套裝 + 合成 + 等級 + 綁定
+website: ""
+softdepend:
+  - PlaceholderAPI
+  - MythicMobs
+  - Vault
+commands:
+  ldattribute:
+    aliases: [lda, ldattr]
+    description: LD-Attribute 主指令
+  ldcardstats:
+    aliases: [ldc]
+    description: LD-CardStats 卡片指令（子指令可在 command.yml 自定義）
+  ldpoints:
+    aliases: [ldp]
+    description: LD-Points 點券指令
+permissions:
+  # ===== LD-Attribute 主功能 =====
+  ldattribute.command.list:
+    description: 允許使用 /lda list
+    default: op
+  ldattribute.command.info:
+    description: 允許使用 /lda info
+    default: op
+  ldattribute.command.reload:
+    description: 允許使用 /lda reload
+    default: op
+  ldattribute.command.give:
+    description: 允許使用 /lda give（給屬性物品）
+    default: op
+  # ===== 卡片系統（玩家用） =====
+  ldattribute.card.open:
+    description: 允許使用 /ldc open 打開卡片背包
+    default: true
+  ldattribute.card.collection:
+    description: 允許使用 /ldc collection 打開卡片圖鑑
+    default: true
+  ldattribute.card.merge:
+    description: 允許使用 /ldc merge 進行合成
+    default: true
+  # ===== 卡片系統（管理員用） =====
+  ldattribute.command.give:
+    description: 允許使用 /ldc give 給予卡片
+    default: op
+  ldattribute.command.save:
+    description: 允許使用 /ldc save 儲存手上物品為卡片
+    default: op
+  ldattribute.command.reload:
+    description: 允許使用 /ldc reload 重載配置
+    default: op
+  # ===== 點券系統 =====
+  ldattribute.points.admin:
+    description: 點券管理員權限（/ldp add/take/set）
+    default: op
+
+    ldattribute.command.admin:
+      description: 管理員指令（unlock/reset/remove/star/level/exp/info/msg）
+      default: op

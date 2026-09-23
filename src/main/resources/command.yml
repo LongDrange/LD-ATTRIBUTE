@@ -1,0 +1,170 @@
+# ================================================
+#   LD-Attribute 指令配置
+#   子指令改完用 /ldc reload 立即生效
+#   主指令改完需重啟伺服器
+# ================================================
+
+Main:
+  name: "ldc"
+  aliases:
+    - "card"
+    - "卡片"
+
+Sub:
+  Open:
+    name: "open"
+    aliases: ["o", "開"]
+    permission: ""
+    description: "開啟卡片背包"
+  Collection:
+    name: "collection"
+    aliases: ["col", "圖鑑", "图鉴"]
+    permission: ""
+    description: "開啟卡片圖鑑"
+  Top:
+    name: "top"
+    aliases: ["rank", "排行", "rankcard"]
+    permission: ""
+    description: "卡片等級排行榜"
+  Stats:
+    name: "stats"
+    aliases: ["st", "屬性", "属性"]
+    permission: ""
+    description: "查看屬性總覽（可加卡片ID）"
+  Merge:
+    name: "merge"
+    aliases: ["合成", "合", "m"]
+    permission: ""
+    description: "卡片合成/升級"
+  List:
+    name: "list"
+    aliases: ["l"]
+    permission: "ldattribute.command.list"
+    description: "列出所有卡片"
+  Give:
+    name: "give"
+    aliases: ["g"]
+    permission: "ldattribute.command.give"
+    description: "給予卡片"
+  Save:
+    name: "save"
+    aliases: []
+    permission: "ldattribute.command.save"
+    description: "儲存手上的物品為卡片"
+  Reload:
+    name: "reload"
+    aliases: ["rl"]
+    permission: "ldattribute.command.reload"
+    description: "重新載入配置"
+  Version:
+    name: "version"
+    aliases: ["ver", "v"]
+    permission: ""
+    description: "顯示版本"
+
+  Unlock:
+    name: "unlock"
+    aliases: ["ul", "解鎖", "解锁"]
+    permission: "ldattribute.command.admin"
+    description: "強制解鎖玩家頁面"
+  Reset:
+    name: "reset"
+    aliases: ["rs", "重置"]
+    permission: "ldattribute.command.admin"
+    description: "清空玩家卡片數據"
+  Remove:
+    name: "remove"
+    aliases: ["del", "rm", "刪除", "删除"]
+    permission: "ldattribute.command.admin"
+    description: "刪除玩家指定卡片"
+  Star:
+    name: "star"
+    aliases: ["s"]
+    permission: "ldattribute.command.admin"
+    description: "設定卡片星級"
+  Level:
+    name: "level"
+    aliases: ["lv"]
+    permission: "ldattribute.command.admin"
+    description: "設定卡片等級"
+  Exp:
+    name: "exp"
+    aliases: ["e"]
+    permission: "ldattribute.command.admin"
+    description: "設定卡片經驗"
+  Info:
+    name: "info"
+    aliases: ["i"]
+    permission: "ldattribute.command.admin"
+    description: "查看卡片配置"
+  Msg:
+    name: "msg"
+    aliases: ["message"]
+    permission: "ldattribute.command.admin"
+    description: "測試訊息 key"
+
+  Mana:
+    name: "mana"
+    aliases: ["mp", "法力"]
+    permission: "ldattribute.command.admin"
+    description: "管理玩家法力值"
+
+  Cast:
+    name: "cast"
+    aliases: ["c", "施法"]
+    permission: ""
+    description: "施放法術"
+
+  GiveBook:
+    name: "givebook"
+    aliases: ["gb", "給法術書"]
+    permission: "ldattribute.command.admin"
+    description: "給予法術書"
+
+  Synergy:
+    name: "synergy"
+    aliases: ["sy", "共鳴"]
+    permission: ""
+    description: "查看共鳴與羈絆狀態"
+
+  Log:
+    name: "log"
+    aliases: ["jl", "战斗日志"]
+    permission: ""
+    description: "查看最近 10 场战斗记录"
+
+  Lang:
+    name: "lang"
+    aliases: ["language", "语言"]
+    permission: "ldattribute.command.admin"
+    description: "切换语言"
+
+  Mm:
+    name: "mm"
+    aliases: ["mythic", "神话"]
+    permission: "ldattribute.command.admin"
+    description: "查看 MythicMobs 兼容状态"
+
+  Pet:
+    name: "pet"
+    aliases: ["宠物", "pets"]
+    permission: ""
+    description: "宠物背包"
+
+  Rune:
+    name: "rune"
+    aliases: ["符文", "runes"]
+    permission: ""
+    description: "符文系统"
+
+  Backup:
+    name: "backup"
+    aliases: ["備份", "备份"]
+    permission: "ldattribute.command.admin"
+    description: "手动触发数据备份"
+
+  Debug:
+    name: "debug"
+    aliases: ["診斷", "诊断"]
+    permission: "ldattribute.command.admin"
+    description: "打印插件诊断信息"

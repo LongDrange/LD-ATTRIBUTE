@@ -1,0 +1,146 @@
+攻擊力:
+- attack
+- atk
+- damage
+- physical_damage
+防禦力:
+- defense
+- defence
+- def
+生命上限:
+- max_hp
+- maxhealth
+- health
+暴擊機率:
+- crit_chance
+- critchance
+- critical_chance
+暴擊傷害:
+- crit_damage
+- critdamage
+破甲:
+- armor_pen
+- armorpen
+- armor_penetration
+吸血:
+- lifesteal
+- life_steal
+韌性:
+- toughness
+閃避:
+- dodge
+格擋:
+- block
+反射:
+- reflect
+PVP攻击力:
+- pvp_damage
+PVE攻击力:
+- pve_damage
+远程伤害:
+- ranged_damage
+法术伤害:
+- magic_damage
+法术穿透:
+- magic_pen
+法术防御:
+- magic_defense
+法术吸血:
+- magic_lifesteal
+法术暴击几率:
+- magic_crit_chance
+法术暴击倍率:
+- magic_crit_damage
+法力上限:
+- max_mana
+- mana
+法力恢复:
+- mana_regen
+速度百分比:
+- speed_percent
+- speed
+移動速度:
+- walk_speed
+攻击速度:
+- attack_speed
+幸运:
+- luck
+生命恢复:
+- health_regen
+击退抗性:
+- knockback_resist
+盾牌减伤:
+- shield_reduction
+暴击抵抗:
+- crit_resist
+吸血抵抗:
+- lifesteal_resist
+远程护甲:
+- ranged_defense
+燃烧几率:
+- burn_chance
+燃烧伤害:
+- burn_damage
+箭矢速度:
+- arrow_speed
+箭矢精准:
+- arrow_accuracy
+箭矢穿透数:
+- arrow_pierce
+點燃:
+- ignite
+閃電:
+- lightning
+中毒:
+- poison
+凋零:
+- wither
+失明:
+- blindness
+緩速:
+- slowness
+
+# ===== 符文扩展属性 =====
+暴伤抵抗:
+- 暴伤抵抗
+- crit_damage_resist
+- cdresist
+- 暴伤抗性
+伤害加成:
+- 伤害加成
+- damage_amplify
+- dmg_amp
+- 伤害增幅
+生命加成:
+- 生命加成
+- health_amplify
+- hp_amp
+- 生命增幅
+防御加成:
+- 防御加成
+- defense_amplify
+- def_amp
+- 防御增幅
+吸血几率:
+- 吸血几率
+- lifesteal_chance
+- ls_chance
+- 吸血概率
+吸血倍率:
+- 吸血倍率
+- lifesteal_ratio
+- ls_ratio
+- 吸血倍率
+附加伤害:
+- 附加伤害
+- extra_damage
+- bonus_damage
+- 额外伤害
+反伤倍率:
+- 反伤倍率
+- reflect_ratio
+- reflect_amplify
+反伤抵抗:
+- 反伤抵抗
+- reflect_resist
+- 抗反伤

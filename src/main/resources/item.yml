@@ -1,0 +1,659 @@
+# ================================================
+#   卡片定義
+#   ID: 材質ID（339 = 紙）
+#   Name: 顯示名稱（& 色碼）
+#   Type: 卡片類型（T1 / T2 / ... 空 = 無類型）
+#   Lore: 說明文字
+#   Enchant: 是否帶附魔光澤
+#   Unbreakable: 是否不可破壞
+#
+#   ⚠ 注意：頂層 key 不能含 & 符號（YAML 保留字）
+# ================================================
+
+孙逊:
+  Name: '&f[&6SSS&f]&6陆逊英雄卡'
+  ID: '339'
+  Type: T1
+  BindOnPickup: true
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c生命上限: +10'
+  - '&d速度百分比: +3'
+  - '&e暴擊機率: +5'
+  - '&a暴擊傷害: +1'
+  - '&9法力上限: +150'
+  - '&9法力恢复: +4'
+  - '&e测试新属性: +50'
+  - '&b暴击抵抗: +20'
+  - '&b吸血抵抗: +25'
+  - '&e====== &d[三侠合璧] &e======'
+  - '&c攻击力: +5'
+  - '&d速度: +10'
+  - '&d雷霆几率: +33'
+  Enchant: true
+  Unbreakable: true
+  Element: FIRE
+
+貂蝉:
+  Name: '&f[&6SSS&f]&6貂蝉英雄卡'
+  ID: '339'
+  Type: T1
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 5000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c攻击力: +10'
+  - '&b防御力: +10'
+  - '&c韧性: +10'
+  - '&b闪避几率: +10'
+  - '&c燃烧伤害: +5'
+  - '&c燃烧几率: +15'
+  - '&9法力上限: +120'
+  - '&9法力恢复: +3'
+  - '&e====== &d[三侠合璧] &e======'
+  - '&c攻击力: +5'
+  - '&d速度: +10'
+  - '&d雷霆几率: +33'
+  Enchant: true
+  Unbreakable: true
+  Element: WATER
+
+庞德:
+  Name: '&f[&6SSS&f]&6庞德英雄卡'
+  ID: '339'
+  Type: T1
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c攻击力: +10'
+  - '&c破甲几率: +10'
+  - '&a暴击伤害: +7'
+  - '&d凋零几率: +1'
+  - '&c燃烧几率: +15'
+  - '&c燃烧伤害: +5'
+  - '&e====== &d[三侠合璧] &e======'
+  - '&c攻击力: +5'
+  - '&d速度: +10'
+  - '&d雷霆几率: +33'
+  Enchant: true
+  Unbreakable: true
+  Element: NATURE
+
+exp_stone_sunxun:
+  Name: '&6經驗石&e(專屬)'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7經驗石&e(專屬)'
+  - '&7卡片: &e孙逊'
+  - '&7經驗: &b+100'
+  - '&7成功率: &a50%'
+  - '&7需要: &b1 個'
+  Enchant: true
+  Unbreakable: true
+
+exp_stone_all:
+  Name: '&6經驗石&e(通用)'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7經驗石&e(通用)'
+  - '&7卡片: &e(所有)'
+  - '&7經驗: &b+100'
+  - '&7成功率: &a50%'
+  - '&7需要: &b1 個'
+  Enchant: true
+  Unbreakable: true
+
+exp_stone_t1:
+  Name: '&6經驗石&e(T1通用)'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7經驗石&e(T1通用)'
+  - '&7卡片: &e(T1所有)'
+  - '&7經驗: &b+100'
+  - '&7成功率: &a50%'
+  - '&7需要: &b1 個'
+  Enchant: true
+  Unbreakable: true
+
+cooldown_skip_scroll:
+  Name: '&6跳冷卻卷軸'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7跳冷卻卷軸'
+  - '&7跳過冷卻: 1'
+  - '&7右鍵使用：清空所有卡片冷卻'
+  - '&c远程伤害: +25'
+  - '&a生命恢复: +2'
+  - '&9法力上限: +200'
+  - '&9法力恢复: +5'
+  Enchant: true
+  Unbreakable: true
+# ================================================
+#   T2 卡片範例
+# ================================================
+zhaoyun_t2:
+  Name: '&f[&bT2&f]&b赵云英雄卡'
+  ID: '339'
+  Type: T2
+  BindOnPickup: false
+  Tradeable: true
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c攻击力: +30'
+  - '&b防御力: +20'
+  - '&c暴击机率: +15'
+  - '&a暴击伤害: +10'
+  - '&bPVE防御: +30'
+  - '&b击退抗性: +40'
+  - '&9法力上限: +200'
+  - '&9法力恢复: +5'
+  Enchant: true
+  Unbreakable: true
+  Element: LIGHTNING
+
+zhangfei_t2:
+  Name: '&f[&bT2&f]&b张飞英雄卡'
+  ID: '339'
+  Type: T2
+  BindOnPickup: false
+  Tradeable: true
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c攻击力: +25'
+  - '&a生命上限: +50'
+  - '&c破甲几率: +20'
+  - '&d速度百分比: +5'
+  - '&5法术伤害: +100'
+  - '&5法术穿透: +30'
+  - '&5法术暴击几率: +20'
+  - '&9法力上限: +500'
+  - '&9法力恢复: +10'
+  Enchant: true
+  Unbreakable: true
+  Element: FIRE
+
+# ================================================
+#   T3 卡片範例
+# ================================================
+lubu_t3:
+  Name: '&f[&6T3&f]&6吕布无双卡'
+  ID: '339'
+  Type: T3
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 50000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c攻击力: +80'
+  - '&c破甲几率: +50'
+  - '&c暴击机率: +30'
+  - '&a暴击伤害: +50'
+  - '&d雷霆几率: +30'
+  - '&5法术防御: +80'
+  - '&5法术吸血: +15'
+  - '&b盾牌减伤: +30'
+  - '&9法力上限: +500'
+  - '&9法力恢复: +10'
+  Enchant: true
+  Unbreakable: true
+  Element: LIGHTNING
+
+guanyu_t3:
+  Name: '&f[&6T3&f]&6关羽武圣卡'
+  ID: '339'
+  Type: T3
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 50000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c攻击力: +70'
+  - '&a生命上限: +100'
+  - '&b防御力: +50'
+  - '&c韧性: +30'
+  - '&a吸血: +15'
+  Enchant: true
+  Unbreakable: true
+  Element: ICE
+
+# ================================================
+#   T2 / T3 通用經驗石
+# ================================================
+exp_stone_t2:
+  Name: '&6經驗石&e(T2通用)'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7經驗石&e(T2通用)'
+  - '&7卡片: &e(T2所有)'
+  - '&7經驗: &b+200'
+  - '&7成功率: &a50%'
+  - '&7需要: &b1 個'
+  Enchant: true
+  Unbreakable: true
+
+exp_stone_t3:
+  Name: '&6經驗石&e(T3通用)'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7經驗石&e(T3通用)'
+  - '&7卡片: &e(T3所有)'
+  - '&7經驗: &b+500'
+  - '&7成功率: &a40%'
+  - '&7需要: &b1 個'
+  Enchant: true
+  Unbreakable: true
+
+# ================================================
+#   T4 - 傳奇英雄
+# ================================================
+huangzhong_t4:
+  Name: '&f[&dT4&f]&d黄忠烈弓卡'
+  ID: '339'
+  Type: T4
+  Element: NATURE
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 100000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c攻击力: +120'
+  - '&c远程伤害: +80'
+  - '&c暴击机率: +35'
+  - '&a暴击伤害: +60'
+  - '&c破甲: +40'
+  - '&e攻击速度: +8'
+  - '&9法力上限: +300'
+  - '&9法力恢复: +8'
+  Enchant: true
+  Unbreakable: true
+
+machao_t4:
+  Name: '&f[&dT4&f]&d马超铁骑卡'
+  ID: '339'
+  Type: T4
+  Element: LIGHTNING
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 100000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c攻击力: +150'
+  - '&cPVP攻击力: +100'
+  - '&d速度百分比: +25'
+  - '&c暴击机率: +30'
+  - '&a生命上限: +500'
+  - '&b防御力: +80'
+  Enchant: true
+  Unbreakable: true
+
+jiangwei_t4:
+  Name: '&f[&dT4&f]&d姜维睿智卡'
+  ID: '339'
+  Type: T4
+  Element: WATER
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 100000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&5法术伤害: +200'
+  - '&d法术穿透: +60'
+  - '&5法术暴击几率: +40'
+  - '&9法力上限: +500'
+  - '&9法力恢复: +12'
+  - '&e技能极速: +20'
+  - '&a生命恢复: +8'
+  Enchant: true
+  Unbreakable: true
+
+simayi_t4:
+  Name: '&f[&dT4&f]&d司马懿谋略卡'
+  ID: '339'
+  Type: T4
+  Element: FIRE
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 100000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&5法术伤害: +250'
+  - '&c暴击机率: +25'
+  - '&c暴击伤害: +80'
+  - '&a吸血: +20'
+  - '&bPVP防御: +100'
+  - '&9法力上限: +600'
+  - '&9法力恢复: +15'
+  Enchant: true
+  Unbreakable: true
+
+# ================================================
+#   T5 - 神話英雄
+# ================================================
+zhugeliang_t5:
+  Name: '&f[&6T5&f]&6诸葛亮卧龙卡'
+  ID: '339'
+  Type: T5
+  Element: WATER
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 500000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&5法术伤害: +500'
+  - '&d法术穿透: +150'
+  - '&5法术暴击几率: +60'
+  - '&5法术暴击倍率: +80'
+  - '&5法术吸血: +40'
+  - '&9法力上限: +1500'
+  - '&9法力恢复: +30'
+  - '&e技能极速: +50'
+  - '&a生命上限: +1500'
+  - '&b防御力: +200'
+  Enchant: true
+  Unbreakable: true
+
+lubu_god_t5:
+  Name: '&f[&6T5&f]&6吕布战神卡'
+  ID: '339'
+  Type: T5
+  Element: LIGHTNING
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 500000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&4攻击力: +500'
+  - '&4PVP攻击力: +300'
+  - '&4PVE攻击力: +300'
+  - '&c破甲: +150'
+  - '&c暴击机率: +80'
+  - '&a暴击伤害: +200'
+  - '&a吸血: +50'
+  - '&e攻击速度: +30'
+  - '&d速度百分比: +40'
+  - '&a生命上限: +2000'
+  - '&b防御力: +300'
+  - '&b暴击抵抗: +50'
+  Enchant: true
+  Unbreakable: true
+
+zhaoyun_god_t5:
+  Name: '&f[&6T5&f]&6赵云龙胆卡'
+  ID: '339'
+  Type: T5
+  Element: NATURE
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 500000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&4攻击力: +400'
+  - '&4PVP攻击力: +250'
+  - '&c远程伤害: +200'
+  - '&c破甲: +100'
+  - '&c暴击机率: +70'
+  - '&a暴击伤害: +180'
+  - '&e攻击速度: +25'
+  - '&d速度百分比: +35'
+  - '&a生命上限: +1500'
+  - '&b防御力: +250'
+  - '&f闪避: +40'
+  Enchant: true
+  Unbreakable: true
+
+guanyu_god_t5:
+  Name: '&f[&6T5&f]&6关羽武圣卡'
+  ID: '339'
+  Type: T5
+  Element: FIRE
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 500000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&4攻击力: +450'
+  - '&4PVP攻击力: +280'
+  - '&c破甲: +120'
+  - '&c暴击机率: +60'
+  - '&a暴击伤害: +150'
+  - '&a吸血: +45'
+  - '&a生命上限: +1800'
+  - '&b防御力: +350'
+  - '&b韧性: +150'
+  - '&b暴击抵抗: +60'
+  Enchant: true
+  Unbreakable: true
+
+# ================================================
+#   功能性道具
+# ================================================
+reset_star_scroll:
+  Name: '&d&l✦ 重置星级卷轴'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7重置卷轴'
+  - '&7右鍵使用：將卡片星級重置為 0'
+  - '&7返还部分升星材料'
+  Enchant: true
+  Unbreakable: true
+
+exp_stone_t4:
+  Name: '&6經驗石&e(T4通用)'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7經驗石&e(T4通用)'
+  - '&7卡片: &e(T4所有)'
+  - '&7經驗: &b+1000'
+  - '&7成功率: &a30%'
+  - '&7需要: &b1 個'
+  Enchant: true
+  Unbreakable: true
+
+exp_stone_t5:
+  Name: '&6經驗石&e(T5神話)'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7經驗石&e(T5神話)'
+  - '&7卡片: &e(T5所有)'
+  - '&7經驗: &b+3000'
+  - '&7成功率: &a20%'
+  - '&7需要: &b1 個'
+  Enchant: true
+  Unbreakable: true
+
+cooldown_skip_scroll_big:
+  Name: '&6&l跳冷卻卷軸(大)'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7跳冷卻卷軸(大)'
+  - '&7跳過冷卻: &e999'
+  - '&7右鍵使用：清空所有卡片冷卻'
+  Enchant: true
+  Unbreakable: true
+
+reforge_stone:
+  Name: '&d洗練石'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7洗練石'
+  - '&7用於洗練卡片屬性'
+  - '&7右鍵使用'
+  Enchant: true
+  Unbreakable: true
+
+lucky_charm:
+  Name: '&a&l幸運符'
+  ID: '339'
+  Type: ''
+  Lore:
+  - '&6物品类型: &7幸運符'
+  - '&7右鍵使用：獲得 10 分鐘幸運 buff'
+  - '&7幸運 +50'
+  Enchant: true
+  Unbreakable: true
+
+# ================================================
+#   T2.5 - 精英卡
+# ================================================
+zhouyu_t25:
+  Name: '&f[&5T2&f]&5周瑜都督卡'
+  ID: '339'
+  Type: T2
+  Element: FIRE
+  BindOnPickup: false
+  Tradeable: true
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&5法术伤害: +80'
+  - '&d法术穿透: +30'
+  - '&5法术暴击几率: +15'
+  - '&9法力上限: +250'
+  - '&9法力恢复: +5'
+  Enchant: true
+  Unbreakable: true
+
+sunshangxiang_t25:
+  Name: '&f[&5T2&f]&5孙尚香弓腰姬卡'
+  ID: '339'
+  Type: T2
+  Element: NATURE
+  BindOnPickup: false
+  Tradeable: true
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&c远程伤害: +40'
+  - '&c暴击机率: +20'
+  - '&e攻击速度: +5'
+  - '&d速度百分比: +8'
+  Enchant: true
+  Unbreakable: true
+
+# ================================================
+#   T4.5 - 稀有卡
+# ================================================
+diaochan_t45:
+  Name: '&f[&dT4&f]&d貂蝉绝世卡'
+  ID: '339'
+  Type: T4
+  Element: WATER
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 100000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&d法术伤害: +180'
+  - '&5法术穿透: +50'
+  - '&a吸血: +25'
+  - '&f闪避: +25'
+  - '&d速度百分比: +20'
+  Enchant: true
+  Unbreakable: true
+
+# ================================================
+#   T5 补充
+# ================================================
+caocao_t5:
+  Name: '&f[&6T5&f]&6曹操奸雄卡'
+  ID: '339'
+  Type: T5
+  Element: LIGHTNING
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 500000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&4攻击力: +400'
+  - '&4PVP攻击力: +250'
+  - '&5法术伤害: +400'
+  - '&d速度百分比: +30'
+  - '&a生命上限: +2000'
+  - '&b防御力: +250'
+  - '&c暴击机率: +50'
+  Enchant: true
+  Unbreakable: true
+
+liubei_t5:
+  Name: '&f[&6T5&f]&6刘备仁德卡'
+  ID: '339'
+  Type: T5
+  Element: NATURE
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 500000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&4攻击力: +350'
+  - '&a生命上限: +3000'
+  - '&b防御力: +400'
+  - '&b韧性: +150'
+  - '&a生命恢复: +15'
+  - '&bPVP防御: +250'
+  - '&b暴击抵抗: +80'
+  Enchant: true
+  Unbreakable: true
+
+sunquan_t5:
+  Name: '&f[&6T5&f]&6孙权制衡卡'
+  ID: '339'
+  Type: T5
+  Element: WATER
+  BindOnPickup: true
+  Tradeable: false
+  AllowUnbind: true
+  UnbindCost: 500000
+  Lore:
+  - '&6物品类型: 卡牌'
+  - '&r'
+  - '&4攻击力: +380'
+  - '&5法术伤害: +350'
+  - '&a生命上限: +2500'
+  - '&b防御力: +300'
+  - '&9法力上限: +1500'
+  - '&9法力恢复: +25'
+  - '&e技能极速: +35'
+  Enchant: true
+  Unbreakable: true

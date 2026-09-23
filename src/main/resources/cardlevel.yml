@@ -1,0 +1,1236 @@
+# ================================================
+#   卡片等級 / 升級設定
+#
+#   MaxStar: 最高星級（留空 = 用 star.yml 全局值）
+# ================================================
+# ================================================
+#   卡片等級 / 升級設定
+#   TimeExp 段：時間升級（單位：秒）
+#     Online:
+#       Enabled: 是否在線時累積
+#       Interval: 每 N 秒給一次
+#       Exp: 每次給多少經驗
+#     Offline:
+#       Enabled: 是否離線時累積
+#       Interval: 每 N 秒給一次
+#       Exp: 每次給多少經驗
+#       MaxSeconds: 離線最多累積多久（防掛機）
+# ================================================
+
+Cards:
+  孙逊:
+    MaxLevel: 10
+    MaxStar: 3
+    BaseExp: 100
+    ExpGrowth: 1.5
+    CooldownSeconds: 10
+    DailyLimit: 1
+    TimeExp:
+      Online:
+        Enabled: true
+        Interval: 60
+        Exp: 1
+      Offline:
+        Enabled: true
+        Interval: 600
+        Exp: 2
+        MaxSeconds: 86400
+    Attributes:
+      生命上限:
+        Base: 10
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 100
+      速度百分比:
+        Base: 3
+        Mode: FIXED
+        Fixed: 1
+        Growth: 0
+        Max: -1
+      暴擊機率:
+        Base: 5
+        Mode: MIXED
+        Fixed: 0.5
+        Growth: 0.05
+        Max: 50
+      PVP攻击力:
+        Base: 15
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 300
+      PVE攻击力:
+        Base: 20
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 300
+      攻击速度:
+        Base: 5
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 20
+      法力上限:
+        Base: 100
+        Mode: FIXED
+        Fixed: 0
+        Growth: 5
+        Max: 2000
+      法力恢复:
+        Base: 3
+        Mode: FIXED
+        Fixed: 0.5
+        Growth: 0
+        Max: 50
+  貂蝉:
+    MaxLevel: 10
+    MaxStar: 3
+    BaseExp: 100
+    ExpGrowth: 1.5
+    CooldownSeconds: 10
+    DailyLimit: 1
+    TimeExp:
+      Online:
+        Enabled: true
+        Interval: 60
+        Exp: 1
+      Offline:
+        Enabled: true
+        Interval: 600
+        Exp: 2
+        MaxSeconds: 86400
+    Attributes:
+      攻击力:
+        Base: 10
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 100
+      防御力:
+        Base: 10
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 100
+      暴击抵抗:
+        Base: 20
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 80
+      吸血抵抗:
+        Base: 25
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 80
+      法力上限:
+        Base: 150
+        Mode: FIXED
+        Fixed: 0
+        Growth: 5
+        Max: 2000
+      法力恢复:
+        Base: 4
+        Mode: FIXED
+        Fixed: 0.5
+        Growth: 0
+        Max: 50
+  庞德:
+    MaxLevel: 10
+    MaxStar: 3
+    BaseExp: 100
+    ExpGrowth: 1.5
+    CooldownSeconds: 10
+    DailyLimit: 1
+    TimeExp:
+      Online:
+        Enabled: true
+        Interval: 60
+        Exp: 1
+      Offline:
+        Enabled: true
+        Interval: 600
+        Exp: 2
+        MaxSeconds: 86400
+    Attributes:
+      攻击力:
+        Base: 10
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 100
+      燃烧几率:
+        Base: 15
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      燃烧伤害:
+        Base: 5
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 100
+      法力上限:
+        Base: 120
+        Mode: FIXED
+        Fixed: 0
+        Growth: 5
+        Max: 2000
+      法力恢复:
+        Base: 3
+        Mode: FIXED
+        Fixed: 0.5
+        Growth: 0
+        Max: 50
+
+  zhaoyun_t2:
+    MaxLevel: 20
+    MaxStar: 5
+    BaseExp: 300
+    ExpGrowth: 1.4
+    CooldownSeconds: 15
+    DailyLimit: 3
+    TimeExp:
+      Online:
+        Enabled: true
+        Interval: 90
+        Exp: 2
+      Offline:
+        Enabled: true
+        Interval: 900
+        Exp: 4
+        MaxSeconds: 86400
+    Attributes:
+      攻击力:
+        Base: 30
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.08
+        Max: 300
+      防御力:
+        Base: 20
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.08
+        Max: 200
+      暴击机率:
+        Base: 15
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.03
+        Max: 80
+      暴击伤害:
+        Base: 10
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.15
+        Max: 200
+      远程伤害:
+        Base: 25
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 300
+      生命恢复:
+        Base: 2
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 20
+      法力上限:
+        Base: 200
+        Mode: FIXED
+        Fixed: 0
+        Growth: 5
+        Max: 3000
+      法力恢复:
+        Base: 5
+        Mode: FIXED
+        Fixed: 0.5
+        Growth: 0
+        Max: 50
+
+  zhangfei_t2:
+    MaxLevel: 20
+    MaxStar: 5
+    BaseExp: 300
+    ExpGrowth: 1.4
+    CooldownSeconds: 15
+    DailyLimit: 3
+    TimeExp:
+      Online:
+        Enabled: true
+        Interval: 90
+        Exp: 2
+      Offline:
+        Enabled: true
+        Interval: 900
+        Exp: 4
+        MaxSeconds: 86400
+    Attributes:
+      攻击力:
+        Base: 25
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.08
+        Max: 300
+      生命上限:
+        Base: 50
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 500
+      破甲几率:
+        Base: 20
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.03
+        Max: 80
+      速度百分比:
+        Base: 5
+        Mode: FIXED
+        Fixed: 0.5
+        Growth: 0
+        Max: 50
+      PVE防御:
+        Base: 30
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 500
+      击退抗性:
+        Base: 40
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 100
+      法力上限:
+        Base: 200
+        Mode: FIXED
+        Fixed: 0
+        Growth: 5
+        Max: 3000
+      法力恢复:
+        Base: 5
+        Mode: FIXED
+        Fixed: 0.5
+        Growth: 0
+        Max: 50
+
+  lubu_t3:
+    MaxLevel: 30
+    MaxStar: 8
+    BaseExp: 500
+    ExpGrowth: 1.3
+    CooldownSeconds: 30
+    DailyLimit: 2
+    TimeExp:
+      Online:
+        Enabled: true
+        Interval: 120
+        Exp: 3
+      Offline:
+        Enabled: true
+        Interval: 1200
+        Exp: 6
+        MaxSeconds: 86400
+    Attributes:
+      攻击力:
+        Base: 80
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 800
+      破甲几率:
+        Base: 50
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 150
+      暴击机率:
+        Base: 30
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      暴击伤害:
+        Base: 50
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.12
+        Max: 500
+      雷霆几率:
+        Base: 30
+        Mode: FIXED
+        Fixed: 1
+        Growth: 0
+        Max: 200
+      法术伤害:
+        Base: 100
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 1000
+      法术穿透:
+        Base: 30
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 300
+      法术暴击几率:
+        Base: 20
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 80
+      法力上限:
+        Base: 500
+        Mode: FIXED
+        Fixed: 0
+        Growth: 10
+        Max: 5000
+      法力恢复:
+        Base: 10
+        Mode: FIXED
+        Fixed: 1
+        Growth: 0
+        Max: 100
+
+  guanyu_t3:
+    MaxLevel: 30
+    MaxStar: 8
+    BaseExp: 500
+    ExpGrowth: 1.3
+    CooldownSeconds: 30
+    DailyLimit: 2
+    TimeExp:
+      Online:
+        Enabled: true
+        Interval: 120
+        Exp: 3
+      Offline:
+        Enabled: true
+        Interval: 1200
+        Exp: 6
+        MaxSeconds: 86400
+    Attributes:
+      攻击力:
+        Base: 70
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 800
+      生命上限:
+        Base: 100
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 1000
+      防御力:
+        Base: 50
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 500
+      韧性:
+        Base: 30
+        Mode: FIXED
+        Fixed: 1
+        Growth: 0
+        Max: 200
+      吸血:
+        Base: 15
+        Mode: MIXED
+        Fixed: 0.5
+        Growth: 0.02
+        Max: 100
+      法术防御:
+        Base: 80
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 500
+      法术吸血:
+        Base: 15
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 50
+      盾牌减伤:
+        Base: 30
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 80
+      法力上限:
+        Base: 500
+        Mode: FIXED
+        Fixed: 0
+        Growth: 10
+        Max: 5000
+      法力恢复:
+        Base: 10
+        Mode: FIXED
+        Fixed: 1
+        Growth: 0
+        Max: 100
+
+  # ================================================
+  #   T4 - 傳奇英雄
+  # ================================================
+  huangzhong_t4:
+    MaxLevel: 40
+    MaxStar: 12
+    BaseExp: 1000
+    ExpGrowth: 1.25
+    CooldownSeconds: 30
+    DailyLimit: 2
+    Attributes:
+      攻击力:
+        Base: 120
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 1500
+      远程伤害:
+        Base: 80
+        Mode: FIXED
+        Fixed: 2
+        Growth: 0
+        Max: 500
+      暴击机率:
+        Base: 35
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      暴击伤害:
+        Base: 60
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 500
+      破甲:
+        Base: 40
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 200
+      攻击速度:
+        Base: 8
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 30
+      法力上限:
+        Base: 300
+        Mode: FIXED
+        Fixed: 0
+        Growth: 10
+        Max: 3000
+      法力恢复:
+        Base: 8
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0.3
+        Max: 100
+
+  machao_t4:
+    MaxLevel: 40
+    MaxStar: 12
+    BaseExp: 1000
+    ExpGrowth: 1.25
+    CooldownSeconds: 30
+    DailyLimit: 2
+    Attributes:
+      攻击力:
+        Base: 150
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 1500
+      PVP攻击力:
+        Base: 100
+        Mode: FIXED
+        Fixed: 2
+        Growth: 0
+        Max: 800
+      速度百分比:
+        Base: 25
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 100
+      暴击机率:
+        Base: 30
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      生命上限:
+        Base: 500
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 5000
+      防御力:
+        Base: 80
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 1000
+
+  jiangwei_t4:
+    MaxLevel: 40
+    MaxStar: 12
+    BaseExp: 1000
+    ExpGrowth: 1.25
+    CooldownSeconds: 30
+    DailyLimit: 2
+    Attributes:
+      法术伤害:
+        Base: 200
+        Mode: FIXED
+        Fixed: 3
+        Growth: 0
+        Max: 2000
+      法术穿透:
+        Base: 60
+        Mode: FIXED
+        Fixed: 1
+        Growth: 0
+        Max: 500
+      法术暴击几率:
+        Base: 40
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      法力上限:
+        Base: 500
+        Mode: FIXED
+        Fixed: 0
+        Growth: 15
+        Max: 5000
+      法力恢复:
+        Base: 12
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0.5
+        Max: 150
+      技能极速:
+        Base: 20
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 80
+      生命恢复:
+        Base: 8
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0.5
+        Max: 50
+
+  simayi_t4:
+    MaxLevel: 40
+    MaxStar: 12
+    BaseExp: 1000
+    ExpGrowth: 1.25
+    CooldownSeconds: 30
+    DailyLimit: 2
+    Attributes:
+      法术伤害:
+        Base: 250
+        Mode: FIXED
+        Fixed: 4
+        Growth: 0
+        Max: 2500
+      暴击机率:
+        Base: 25
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      暴击伤害:
+        Base: 80
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 600
+      吸血:
+        Base: 20
+        Mode: MIXED
+        Fixed: 0.5
+        Growth: 0.02
+        Max: 80
+      PVP防御:
+        Base: 100
+        Mode: FIXED
+        Fixed: 2
+        Growth: 0
+        Max: 800
+      法力上限:
+        Base: 600
+        Mode: FIXED
+        Fixed: 0
+        Growth: 20
+        Max: 6000
+      法力恢复:
+        Base: 15
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0.5
+        Max: 150
+
+  # ================================================
+  #   T5 - 神話英雄
+  # ================================================
+  zhugeliang_t5:
+    MaxLevel: 50
+    MaxStar: 15
+    BaseExp: 3000
+    ExpGrowth: 1.2
+    CooldownSeconds: 45
+    DailyLimit: 1
+    Attributes:
+      法术伤害:
+        Base: 500
+        Mode: FIXED
+        Fixed: 10
+        Growth: 0
+        Max: 10000
+      法术穿透:
+        Base: 150
+        Mode: FIXED
+        Fixed: 3
+        Growth: 0
+        Max: 1000
+      法术暴击几率:
+        Base: 60
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 100
+      法术暴击倍率:
+        Base: 80
+        Mode: FIXED
+        Fixed: 2
+        Growth: 0
+        Max: 500
+      法术吸血:
+        Base: 40
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      法力上限:
+        Base: 1500
+        Mode: FIXED
+        Fixed: 0
+        Growth: 30
+        Max: 15000
+      法力恢复:
+        Base: 30
+        Mode: FIXED
+        Fixed: 0
+        Growth: 1
+        Max: 300
+      技能极速:
+        Base: 50
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 80
+      生命上限:
+        Base: 1500
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 15000
+      防御力:
+        Base: 200
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 2000
+
+  lubu_god_t5:
+    MaxLevel: 50
+    MaxStar: 15
+    BaseExp: 3000
+    ExpGrowth: 1.2
+    CooldownSeconds: 45
+    DailyLimit: 1
+    Attributes:
+      攻击力:
+        Base: 500
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 8000
+      PVP攻击力:
+        Base: 300
+        Mode: FIXED
+        Fixed: 5
+        Growth: 0
+        Max: 3000
+      PVE攻击力:
+        Base: 300
+        Mode: FIXED
+        Fixed: 5
+        Growth: 0
+        Max: 3000
+      破甲:
+        Base: 150
+        Mode: MIXED
+        Fixed: 3
+        Growth: 0.02
+        Max: 500
+      暴击机率:
+        Base: 80
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 100
+      暴击伤害:
+        Base: 200
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 2000
+      吸血:
+        Base: 50
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      攻击速度:
+        Base: 30
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 100
+      速度百分比:
+        Base: 40
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 150
+      生命上限:
+        Base: 2000
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 20000
+      防御力:
+        Base: 300
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 3000
+      暴击抵抗:
+        Base: 50
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+
+  zhaoyun_god_t5:
+    MaxLevel: 50
+    MaxStar: 15
+    BaseExp: 3000
+    ExpGrowth: 1.2
+    CooldownSeconds: 45
+    DailyLimit: 1
+    Attributes:
+      攻击力:
+        Base: 400
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 7000
+      PVP攻击力:
+        Base: 250
+        Mode: FIXED
+        Fixed: 4
+        Growth: 0
+        Max: 2500
+      远程伤害:
+        Base: 200
+        Mode: FIXED
+        Fixed: 3
+        Growth: 0
+        Max: 1500
+      破甲:
+        Base: 100
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 500
+      暴击机率:
+        Base: 70
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 100
+      暴击伤害:
+        Base: 180
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 2000
+      攻击速度:
+        Base: 25
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 100
+      速度百分比:
+        Base: 35
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 150
+      生命上限:
+        Base: 1500
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 15000
+      防御力:
+        Base: 250
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 2500
+      闪避:
+        Base: 40
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 80
+
+  guanyu_god_t5:
+    MaxLevel: 50
+    MaxStar: 15
+    BaseExp: 3000
+    ExpGrowth: 1.2
+    CooldownSeconds: 45
+    DailyLimit: 1
+    Attributes:
+      攻击力:
+        Base: 450
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 8000
+      PVP攻击力:
+        Base: 280
+        Mode: FIXED
+        Fixed: 4
+        Growth: 0
+        Max: 3000
+      破甲:
+        Base: 120
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 500
+      暴击机率:
+        Base: 60
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 100
+      暴击伤害:
+        Base: 150
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.1
+        Max: 2000
+      吸血:
+        Base: 45
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+      生命上限:
+        Base: 1800
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 18000
+      防御力:
+        Base: 350
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 3500
+      韧性:
+        Base: 150
+        Mode: FIXED
+        Fixed: 3
+        Growth: 0
+        Max: 1000
+      暴击抵抗:
+        Base: 60
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+
+  zhouyu_t25:
+    MaxLevel: 25
+    MaxStar: 8
+    BaseExp: 500
+    ExpGrowth: 1.35
+    Attributes:
+      法术伤害:
+        Base: 80
+        Mode: FIXED
+        Fixed: 3
+        Growth: 0
+        Max: 800
+      法术穿透:
+        Base: 30
+        Mode: FIXED
+        Fixed: 1
+        Growth: 0
+        Max: 300
+      法术暴击几率:
+        Base: 15
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 80
+      法力上限:
+        Base: 250
+        Mode: FIXED
+        Fixed: 0
+        Growth: 10
+        Max: 2500
+      法力恢复:
+        Base: 5
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0.3
+        Max: 80
+
+  sunshangxiang_t25:
+    MaxLevel: 25
+    MaxStar: 8
+    BaseExp: 500
+    ExpGrowth: 1.35
+    Attributes:
+      远程伤害:
+        Base: 40
+        Mode: FIXED
+        Fixed: 2
+        Growth: 0
+        Max: 400
+      暴击机率:
+        Base: 20
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 80
+      攻击速度:
+        Base: 5
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 25
+      速度百分比:
+        Base: 8
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 50
+
+  diaochan_t45:
+    MaxLevel: 45
+    MaxStar: 12
+    BaseExp: 1500
+    ExpGrowth: 1.22
+    Attributes:
+      法术伤害:
+        Base: 180
+        Mode: FIXED
+        Fixed: 5
+        Growth: 0
+        Max: 2000
+      法术穿透:
+        Base: 50
+        Mode: FIXED
+        Fixed: 1.5
+        Growth: 0
+        Max: 500
+      吸血:
+        Base: 25
+        Mode: MIXED
+        Fixed: 0.5
+        Growth: 0.02
+        Max: 80
+      闪避:
+        Base: 25
+        Mode: MIXED
+        Fixed: 0.5
+        Growth: 0.02
+        Max: 60
+      速度百分比:
+        Base: 20
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 80
+
+  caocao_t5:
+    MaxLevel: 50
+    MaxStar: 15
+    BaseExp: 3000
+    ExpGrowth: 1.2
+    Attributes:
+      攻击力:
+        Base: 400
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 7000
+      PVP攻击力:
+        Base: 250
+        Mode: FIXED
+        Fixed: 4
+        Growth: 0
+        Max: 2500
+      法术伤害:
+        Base: 400
+        Mode: FIXED
+        Fixed: 8
+        Growth: 0
+        Max: 8000
+      速度百分比:
+        Base: 30
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0
+        Max: 120
+      生命上限:
+        Base: 2000
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 20000
+      防御力:
+        Base: 250
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 2500
+      暴击机率:
+        Base: 50
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+
+  liubei_t5:
+    MaxLevel: 50
+    MaxStar: 15
+    BaseExp: 3000
+    ExpGrowth: 1.2
+    Attributes:
+      攻击力:
+        Base: 350
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 6000
+      生命上限:
+        Base: 3000
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 30000
+      防御力:
+        Base: 400
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 4000
+      韧性:
+        Base: 150
+        Mode: FIXED
+        Fixed: 3
+        Growth: 0
+        Max: 1000
+      生命恢复:
+        Base: 15
+        Mode: FIXED
+        Fixed: 0
+        Growth: 0.5
+        Max: 100
+      PVP防御:
+        Base: 250
+        Mode: FIXED
+        Fixed: 5
+        Growth: 0
+        Max: 2000
+      暴击抵抗:
+        Base: 80
+        Mode: MIXED
+        Fixed: 1
+        Growth: 0.02
+        Max: 100
+
+  sunquan_t5:
+    MaxLevel: 50
+    MaxStar: 15
+    BaseExp: 3000
+    ExpGrowth: 1.2
+    Attributes:
+      攻击力:
+        Base: 380
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.06
+        Max: 6500
+      法术伤害:
+        Base: 350
+        Mode: FIXED
+        Fixed: 7
+        Growth: 0
+        Max: 7000
+      生命上限:
+        Base: 2500
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 25000
+      防御力:
+        Base: 300
+        Mode: PERCENT
+        Fixed: 0
+        Growth: 0.05
+        Max: 3000
+      法力上限:
+        Base: 1500
+        Mode: FIXED
+        Fixed: 0
+        Growth: 30
+        Max: 15000
+      法力恢复:
+        Base: 25
+        Mode: FIXED
+        Fixed: 0
+        Growth: 1
+        Max: 300
+      技能极速:
+        Base: 35
+        Mode: MIXED
+        Fixed: 2
+        Growth: 0.02
+        Max: 80

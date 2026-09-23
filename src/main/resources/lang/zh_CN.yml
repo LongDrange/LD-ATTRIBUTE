@@ -1,0 +1,307 @@
+# ================================================
+#   繁体中文 (zh_TW)
+#   格式：属性内部名称: [其他別名...]
+# ================================================
+攻击力:
+- 攻击力
+- attack
+- damage
+- atk
+暴击机率:
+- 暴击几率
+- 暴击几率
+- 暴击机率
+- 暴击率
+- 暴击率
+- crit_chance
+- critchance
+- critical_chance
+暴击伤害:
+- 暴击伤害
+- 暴击伤害
+- 暴击伤害
+- crit_damage
+- critdamage
+- critical_damage
+破甲:
+- 破甲几率
+- 破甲机率
+- 破甲率
+- armor_pen
+- armorpen
+- armor_penetration
+- penetration
+暴击:
+- 暴击
+- crit
+- critical
+- 暴击几率
+- 暴击几率
+- 暴击机率
+吸血:
+- lifesteal
+- life_steal
+- ls
+点燃:
+- 点燃
+- ignite
+- fire
+- burning
+閃電:
+- 闪电
+- lightning
+- thunder
+- 雷霆
+- 雷霆几率
+- 雷霆机率
+中毒:
+- poison
+凋零:
+- wither
+- 凋零几率
+- 凋零机率
+失明:
+- blindness
+- blind
+緩速:
+- 缓速
+- slow
+- slowness
+真实伤害:
+- 真实伤害
+- real
+- realdamage
+- true_damage
+命中率:
+- hitrate
+- hit_rate
+- hit
+閃避:
+- 闪避
+- dodge
+- 閃避几率
+- 闪避几率
+- 閃避机率
+格擋:
+- 格挡
+- block
+防御力:
+- 防御力
+- defense
+- defence
+- def
+韌性:
+- 韧性
+- toughness
+- tough
+反射:
+- reflect
+- reflection
+经验加成:
+- 经验加成
+- exp
+- experience
+- expbonus
+事件讯息:
+- 事件讯息
+- eventmessage
+- event_message
+生命上限:
+- health
+- maxhealth
+- max_health
+- hp
+移动速度:
+- 移动速度
+- walkspeed
+- walk_speed
+速度百分比:
+- 速度
+- speed
+- speed_percent
+- speedpercent
+- 速度
+
+# ================================================
+#   1.12.2 擴展属性（批次 1）
+# ================================================
+
+# ===== 攻击类 =====
+PVP攻击力:
+- pvp攻击力
+- pvp_damage
+- pvpdamage
+PVE攻击力:
+- pve攻击力
+- pve_damage
+- pvedamage
+远程伤害:
+- 远程伤害
+- ranged_damage
+- rangeddamage
+攻击速度:
+- 攻击速度
+- attack_speed
+- attackspeed
+暴击抵抗:
+- 暴击抵抗
+- crit_resist
+- critresist
+- 抗暴
+护甲穿透:
+- 护甲穿透
+- armor_pen
+- armorpen
+- 穿甲
+燃烧几率:
+- 燃烧几率
+- burn_chance
+- burnchance
+燃烧伤害:
+- 燃烧伤害
+- burn_damage
+- burndamage
+
+# ===== 防御类 =====
+PVP防御:
+- pvp防御
+- pvp_defense
+- pvpdefense
+PVE防御:
+- pve防御
+- pve_defense
+- pvedefense
+生命恢复:
+- 生命恢复
+- health_regen
+- healthregen
+- 回血
+吸血抵抗:
+- 吸血抵抗
+- lifesteal_resist
+- 抗吸血
+击退抗性:
+- 击退抗性
+- knockback_resist
+- knockbackresist
+- 抗击退
+远程护甲:
+- 远程护甲
+- ranged_defense
+- rangeddefense
+- 远程防御
+
+# ===== 功能 / 輔助类 =====
+法力上限:
+- 法力上限
+- mana
+- max_mana
+- maxmana
+法力恢复:
+- 法力恢复
+- mana_regen
+- manaregen
+- 回蓝
+技能极速:
+- 技能极速
+- cooldown_reduction
+- cooldownreduction
+- cdr
+- 冷却缩减
+幸运:
+- 幸运
+- luck
+箭矢速度:
+- 箭矢速度
+- arrow_speed
+- arrowspeed
+箭矢精准:
+- 箭矢精准
+- arrow_accuracy
+- arrowaccuracy
+- 箭术精准
+箭矢穿透数:
+- 箭矢穿透
+- arrow_pierce
+- arrowpierce
+- pierce
+盾牌减伤:
+- 盾牌减伤
+- shield_reduction
+- shieldreduction
+- 盾挡
+
+# ===== 法术类 =====
+法术伤害:
+- 法术伤害
+- magic_damage
+- magicdamage
+法术防御:
+- 法术防御
+- magic_defense
+- magicdefense
+法术暴击几率:
+- 法术暴击几率
+- magic_crit_chance
+- magiccritchance
+法术暴击倍率:
+- 法术暴击倍率
+- magic_crit_damage
+- magiccritdamage
+- 法术暴伤
+法术穿透:
+- 法术穿透
+- magic_pen
+- magicpen
+法术吸血:
+- 法术吸血
+- magic_lifesteal
+- magiclifesteal
+
+测试新属性:
+- test_attr
+
+# ===== 符文扩展属性 =====
+暴伤抵抗:
+- 暴伤抵抗
+- crit_damage_resist
+- cdresist
+- 暴伤抗性
+伤害加成:
+- 伤害加成
+- damage_amplify
+- dmg_amp
+- 伤害增幅
+生命加成:
+- 生命加成
+- health_amplify
+- hp_amp
+- 生命增幅
+防御加成:
+- 防御加成
+- defense_amplify
+- def_amp
+- 防御增幅
+吸血几率:
+- 吸血几率
+- lifesteal_chance
+- ls_chance
+- 吸血概率
+吸血倍率:
+- 吸血倍率
+- lifesteal_ratio
+- ls_ratio
+- 吸血倍率
+附加伤害:
+- 附加伤害
+- extra_damage
+- bonus_damage
+- 额外伤害
+反伤倍率:
+- 反伤倍率
+- reflect_ratio
+- reflect_amplify
+反伤抵抗:
+- 反伤抵抗
+- reflect_resist
+- 抗反伤

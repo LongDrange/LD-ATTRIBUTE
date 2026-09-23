@@ -1,0 +1,174 @@
+# ================================================
+#   UI 配置（按鈕槽位 / 圖標 / 名稱 / Lore）
+#   改完 /ldc reload 生效
+#   槽位範圍：0-53
+#   衝突時：後者覆蓋前者（會在 console 警告）
+# ================================================
+
+# ===== 卡片詳情界面 =====
+CardInfo:
+  Card:
+    Slot: 13
+    Material: PAPER
+    Name: "&e{0}"
+    Lore: []
+  Close:
+    Slot: 22
+    Material: BARRIER
+    Name: "&c&l✘ 關閉"
+    Lore: []
+  UseExpStone:
+    Slot: 20
+    Material: EXPERIENCE_BOTTLE
+    Name: "&a&l⚡ 使用經驗石"
+    Lore:
+    - "&7點擊選擇經驗石"
+  Decompose:
+    Slot: 24
+    Material: TNT
+    Name: "&c&l💥 分解卡片"
+    Lore:
+    - "&7將卡片分解為材料"
+  Lock:
+    Slot: 26
+    Material: IRON_FENCE
+    Name: "&e&l🔒 鎖定切換"
+    Lore: []
+  Bind:
+    Slot: 18
+    Material: NAME_TAG
+    Name: "&b&l✦ 綁定切換"
+    Lore: []
+  Star:
+    Slot: 16
+    Material: NETHER_STAR
+    Name: "&6&l✦ 升星"
+    Lore: []
+
+  Rune:
+    Slot: 14
+    Material: NETHER_STAR
+    Name: "&d&l✦ 符文"
+    Lore: []
+# ===== 卡片背包 =====
+CardBag:
+  Prev:
+    Slot: 45
+    Material: ARROW
+    Name: "&e&l◀ 上一頁"
+    Lore:
+    - "&7前往第 {0} 頁"
+  Next:
+    Slot: 53
+    Material: ARROW
+    Name: "&e&l下一頁 ▶"
+    Lore:
+    - "&7前往第 {0} 頁"
+  Collection:
+    Slot: 46
+    Material: BOOK
+    Name: "&d&l📖 圖鑑"
+    Lore: []
+  Sell:
+    Slot: 47
+    Material: GOLD_INGOT
+    Name: "&c&l💰 販賣"
+    Lore: []
+  Info:
+    Slot: 49
+    Material: PAPER
+    Name: "&a&l頁面資訊"
+    Lore: []
+  Suit:
+    Slot: 51
+    Material: DIAMOND_CHESTPLATE
+    Name: "&d&l📖 套裝"
+    Lore: []
+  Stats:
+    Slot: 48
+    Material: DIAMOND_SWORD
+    Name: "&b&l✦ 屬性面板"
+    Lore: []
+  Rank:
+    Slot: 50
+    Material: GOLD_INGOT
+    Name: "&6&l✦ 排行榜"
+    Lore: []
+
+# ===== 圖鑑 =====
+Collection:
+  Back:
+    Slot: 48
+    Material: BARRIER
+    Name: "&c&l← 返回"
+    Lore: []
+  Prev:
+    Slot: 45
+    Material: ARROW
+    Name: "&e&l◀ 上一頁"
+    Lore: []
+  Info:
+    Slot: 49
+    Material: PAPER
+    Name: "&a&l資訊"
+    Lore: []
+  Next:
+    Slot: 53
+    Material: ARROW
+    Name: "&e&l下一頁 ▶"
+    Lore: []
+
+# ===== 分解確認 =====
+DecomposeConfirm:
+  Card:
+    Slot: 13
+    Material: PAPER
+    Name: "&e{0}"
+    Lore: []
+  Confirm:
+    Slot: 11
+    Material: EMERALD_BLOCK
+    Name: "&a&l✔ 確認分解"
+    Lore: []
+  Cancel:
+    Slot: 15
+    Material: REDSTONE_BLOCK
+    Name: "&c&l✘ 取消"
+    Lore: []
+
+# ===== 經驗石選擇 =====
+ExpStoneSelect:
+  Back:
+    Slot: 49
+    Material: BARRIER
+    Name: "&c&l← 返回"
+    Lore: []
+
+# ===== 合成 =====
+Merge:
+  Back:
+    Slot: 45
+    Material: BARRIER
+    Name: "&c&l← 返回"
+    Lore: []
+  Info:
+    Slot: 49
+    Material: PAPER
+    Name: "&a&l合成資訊"
+    Lore: []
+
+# ===== 販賣 =====
+Sell:
+  Cancel:
+    Slot: 49
+    Material: BARRIER
+    Name: "&c&l✘ 返回"
+    Lore: []
+
+# ===== 套裝 =====
+Suit:
+  Back:
+    Slot: 49
+    Material: BARRIER
+    Name: "&c&l← 返回"
+    Lore: []

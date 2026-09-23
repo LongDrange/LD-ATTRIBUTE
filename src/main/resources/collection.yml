@@ -1,0 +1,36 @@
+# ================================================
+#   圖鑑集齊獎勵
+#   Cards: 需要集齊的卡片 ID（item.yml 的頂層 key）
+#   Commands: 集齊時執行（{player} 替換）
+# ================================================
+
+Rewards:
+  ThreeHeroes:
+    Cards:
+    - "孙逊"
+    - "貂蝉"
+    - "庞德"
+    Commands:
+    - "say {player} 集齊三俠合璧！"
+    - "eco give {player} 5000"
+    - "ldp add {player} 500"
+    - "ldc give exp_stone_sunxun {player} 3"
+    - "ldc give exp_stone_all {player} 1"
+
+  T2Heroes:
+    Cards:
+    - "zhaoyun_t2"
+    - "zhangfei_t2"
+    Commands:
+    - "say {player} 集齊 T2 英雄！"
+    - "ldp add {player} 2000"
+    - "ldc give exp_stone_t2 {player} 5"
+  T3Legends:
+    Cards:
+    - "lubu_t3"
+    - "guanyu_t3"
+    Commands:
+    - "say {player} 集齊 T3 傳說卡！"
+    - "ldp add {player} 10000"
+    - "eco give {player} 50000"
+    - "ldc give exp_stone_t3 {player} 10"

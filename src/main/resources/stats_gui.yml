@@ -1,0 +1,235 @@
+# ================================================
+#   属性面板配置
+# ================================================
+
+Title: "&8&l✦ 属性总览 ✦"
+Rows: 6
+
+# ===== 动态模式 =====
+# Dynamic: true = 自动显示所有属性（忽略 Layout）
+# Dynamic: false = 按 Layout 手写布局
+Dynamic: true
+HideZero: false
+
+# ===== 排序优先级（动态模式下用）=====
+# 列表里的属性排在前面，其他自动排后面
+Order:
+- "攻擊力"
+- "暴擊機率"
+- "暴擊傷害"
+- "破甲"
+- "吸血"
+- "防禦力"
+- "生命上限"
+- "韌性"
+- "閃避"
+- "格擋"
+- "反射"
+- "PVP攻击力"
+- "PVE攻击力"
+- "远程伤害"
+- "法术伤害"
+- "法术穿透"
+- "法术防御"
+- "法术吸血"
+- "法术暴击几率"
+- "法术暴击倍率"
+- "法力上限"
+- "法力恢复"
+- "速度百分比"
+- "移动速度"
+- "攻击速度"
+- "幸运"
+- "生命恢复"
+- "击退抗性"
+- "盾牌减伤"
+- "暴击抵抗"
+- "吸血抵抗"
+- "远程护甲"
+- "箭矢速度"
+- "箭矢精准"
+- "箭矢穿透数"
+- "燃烧几率"
+- "燃烧伤害"
+- "點燃"
+- "閃電"
+- "中毒"
+- "凋零"
+- "失明"
+- "緩速"
+
+# ===== 图标配置（可选）=====
+# 没配的属性用默认（纸）显示
+Icons:
+  攻擊力:
+    Material: DIAMOND_SWORD
+    Name: "&c&l攻击力"
+    Lore: ["&7基础物理伤害", "", "&7当前: &e%value%"]
+  防禦力:
+    Material: DIAMOND_CHESTPLATE
+    Name: "&b&l防御力"
+    Lore: ["&7减少物理伤害", "", "&7当前: &e%value%"]
+  生命上限:
+    Material: GOLDEN_APPLE
+    Name: "&a&l生命上限"
+    Lore: ["&7最大生命值", "", "&7当前: &e%value%"]
+  暴擊機率:
+    Material: BLAZE_POWDER
+    Name: "&6&l暴击机率"
+    Lore: ["&7暴击触发概率", "", "&7当前: &e%value%%"]
+  暴擊傷害:
+    Material: BLAZE_ROD
+    Name: "&c&l暴击伤害"
+    Lore: ["&7暴击伤害倍率", "", "&7当前: &e%value%%"]
+  破甲:
+    Material: IRON_PICKAXE
+    Name: "&7&l破甲"
+    Lore: ["&7无视部分防御", "", "&7当前: &e%value%%"]
+  吸血:
+    Material: REDSTONE
+    Name: "&4&l吸血"
+    Lore: ["&7造成伤害回血", "", "&7当前: &e%value%%"]
+  韌性:
+    Material: SHIELD
+    Name: "&b&l韧性"
+    Lore: ["&7降低被暴击几率", "", "&7当前: &e%value%"]
+  閃避:
+    Material: FEATHER
+    Name: "&f&l闪避"
+    Lore: ["&7概率闪避", "", "&7当前: &e%value%%"]
+  格擋:
+    Material: IRON_DOOR
+    Name: "&7&l格挡"
+    Lore: ["&7概率格挡", "", "&7当前: &e%value%%"]
+  反射:
+    Material: IRON_INGOT
+    Name: "&f&l反射"
+    Lore: ["&7反弹伤害", "", "&7当前: &e%value%%"]
+  PVP攻击力:
+    Material: IRON_SWORD
+    Name: "&c&lPVP攻击力"
+    Lore: ["&7对玩家额外伤害", "", "&7当前: &e%value%"]
+  PVE攻击力:
+    Material: GOLD_SWORD
+    Name: "&e&lPVE攻击力"
+    Lore: ["&7对怪物额外伤害", "", "&7当前: &e%value%"]
+  远程伤害:
+    Material: BOW
+    Name: "&a&l远程伤害"
+    Lore: ["&7远程额外伤害", "", "&7当前: &e%value%"]
+  法术伤害:
+    Material: ENDER_PEARL
+    Name: "&5&l法术伤害"
+    Lore: ["&7法术基础伤害", "", "&7当前: &e%value%"]
+  法术穿透:
+    Material: EYE_OF_ENDER
+    Name: "&d&l法术穿透"
+    Lore: ["&7无视法术防御", "", "&7当前: &e%value%"]
+  法术防御:
+    Material: ENCHANTED_BOOK
+    Name: "&5&l法术防御"
+    Lore: ["&7减法术伤害", "", "&7当前: &e%value%"]
+  法术吸血:
+    Material: FERMENTED_SPIDER_EYE
+    Name: "&4&l法术吸血"
+    Lore: ["&7法术伤害转生命", "", "&7当前: &e%value%"]
+  法术暴击几率:
+    Material: MAGMA_CREAM
+    Name: "&e&l法术暴击几率"
+    Lore: ["&7法术暴击概率", "", "&7当前: &e%value%%"]
+  法术暴击倍率:
+    Material: BLAZE_POWDER
+    Name: "&e&l法术暴击倍率"
+    Lore: ["&7法术暴击倍率", "", "&7当前: &e%value%%"]
+  法力上限:
+    Material: LAPIS_BLOCK
+    Name: "&9&l法力上限"
+    Lore: ["&7最大法力值", "", "&7当前: &e%value%"]
+  法力恢复:
+    Material: LAPIS_LAZULI
+    Name: "&9&l法力恢复"
+    Lore: ["&7每秒回蓝", "", "&7当前: &e%value%"]
+  速度百分比:
+    Material: SUGAR
+    Name: "&f&l速度百分比"
+    Lore: ["&7移速加成", "", "&7当前: &e%value%%"]
+  移动速度:
+    Material: LEATHER_BOOTS
+    Name: "&f&l移动速度"
+    Lore: ["&7基础移速", "", "&7当前: &e%value%"]
+  攻击速度:
+    Material: GOLD_AXE
+    Name: "&e&l攻击速度"
+    Lore: ["&7攻速加成", "", "&7当前: &e%value%%"]
+  幸运:
+    Material: RABBIT_FOOT
+    Name: "&a&l幸运"
+    Lore: ["&7影响掉落", "", "&7当前: &e%value%"]
+  生命恢复:
+    Material: GHAST_TEAR
+    Name: "&a&l生命恢复"
+    Lore: ["&7每秒回血", "", "&7当前: &e%value%"]
+  击退抗性:
+    Material: ANVIL
+    Name: "&7&l击退抗性"
+    Lore: ["&7减少击退", "", "&7当前: &e%value%%"]
+  盾牌减伤:
+    Material: IRON_CHESTPLATE
+    Name: "&7&l盾牌减伤"
+    Lore: ["&7举盾减伤", "", "&7当前: &e%value%%"]
+  暴击抵抗:
+    Material: DIAMOND
+    Name: "&b&l暴击抵抗"
+    Lore: ["&7降低被暴击", "", "&7当前: &e%value%%"]
+  吸血抵抗:
+    Material: BONE
+    Name: "&7&l吸血抵抗"
+    Lore: ["&7降低被吸血", "", "&7当前: &e%value%%"]
+  远程护甲:
+    Material: LEATHER_CHESTPLATE
+    Name: "&6&l远程护甲"
+    Lore: ["&7减远程伤害", "", "&7当前: &e%value%"]
+  燃烧几率:
+    Material: FLINT_AND_STEEL
+    Name: "&c&l燃烧几率"
+    Lore: ["&7点燃目标", "", "&7当前: &e%value%%"]
+  燃烧伤害:
+    Material: BLAZE_POWDER
+    Name: "&6&l燃烧伤害"
+    Lore: ["&7燃烧每秒伤害", "", "&7当前: &e%value%"]
+  箭矢速度:
+    Material: ARROW
+    Name: "&a&l箭矢速度"
+    Lore: ["&7弓箭飞行速度", "", "&7当前: &e%value%"]
+  箭矢精准:
+    Material: SPECTRAL_ARROW
+    Name: "&a&l箭矢精准"
+    Lore: ["&7减少散布", "", "&7当前: &e%value%%"]
+  箭矢穿透数:
+    Material: TIPPED_ARROW
+    Name: "&a&l箭矢穿透数"
+    Lore: ["&7一箭多穿", "", "&7当前: &e%value%"]
+  點燃:
+    Material: FIREBALL
+    Name: "&c&l點燃"
+    Lore: ["&7点燃几率", "", "&7当前: &e%value%%"]
+  閃電:
+    Material: NETHER_STAR
+    Name: "&e&l閃電"
+    Lore: ["&7闪电几率", "", "&7当前: &e%value%%"]
+  中毒:
+    Material: SPIDER_EYE
+    Name: "&2&l中毒"
+    Lore: ["&7中毒几率", "", "&7当前: &e%value%%"]
+  凋零:
+    Material: COAL
+    Name: "&8&l凋零"
+    Lore: ["&7凋零几率", "", "&7当前: &e%value%%"]
+  失明:
+    Material: INK_SACK
+    Name: "&0&l失明"
+    Lore: ["&7失明几率", "", "&7当前: &e%value%%"]
+  緩速:
+    Material: SLIME_BALL
+    Name: "&a&l緩速"
+    Lore: ["&7缓速几率", "", "&7当前: &e%value%%"]

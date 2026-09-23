@@ -1,0 +1,85 @@
+# ================================================
+#   卡片升星
+#   每星属性 ×(1 + Star × Multiplier)
+#   MaxStar: 全局最大星级
+# ================================================
+
+Multiplier: 0.10
+MaxStar: 15
+
+Costs:
+  1:
+    SuccessRate: 1.0
+    Points: 500
+    Vault: 0
+    Items: ["DIAMOND:3"]
+  2:
+    SuccessRate: 0.95
+    Points: 1500
+    Vault: 0
+    Items: ["DIAMOND:10"]
+  3:
+    SuccessRate: 0.85
+    Points: 5000
+    Vault: 5000
+    Items: ["DIAMOND:32"]
+  4:
+    SuccessRate: 0.75
+    Points: 10000
+    Vault: 15000
+    Items: ["DIAMOND:64"]
+  5:
+    SuccessRate: 0.65
+    Points: 20000
+    Vault: 30000
+    Items: ["NETHER_STAR:1"]
+  6:
+    SuccessRate: 0.55
+    Points: 35000
+    Vault: 50000
+    Items: ["NETHER_STAR:2"]
+  7:
+    SuccessRate: 0.45
+    Points: 50000
+    Vault: 80000
+    Items: ["NETHER_STAR:3"]
+  8:
+    SuccessRate: 0.40
+    Points: 80000
+    Vault: 120000
+    Items: ["NETHER_STAR:5"]
+  9:
+    SuccessRate: 0.35
+    Points: 120000
+    Vault: 180000
+    Items: ["NETHER_STAR:8"]
+  10:
+    SuccessRate: 0.30
+    Points: 180000
+    Vault: 250000
+    Items: ["NETHER_STAR:10"]
+  11:
+    SuccessRate: 0.25
+    Points: 250000
+    Vault: 350000
+    Items: ["NETHER_STAR:15"]
+  12:
+    SuccessRate: 0.22
+    Points: 350000
+    Vault: 500000
+    Items: ["NETHER_STAR:20"]
+  13:
+    SuccessRate: 0.20
+    Points: 500000
+    Vault: 700000
+    Items: ["NETHER_STAR:30"]
+  14:
+    SuccessRate: 0.17
+    Points: 700000
+    Vault: 1000000
+    Items: ["NETHER_STAR:40"]
+  15:
+    SuccessRate: 0.15
+    Points: 1000000
+    Vault: 1500000
+    Items: ["NETHER_STAR:64"]

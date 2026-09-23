@@ -1,0 +1,286 @@
+# ================================================
+#   LD-Attribute Language File (English)
+# ================================================
+
+Prefix: "&8[&bLD-CardStats&8] &r"
+
+Nav:
+  Prev: "&e&l◀ Previous"
+  PrevLore: "&7Go to page {0}"
+  Next: "&e&lNext ▶"
+  NextLore: "&7Go to page {0}"
+  Back: "&e&l◀ Back to Card Bag"
+
+Admin:
+  NoPermission: "&cYou do not have permission!"
+  NoConsole: "&cPlayers only!"
+  NoFormat: "&cInvalid format!"
+  NoItem: "&cCard not found!"
+  NoOnline: "&cThat player is not online!"
+  NoCommand: "&cCommand not found: &e{0}"
+  GiveItem: "&aGave &e{0} &acard &e{1} &ato {2}"
+  PluginReload: "&aConfiguration reloaded!"
+  SaveItem: "&aCard &e{0} &asaved!"
+  HasItem: "&cCard &e{0} &calready exists!"
+
+Player:
+  CompleteStatsData: "&aStats updated!"
+  ActivationSuit: "&eSet &b{0} &eactivated!"
+  SuitInvalidated: "&8[&dCollection&8] &cSet &e{0} &cdeactivated"
+  SellCard: "&aSold card, got &e{0} &apoints!"
+  BuySlot: "&aUnlocked page &e{0}&a!"
+  NoSlot: "&cCard bag is full!"
+  NoPoints: "&cNot enough points! Need &e{0} &cbut have &e{1}"
+  InventoryFull: "&cYour inventory is full!"
+  DuplicateCard: "&cThis card is already in your card bag!"
+  NotACard: "&cThis is not a card!"
+  CardTaken: "&aTook card &e{0} &ato inventory!"
+
+Page:
+  Info: "&a&lPage {0} / {1}"
+  Slots: "&7Slots: &e{0}"
+  Points: "&7Points: &6{0}"
+  Unlock: "&c&l🔒 Locked Page"
+  UnlockLore: "&7Unlock requirements:"
+  UnlockPoints: "&7- Points: &6{0}"
+  UnlockVault: "&7- Money: &6{0}"
+  UnlockPerm: "&7- Permission: &e{0}"
+  UnlockItems: "&7- Items: &e{0}"
+  UnlockClick: "&eClick to unlock"
+  LockedSlot: "&7🔒 Locked"
+
+Merge:
+  Title: "&8[&bCraft&8] &7"
+  Info: "&a&lRecipe Info"
+  InfoTotal: "&7Total &e{0} &7recipes"
+  InfoClick: "&7Click to craft"
+  InfoGreen: "&aGreen &7= Available"
+  InfoRed: "&cRed &7= Missing"
+  NeedCards: "&7Required:"
+  Cost: "&7Cost:"
+  Output: "&7Output:"
+  OutputRandom: "&7Random:"
+  CanCraft: "&a✔ Click to craft"
+  CannotCraft: "&c✘ Missing materials"
+  Success: "&aCraft success! Got: &e{0}"
+  FailCard: "&cMissing card: &e{0} &7({1}/{2})"
+  FailPoints: "&cNot enough points! Need &6{0} &cyou have &6{1}"
+  FailVault: "&cNot enough money! Need &6{0}"
+  FailItems: "&cMissing item: &e{0}"
+  FailPerm: "&cNo permission! Need: &e{0}"
+  NoEconomy: "&cVault economy not installed!"
+  NoRecipe: "&cRecipe not found: &e{0}"
+
+Collection:
+  Title: "&8[&bCollection&8] "
+  Progress: "&aCollection Progress"
+  ProgressLine: "&7Collected: &e{0}&7/&e{1}"
+  PageLine: "&7Page {0} / {1}"
+  Owned: "&a✔ Collected"
+  NotOwned: "&7Not collected"
+  RewardJustNow: "&7Set &e{0} &7completed &8(&cAlready claimed&8)"
+  RewardClaimed: "&aCompleted set &e{0} &a, rewards granted!"
+
+Inventory:
+  Open:
+    Name: "&8Card Bag"
+  Card:
+    SellCard:
+      Name: "&c&l💰 Sell Card"
+      Lore:
+      - "&7Convert cards to points"
+      - "&7Rate: &e{0}x"
+      - ""
+      - "&eClick to open"
+    SuitList:
+      Name: "&d&l📖 Set List"
+      Lore:
+      - "&7View all sets and progress"
+      - ""
+      - "&eClick to open"
+  Sell:
+    Name: "&8Sell Card"
+    Card:
+      Name: "&e{0}"
+      Lore:
+      - "&7Value: &6{0} &7points"
+      - ""
+      - "&eLeft click &7sell 1"
+      - "&eRight click &7sell all"
+    Cancel:
+      Name: "&c&l✘ Back"
+      Lore:
+      - "&7Back to Card Bag"
+  Suit:
+    Name: "&8Set List"
+    Item:
+      Name: "&e{0}"
+      Lore:
+      - "&7Progress: &e{1}&7/&e{2}"
+      - "&7Status: {3}"
+      - ""
+      - "&7Effects:"
+      - "{4}"
+    StatusComplete: "&a✔ Complete"
+    StatusIncomplete: "&c✘ Incomplete"
+    Back:
+      Name: "&c&l← Back"
+      Lore:
+      - "&7Back to Card Bag"
+
+Points:
+  Player:
+    See: "&8[&dPoints&8] &e{0} &7has: &6{1} &7points"
+    Add: "&8[&dPoints&8] &eYou gained &6{0} &7points &3(&lNow {1}&3)"
+    Take: "&8[&dPoints&8] &eYou lost &6{0} &7points &3(&lNow {1}&3)"
+    TopTitle: "&8[&dPoints&8] &ePoints Leaderboard"
+    TopItem: "&8[&dPoints&8] &b{0}&3. &e{1} &3- &6{2}&3"
+    TopEnd: "&8[&dPoints&8] &ePage {0} / {1}"
+  Admin:
+    Add: "&8[&dPoints&8] &eGave &6{0} &e{1} &epoints &3(&lNow {2}&3)"
+    Take: "&8[&dPoints&8] &eTook &6{0} &e{1} &epoints &3(&lNow {2}&3)"
+    Set: "&8[&dPoints&8] &eSet &6{0} &eto &6{1} &epoints"
+
+Command:
+  Help:
+    Title: "&8&m----------&r &bLD-CardStats &8&m----------"
+    Bottom: "&8&m----------------------------------"
+    NoPerm: "&cNo permission!"
+    PlayerOnly: "&cPlayers only!"
+  List:
+    Title: "&8&m----------&r &bCard List &8&m----------"
+    Bottom: "&8&m----------------------------------"
+  Give:
+    Usage: "&cUsage: /ldc give <ID> [player] [amount]"
+    NoCard: "&cCard not found: &e{0}"
+    NoPlayer: "&cPlayer not online: &e{0}"
+    NoTarget: "&cPlease specify a player!"
+    Success: "&aGave &e{0} &acard &e{1} &ax{2}"
+  Top:
+    Title: "&8&m------- &6Card Level Ranking &8&m-------"
+    Empty: "&7No data"
+    Line: "&7{0}. &e{1} &7- Total &6{2} &7(&b{3} cards)"
+    Footer: "&8&m----- &7Page {0}/{1} &8&m-----"
+  Stats:
+    TitleCard: "&8&m------- &bCard Stats: {0} &8&m-------"
+    TitleSelf: "&8&m------- &bYour Stats &8&m-------"
+    Bottom: "&8&m----------------------------"
+    NoCard: "&cCard not found: &e{0}"
+    NoAttr: "&7(No attributes)"
+    AttrLine: "&7- &e{0} &7: &f{1}"
+    NoBonus: "&7(No bonus)"
+  Collection:
+    NoCard: "&cCard not found: &e{0}"
+    Jumped: "&aJumped to card &e{0}"
+  Merge:
+    NoRecipe: "&cRecipe not found: &e{0}"
+  Save:
+    Usage: "&cUsage: /ldc save <ID>"
+    NoItem: "&cYou are not holding an item!"
+    Success: "&aSaved card &e{0} &a(add to item.yml manually)"
+    NameLine: "&7Name: &f{0}"
+    IdLine: "&7ID: &f{0}"
+  Reload:
+    Success: "&aConfiguration reloaded! (all)"
+  Unlock:
+    Usage: "&cUsage: /ldc unlock <player> <page>"
+    NoPlayer: "&cPlayer not online: &e{0}"
+    NoNumber: "&cPage must be a number!"
+    OutOfRange: "&cPage out of range (total {0})"
+    Already: "&7Player &e{0} &7already unlocked to page &e{1}"
+    Success: "&aUnlocked &e{0} &ato page &e{1}"
+    Notify: "&aAdmin unlocked you to page &e{0}"
+  Reset:
+    Usage: "&cUsage: /ldc reset <player>"
+    NoPlayer: "&cPlayer not found: &e{0}"
+    Success: "&aReset {0} card data"
+  Remove:
+    Usage: "&cUsage: /ldc remove <cardId> [player]"
+    NoCard: "&cCard not found: &e{0}"
+    NoPlayer: "&cPlayer not online: &e{0}"
+    NoTarget: "&cPlease specify a player!"
+    NotFound: "&7Player &e{0} &7has no card &e{1}"
+    Success: "&aRemoved &e{0} &a{1} &ax{2}"
+  SetStat:
+    Usage: "&cUsage: /ldc {0} <player> <cardId> <value>"
+    NoPlayer: "&cPlayer not online: &e{0}"
+    NoCard: "&cCard not found: &e{0}"
+    NoNumber: "&cValue must be a number!"
+    NotFound: "&cPlayer has no card: &e{0}"
+    Success: "&aSet &e{0} &a{1} &a{2} = &e{3}"
+    ExpSuccess: "&aGave &e{0} &a{1} &e{2} &aexp"
+    ExpLevelUp: "&aGave &e{0} &a{1} &e{2} &aexp, leveled up &e{3} &atimes"
+    ExpNotify: "&aYour card &e{0} &aleveled up &e{1} &atimes!"
+  Info:
+    Usage: "&cUsage: /ldc info <cardId>"
+    NoCard: "&cCard not found: &e{0}"
+    Title: "&8&m------- &bCard Info: {0} &8&m-------"
+    Id: "&7ID: &e{0}"
+    Name: "&7Name: &f{0}"
+    MaxLevel: "&7MaxLevel: &e{0}"
+    MaxStar: "&7MaxStar: &e{0}"
+    Attrs: "&7Attributes:"
+    AttrLine: "  &e{0} &7Base=&f{1} &7Growth=&f{2} &7Max=&f{3} &7Mode=&f{4}"
+    NoUpgrade: "&7(No upgrade config)"
+    Bottom: "&8&m----------------------------"
+  Msg:
+    Usage: "&cUsage: /ldc msg <key> [args...]"
+    Result: "&7[{0}] &r{1}"
+
+
+# ================================================
+#   Attribute Display Names
+# ================================================
+
+Attr:
+  攻擊力: "&c&lAttack"
+  防禦力: "&b&lDefense"
+  生命上限: "&a&lMax HP"
+  暴擊機率: "&6&lCrit Chance"
+  暴擊傷害: "&c&lCrit Damage"
+  破甲: "&7&lArmor Pen"
+  吸血: "&4&lLifesteal"
+  韌性: "&b&lToughness"
+  閃避: "&f&lDodge"
+  格擋: "&7&lBlock"
+  反射: "&f&lReflect"
+  PVP攻击力: "&c&lPVP Damage"
+  PVE攻击力: "&e&lPVE Damage"
+  远程伤害: "&a&lRanged Damage"
+  法术伤害: "&5&lMagic Damage"
+  法术穿透: "&d&lMagic Pen"
+  法术防御: "&5&lMagic Def"
+  法术吸血: "&4&lMagic LS"
+  法术暴击几率: "&e&lMagic Crit"
+  法术暴击倍率: "&e&lMagic Crit Dmg"
+  法力上限: "&9&lMax Mana"
+  法力恢复: "&9&lMana Regen"
+  速度百分比: "&f&lSpeed %"
+  移動速度: "&f&lWalk Speed"
+  攻击速度: "&e&lAttack Speed"
+  幸运: "&a&lLuck"
+  生命恢复: "&a&lHP Regen"
+  击退抗性: "&7&lKB Resist"
+  盾牌减伤: "&7&lShield Red."
+  暴击抵抗: "&b&lCrit Resist"
+  吸血抵抗: "&7&lLS Resist"
+  远程护甲: "&6&lRanged Armor"
+  燃烧几率: "&c&lBurn Chance"
+  燃烧伤害: "&6&lBurn Damage"
+  箭矢速度: "&a&lArrow Speed"
+  箭矢精准: "&a&lArrow Acc."
+  箭矢穿透数: "&a&lArrow Pierce"
+  點燃: "&c&lIgnite"
+  閃電: "&e&lLightning"
+  中毒: "&2&lPoison"
+  凋零: "&8&lWither"
+  失明: "&0&lBlindness"
+  緩速: "&a&lSlowness"
+  暴擊: "&6&lCrit"
+  真實傷害: "&f&lTrue Damage"
+  命中率: "&f&lHit Rate"
+  經驗加成: "&a&lEXP Bonus"
+  事件訊息: "&7&lEvent Msg"
+  PVP防御: "&b&lPVP Def"
+  PVE防御: "&b&lPVE Def"
+  技能极速: "&e&lSkill CDR"

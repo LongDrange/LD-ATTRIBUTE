@@ -1,0 +1,320 @@
+# ================================================
+#   LD-Attribute 語言檔（繁體中文）
+#   格式：支援 & 色碼 + {0} {1} 參數
+# ================================================
+
+Prefix: "&8[&bLD-CardStats&8] &r"
+
+Nav:
+  Prev: "&e&l◀ 上一頁"
+  PrevLore: "&7點擊前往第 {0} 頁"
+  Next: "&e&l下一頁 ▶"
+  NextLore: "&7點擊前往第 {0} 頁"
+  Back: "&e&l◀ 返回卡片背包"
+
+Admin:
+  NoPermission: "&c你沒有權限！"
+  NoConsole: "&c此指令只能由玩家執行！"
+  NoFormat: "&c格式錯誤！"
+  NoItem: "&c找不到該卡片！"
+  NoOnline: "&c該玩家不在線上！"
+  NoCommand: "&c找不到指令：&e{0}"
+  GiveItem: "&a已給予 &e{0} &a卡片 &e{1} &a張"
+  PluginReload: "&a配置已重新載入！"
+  SaveItem: "&a卡片 &e{0} &a已儲存！"
+  HasItem: "&c卡片 &e{0} &c已經存在！"
+
+Player:
+  CompleteStatsData: "&a卡片屬性已更新！"
+  ActivationSuit: "&e套裝 &b{0} &e已激活！"
+  SuitInvalidated: "&8[&d圖鑑&8] &c套裝 &e{0} &c已失效"
+  SellCard: "&a已販售卡片，獲得 &e{0} &a點券！"
+  BuySlot: "&a成功解鎖第 &e{0} &a頁！"
+  NoSlot: "&c卡片背包已滿！"
+  NoPoints: "&c點券不足！需要 &e{0} &c點，你有 &e{1} &c點"
+  InventoryFull: "&c你的背包已經滿了！"
+  DuplicateCard: "&c這張卡片已經放在卡片背包裡了！"
+  NotACard: "&c這不是卡片，不能放進卡片背包！"
+  CardTaken: "&a已將卡片 &e{0} &a取出到背包！"
+
+Page:
+  Info: "&a&l第 {0} / {1} 頁"
+  Slots: "&7可用格數: &e{0}"
+  Points: "&7點券: &6{0}"
+  Unlock: "&c&l🔒 未解鎖的頁面"
+  UnlockLore: "&7解鎖條件："
+  UnlockPoints: "&7- 點券: &6{0}"
+  UnlockVault: "&7- 金幣: &6{0}"
+  UnlockPerm: "&7- 權限: &e{0}"
+  UnlockItems: "&7- 物品: &e{0}"
+  UnlockClick: "&e點擊解鎖"
+  LockedSlot: "&7🔒 未解鎖"
+
+Merge:
+  Title: "&8[&b合成&8] &7"
+  Info: "&a&l合成配方"
+  InfoTotal: "&7共 &e{0} &7個配方"
+  InfoClick: "&7點擊圖標嘗試合成"
+  InfoGreen: "&a綠字 &7= 材料齊全"
+  InfoRed: "&c紅字 &7= 缺少材料"
+  NeedCards: "&7需要卡片:"
+  Cost: "&7消耗:"
+  Output: "&7產出:"
+  OutputRandom: "&7隨機產出:"
+  CanCraft: "&a✔ 點擊合成"
+  CannotCraft: "&c✘ 材料不足"
+  Success: "&a合成成功！獲得: &e{0}"
+  FailCard: "&c缺少卡片: &e{0} &7(有 {1}/{2})"
+  FailPoints: "&c點券不足！需要 &6{0} &c你有 &6{1}"
+  FailVault: "&c金幣不足！需要 &6{0}"
+  FailItems: "&c缺少物品: &e{0}"
+  FailPerm: "&c你沒有權限使用此配方！需要: &e{0}"
+  NoEconomy: "&c未安裝 Vault 經濟！"
+  NoRecipe: "&c找不到配方: &e{0}"
+
+Collection:
+  Title: "&8[&b圖鑑&8] "
+  Progress: "&a收集進度"
+  ProgressLine: "&7已收集: &e{0}&7/&e{1}"
+  PageLine: "&7第 {0} / {1} 頁"
+  Owned: "&a✔ 已收集"
+  NotOwned: "&7未收集"
+  RewardJustNow: "&7套裝 &e{0} &7已集齊 &8(&c獎勵已領取過&8)"
+  RewardClaimed: "&a集齊套裝 &e{0} &a，獎勵已發放！"
+
+Inventory:
+  Open:
+    Name: "&8卡片背包"
+  Card:
+    Locked:
+      Name: "&c&l🔒 未解鎖格子"
+      Lore:
+      - "&7需要購買才能使用"
+      - ""
+      - "&e點擊購買 &7花費 &6{0} &7點券"
+    BuySlot:
+      Name: "&a&l⚡ 購買格子"
+      Lore:
+      - "&7花費: &6{0} &7點券"
+      - "&7當前格子數: &e{1}"
+      - "&7下一級: &e{2} &7格"
+      - ""
+      - "&e點擊購買"
+    SellCard:
+      Name: "&c&l💰 販賣卡片"
+      Lore:
+      - "&7將卡片兌換成點券"
+      - "&7販賣倍率: &e{0}x"
+      - ""
+      - "&e點擊開啟"
+    SuitList:
+      Name: "&d&l📖 套裝列表"
+      Lore:
+      - "&7查看所有套裝與進度"
+      - ""
+      - "&e點擊開啟"
+    Collection:
+      Name: "&d&l📖 卡片圖鑑"
+      Lore:
+      - "&7查看已收集的卡片"
+  Sell:
+    Name: "&8販賣卡片"
+    Card:
+      Name: "&e{0}"
+      Lore:
+      - "&7價值: &6{0} &7點券"
+      - ""
+      - "&e左鍵 &7販賣 1 張"
+      - "&e右鍵 &7販賣全部"
+    Confirm:
+      Name: "&a&l✔ 確認販賣"
+      Lore:
+      - "&7販賣全部選中的卡片"
+      - "&7總計: &6{0} &7點券"
+    Cancel:
+      Name: "&c&l✘ 返回"
+      Lore:
+      - "&7返回卡片背包"
+  Suit:
+    Name: "&8套裝列表"
+    Item:
+      Name: "&e{0}"
+      Lore:
+      - "&7進度: &e{1}&7/&e{2}"
+      - "&7狀態: {3}"
+      - ""
+      - "&7效果:"
+      - "{4}"
+    StatusComplete: "&a✔ 已集齊"
+    StatusIncomplete: "&c✘ 未集齊"
+    Back:
+      Name: "&c&l← 返回"
+      Lore:
+      - "&7返回卡片背包"
+
+Points:
+  Player:
+    See: "&8[&d點券&8] &e{0} &7的點券: &6{1} &7點"
+    Add: "&8[&d點券&8] &e你的點券增加了 &6{0} &7點 &3(&l目前 {1}&3)"
+    Take: "&8[&d點券&8] &e你的點券減少了 &6{0} &7點 &3(&l目前 {1}&3)"
+    TopTitle: "&8[&d點券&8] &e點券排行榜"
+    TopItem: "&8[&d點券&8] &b{0}&3. &e{1} &3- &6{2}&3點"
+    TopEnd: "&8[&d點券&8] &e第{0}頁 - 共{1}頁"
+  Admin:
+    Add: "&8[&d點券&8] &e已給玩家 &6{0} &e增加 &6{1} &e點 &3(&l目前 {2}&3)"
+    Take: "&8[&d點券&8] &e已扣玩家 &6{0} &e的 &6{1} &e點 &3(&l目前 {2}&3)"
+    Set: "&8[&d點券&8] &e已設定玩家 &6{0} &e為 &6{1} &e點"
+
+# ================================================
+#   指令文案
+# ================================================
+
+Command:
+  Help:
+    Title: "&8&m----------&r &bLD-CardStats &8&m----------"
+    Bottom: "&8&m----------------------------------"
+    NoPerm: "&c你沒有權限！"
+    PlayerOnly: "&c此指令只能由玩家執行！"
+  List:
+    Title: "&8&m----------&r &b卡片列表 &8&m----------"
+    Bottom: "&8&m----------------------------------"
+  Give:
+    Usage: "&c用法：/ldc give <ID> [玩家] [數量]"
+    NoCard: "&c找不到卡片：&e{0}"
+    NoPlayer: "&c玩家不在線上：&e{0}"
+    NoTarget: "&c請指定玩家！"
+    Success: "&a已給予 &e{0} &a卡片 &e{1} &ax{2}"
+  Top:
+    Title: "&8&m------- &6卡片等級排行榜 &8&m-------"
+    Empty: "&7暫無資料"
+    Line: "&7{0}. &e{1} &7- 總等級 &6{2} &7(&b{3} 張卡)"
+    Footer: "&8&m----- &7第 {0}/{1} 頁 (&e/ldc top <頁> &7翻頁) &8&m-----"
+  Stats:
+    TitleCard: "&8&m------- &b卡片屬性: {0} &8&m-------"
+    TitleSelf: "&8&m------- &b你的屬性總覽 &8&m-------"
+    Bottom: "&8&m----------------------------"
+    NoCard: "&c找不到卡片: &e{0}"
+    NoAttr: "&7(無屬性)"
+    AttrLine: "&7- &e{0} &7: &f{1}"
+    NoBonus: "&7(無屬性加成)"
+  Collection:
+    NoCard: "&c找不到卡片：&e{0}"
+    Jumped: "&a已跳到卡片 &e{0} &a所在頁"
+  Merge:
+    NoRecipe: "&c找不到配方: &e{0}"
+  Save:
+    Usage: "&c用法：/ldc save <ID>"
+    NoItem: "&c你手上沒有物品！"
+    Success: "&a已儲存卡片 &e{0} &a（請手動加到 item.yml）"
+    NameLine: "&7Name: &f{0}"
+    IdLine: "&7ID: &f{0}"
+  Reload:
+    Success: "&a配置已重新載入！（全部）"
+  Unlock:
+    Usage: "&c用法：/ldc unlock <玩家> <頁數>"
+    NoPlayer: "&c玩家不在線上：&e{0}"
+    NoNumber: "&c頁數必須是數字！"
+    OutOfRange: "&c頁數超出範圍（共 {0} 頁）"
+    Already: "&7玩家 &e{0} &7已解鎖到第 &e{1} &7頁"
+    Success: "&a已為 &e{0} &a解鎖至第 &e{1} &a頁"
+    Notify: "&a管理員已為你解鎖至第 &e{0} &a頁"
+  Reset:
+    Usage: "&c用法：/ldc reset <玩家>"
+    NoPlayer: "&c找不到玩家：&e{0}"
+    Success: "&a已清空 &e{0} &a的卡片數據"
+  Remove:
+    Usage: "&c用法：/ldc remove <卡ID> [玩家]"
+    NoCard: "&c找不到卡片：&e{0}"
+    NoPlayer: "&c玩家不在線上：&e{0}"
+    NoTarget: "&c請指定玩家！"
+    NotFound: "&7玩家 &e{0} &7沒有卡片 &e{1}"
+    Success: "&a已刪除 &e{0} &a的 &e{1} &ax{2}"
+  SetStat:
+    Usage: "&c用法：/ldc {0} <玩家> <卡ID> <值>"
+    NoPlayer: "&c玩家不在線上：&e{0}"
+    NoCard: "&c找不到卡片：&e{0}"
+    NoNumber: "&c值必須是數字！"
+    NotFound: "&c玩家沒有卡片：&e{0}"
+    Success: "&a已設定 &e{0} &a的 &e{1} &a的 {2} = &e{3}"
+    ExpSuccess: "&a已為 &e{0} &a的 &e{1} &a增加 &e{2} &a經驗"
+    ExpLevelUp: "&a已為 &e{0} &a的 &e{1} &a增加 &e{2} &a經驗，升級 &e{3} &a次"
+    ExpNotify: "&a你的卡片 &e{0} &a升級了 &e{1} &a次！"
+  Info:
+    Usage: "&c用法：/ldc info <卡ID>"
+    NoCard: "&c找不到卡片：&e{0}"
+    Title: "&8&m------- &b卡片資訊: {0} &8&m-------"
+    Id: "&7ID: &e{0}"
+    Name: "&7Name: &f{0}"
+    MaxLevel: "&7MaxLevel: &e{0}"
+    MaxStar: "&7MaxStar: &e{0}"
+    Attrs: "&7屬性:"
+    AttrLine: "  &e{0} &7Base=&f{1} &7Growth=&f{2} &7Max=&f{3} &7Mode=&f{4}"
+    NoUpgrade: "&7(無升級配置)"
+    Bottom: "&8&m----------------------------"
+  Msg:
+    Usage: "&c用法：/ldc msg <key> [args...]"
+    Result: "&7[{0}] &r{1}"
+
+# ================================================
+#   属性面板显示名（多语言）
+#   key = 属性内部名（config.yml 里的原名）
+#   value = 面板显示的名称
+# ================================================
+
+
+# ================================================
+#   属性面板显示名（繁体）
+# ================================================
+
+Attr:
+  攻擊力: "&c&l攻擊力"
+  防禦力: "&b&l防禦力"
+  生命上限: "&a&l生命上限"
+  暴擊機率: "&6&l暴擊機率"
+  暴擊傷害: "&c&l暴擊傷害"
+  破甲: "&7&l破甲"
+  吸血: "&4&l吸血"
+  韌性: "&b&l韌性"
+  閃避: "&f&l閃避"
+  格擋: "&7&l格擋"
+  反射: "&f&l反射"
+  PVP攻击力: "&c&lPVP攻擊力"
+  PVE攻击力: "&e&lPVE攻擊力"
+  远程伤害: "&a&l遠程傷害"
+  法术伤害: "&5&l法術傷害"
+  法术穿透: "&d&l法術穿透"
+  法术防御: "&5&l法術防禦"
+  法术吸血: "&4&l法術吸血"
+  法术暴击几率: "&e&l法術暴擊機率"
+  法术暴击倍率: "&e&l法術暴擊倍率"
+  法力上限: "&9&l法力上限"
+  法力恢复: "&9&l法力恢復"
+  速度百分比: "&f&l速度百分比"
+  移動速度: "&f&l移動速度"
+  攻击速度: "&e&l攻擊速度"
+  幸运: "&a&l幸運"
+  生命恢复: "&a&l生命恢復"
+  击退抗性: "&7&l擊退抗性"
+  盾牌减伤: "&7&l盾牌減傷"
+  暴击抵抗: "&b&l暴擊抵抗"
+  吸血抵抗: "&7&l吸血抵抗"
+  远程护甲: "&6&l遠程護甲"
+  燃烧几率: "&c&l燃燒機率"
+  燃烧伤害: "&6&l燃燒傷害"
+  箭矢速度: "&a&l箭矢速度"
+  箭矢精准: "&a&l箭矢精準"
+  箭矢穿透数: "&a&l箭矢穿透數"
+  點燃: "&c&l點燃"
+  閃電: "&e&l閃電"
+  中毒: "&2&l中毒"
+  凋零: "&8&l凋零"
+  失明: "&0&l失明"
+  緩速: "&a&l緩速"
+  暴擊: "&6&l暴擊"
+  真實傷害: "&f&l真實傷害"
+  命中率: "&f&l命中率"
+  經驗加成: "&a&l經驗加成"
+  事件訊息: "&7&l事件訊息"
+  PVP防御: "&b&lPVP防禦"
+  PVE防御: "&b&lPVE防禦"
+  技能极速: "&e&l技能極速"

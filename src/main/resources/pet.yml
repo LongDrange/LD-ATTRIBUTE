@@ -1,0 +1,249 @@
+# ================================================
+#   宠物系统配置
+#
+#   Settings:
+#     DefaultSlots: 一般玩家可放几个宠物
+#     PermissionSlots: 权限 → 槽位数
+#     MaxPages: 最大页数
+#     ExpPerKill: 击杀怪物获得的经验
+#     ExpPerFeed: 喂食（用道具）获得的经验
+#
+#   Pets:
+#     Type: 原版实体类型
+#     Attributes: 给主人的属性加成
+#     每级 +LevelGrowth% 的属性成长
+#
+#   Evolution: 进化配置
+#     To: 进化后宠物ID
+#     Level: 需要等级
+#     Materials: 需要材料 ["DIAMOND:64"]
+# ================================================
+
+Settings:
+  DefaultSlots: 3
+  PermissionSlots:
+    "ldattribute.pet.slots.4": 4
+    "ldattribute.pet.slots.5": 5
+  MaxPages: 3
+  ExpPerKill: 5
+  ExpPerFeed: 50
+  LevelGrowth: 0.05
+
+Pets:
+  wolf:
+    Name: "&7&l狼灵"
+    Type: WOLF
+    Baby: false
+    Health: 100
+    Damage: 15
+    Speed: 0.3
+    Glowing: true
+    Rarity: COMMON
+    Attributes:
+    - "&c攻击力: +30"
+    - "&cPVP攻击力: +20"
+    MaxLevel: 20
+    BaseExp: 100
+    ExpGrowth: 1.3
+    Evolution:
+      To: dire_wolf
+      Level: 20
+      Materials: ["DIAMOND:64", "BONE:32"]
+
+  dire_wolf:
+    Name: "&5&l幽冥狼"
+    Type: WOLF
+    Baby: false
+    Health: 300
+    Damage: 40
+    Speed: 0.4
+    Glowing: true
+    Rarity: RARE
+    Attributes:
+    - "&4攻击力: +100"
+    - "&4PVP攻击力: +80"
+    - "&c暴击机率: +15"
+    MaxLevel: 40
+    BaseExp: 300
+    ExpGrowth: 1.25
+
+  cat:
+    Name: "&d&l灵猫"
+    Type: OCELOT
+    Baby: false
+    Health: 80
+    Damage: 8
+    Speed: 0.4
+    Glowing: true
+    Rarity: COMMON
+    Attributes:
+    - "&d速度百分比: +15"
+    - "&f闪避: +10"
+    - "&a生命恢复: +3"
+    MaxLevel: 20
+    BaseExp: 100
+    ExpGrowth: 1.3
+    Evolution:
+      To: spirit_cat
+      Level: 20
+      Materials: ["EMERALD:64", "STRING:32"]
+
+  spirit_cat:
+    Name: "&d&l灵韵猫"
+    Type: OCELOT
+    Baby: false
+    Health: 200
+    Damage: 20
+    Speed: 0.5
+    Glowing: true
+    Rarity: RARE
+    Attributes:
+    - "&d速度百分比: +40"
+    - "&f闪避: +30"
+    - "&a生命恢复: +10"
+    - "&5法术伤害: +50"
+    MaxLevel: 40
+    BaseExp: 300
+    ExpGrowth: 1.25
+
+  blaze:
+    Name: "&6&l烈焰使者"
+    Type: BLAZE
+    Baby: false
+    Health: 200
+    Damage: 25
+    Speed: 0.2
+    Glowing: true
+    Rarity: RARE
+    Attributes:
+    - "&c攻击力: +50"
+    - "&c燃烧几率: +10"
+    - "&c燃烧伤害: +5"
+    MaxLevel: 30
+    BaseExp: 300
+    ExpGrowth: 1.25
+    Evolution:
+      To: inferno_lord
+      Level: 30
+      Materials: ["BLAZE_ROD:64", "NETHER_STAR:5"]
+
+  inferno_lord:
+    Name: "&4&l炼狱领主"
+    Type: BLAZE
+    Baby: false
+    Health: 600
+    Damage: 60
+    Speed: 0.3
+    Glowing: true
+    Rarity: EPIC
+    Attributes:
+    - "&4攻击力: +200"
+    - "&4PVP攻击力: +150"
+    - "&c燃烧几率: +30"
+    - "&c燃烧伤害: +20"
+    - "&c暴击机率: +25"
+    MaxLevel: 60
+    BaseExp: 1000
+    ExpGrowth: 1.2
+
+  witch:
+    Name: "&5&l咒术师"
+    Type: WITCH
+    Baby: false
+    Health: 150
+    Damage: 10
+    Speed: 0.2
+    Glowing: true
+    Rarity: RARE
+    Attributes:
+    - "&5法术伤害: +80"
+    - "&9法力上限: +200"
+    - "&9法力恢复: +5"
+    MaxLevel: 30
+    BaseExp: 300
+    ExpGrowth: 1.25
+    Evolution:
+      To: arcane_master
+      Level: 30
+      Materials: ["NETHER_STAR:10", "REDSTONE:64"]
+
+  arcane_master:
+    Name: "&5&l奥术大师"
+    Type: WITCH
+    Baby: false
+    Health: 400
+    Damage: 30
+    Speed: 0.3
+    Glowing: true
+    Rarity: EPIC
+    Attributes:
+    - "&5法术伤害: +250"
+    - "&5法术穿透: +80"
+    - "&5法术暴击几率: +20"
+    - "&9法力上限: +1000"
+    - "&9法力恢复: +20"
+    MaxLevel: 60
+    BaseExp: 1000
+    ExpGrowth: 1.2
+
+  skeleton_horse:
+    Name: "&f&l骷髅马"
+    Type: SKELETON_HORSE
+    Baby: false
+    Health: 250
+    Damage: 20
+    Speed: 0.4
+    Glowing: true
+    Rarity: RARE
+    Attributes:
+    - "&c攻击力: +60"
+    - "&d速度百分比: +20"
+    - "&a生命上限: +500"
+    MaxLevel: 30
+    BaseExp: 300
+    ExpGrowth: 1.25
+
+  dragon:
+    Name: "&4&l黑龙"
+    Type: ENDER_DRAGON
+    Baby: true
+    Health: 500
+    Damage: 50
+    Speed: 0.1
+    Glowing: true
+    Rarity: LEGENDARY
+    Attributes:
+    - "&4攻击力: +150"
+    - "&4PVP攻击力: +100"
+    - "&5法术伤害: +100"
+    - "&a生命上限: +1500"
+    - "&b防御力: +150"
+    MaxLevel: 50
+    BaseExp: 1000
+    ExpGrowth: 1.2
+    Evolution:
+      To: black_dragon_god
+      Level: 50
+      Materials: ["DRAGON_EGG:1", "NETHER_STAR:64"]
+
+  black_dragon_god:
+    Name: "&4&l&kXX&r &c&l黑龙神 &4&l&kXX&r"
+    Type: ENDER_DRAGON
+    Baby: true
+    Health: 2000
+    Damage: 150
+    Speed: 0.2
+    Glowing: true
+    Rarity: MYTHIC
+    Attributes:
+    - "&4攻击力: +500"
+    - "&4PVP攻击力: +400"
+    - "&4PVE攻击力: +400"
+    - "&5法术伤害: +400"
+    - "&a生命上限: +5000"
+    - "&b防御力: +500"
+    - "&c暴击机率: +50"
+    - "&a吸血: +50"
+    MaxLevel: 100
+    BaseExp: 5000
+    ExpGrowth: 1.15

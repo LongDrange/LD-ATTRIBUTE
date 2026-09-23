@@ -1,0 +1,271 @@
+Sockets:
+  攻击孔:
+    Name: "&c攻击孔"
+    AllowedTypes: [ATTACK]
+    UnlockCost:
+      Points: 5000
+      Items: ["DIAMOND:16"]
+  防御孔:
+    Name: "&b防御孔"
+    AllowedTypes: [DEFENSE]
+    UnlockCost:
+      Points: 5000
+      Items: ["DIAMOND:16"]
+  法术孔:
+    Name: "&5法术孔"
+    AllowedTypes: [MAGIC]
+    UnlockCost:
+      Points: 8000
+      Items: ["NETHER_STAR:1"]
+  通用孔:
+    Name: "&f通用孔"
+    AllowedTypes: [ATTACK, DEFENSE, MAGIC, UTILITY]
+    UnlockCost:
+      Points: 20000
+      Items: ["NETHER_STAR:3"]
+  特殊孔:
+    Name: "&6特殊孔"
+    AllowedTypes: [SPECIAL]
+    UnlockCost:
+      Points: 100000
+      Items: ["NETHER_STAR:10"]
+
+CardSockets:
+  default:
+  - "攻击孔"
+  - "防御孔"
+  - "通用孔"
+
+Runes:
+  attack_1:
+    Name: "&c攻击符文 I"
+    Type: ATTACK
+    Material: REDSTONE
+    Recipe:
+      Points: 1000
+      Items: ["REDSTONE:8", "IRON_INGOT:4"]
+    UpgradeTo: "attack_2"
+    Attributes: ["&c攻击力: +10", "&c暴击机率: +2"]
+  attack_2:
+    Name: "&c攻击符文 II"
+    Type: ATTACK
+    Material: BRICK
+    UpgradeTo: "attack_3"
+    Attributes: ["&c攻击力: +25", "&c暴击机率: +4", "&c暴击伤害: +10"]
+  attack_3:
+    Name: "&c攻击符文 III"
+    Type: ATTACK
+    Material: IRON_INGOT
+    UpgradeTo: "attack_4"
+    Attributes: ["&c攻击力: +60", "&c暴击机率: +8", "&c暴击伤害: +25"]
+  attack_4:
+    Name: "&6攻击符文 IV"
+    Type: ATTACK
+    Material: GOLD_INGOT
+    UpgradeTo: "attack_5"
+    Attributes: ["&c攻击力: +120", "&c暴击机率: +12", "&c暴击伤害: +50", "&cPVP攻击力: +30"]
+  attack_5:
+    Name: "&6&l攻击符文 V"
+    Type: ATTACK
+    Material: BLAZE_POWDER
+    UpgradeTo: "attack_6"
+    Attributes: ["&c攻击力: +250", "&c暴击机率: +18", "&c暴击伤害: +80", "&cPVP攻击力: +100"]
+  attack_6:
+    Name: "&4&l攻击符文 VI"
+    Type: ATTACK
+    Material: NETHER_STAR
+    Attributes: ["&c攻击力: +500", "&c暴击机率: +25", "&c暴击伤害: +120", "&cPVP攻击力: +200"]
+  defense_1:
+    Name: "&b防御符文 I"
+    Type: DEFENSE
+    Material: LEATHER
+    Recipe:
+      Points: 1000
+      Items: ["IRON_INGOT:8", "LEATHER:4"]
+    UpgradeTo: "defense_2"
+    Attributes: ["&b防御力: +10", "&a生命上限: +50"]
+  defense_2:
+    Name: "&b防御符文 II"
+    Type: DEFENSE
+    Material: IRON_INGOT
+    UpgradeTo: "defense_3"
+    Attributes: ["&b防御力: +25", "&a生命上限: +150", "&b暴击抵抗: +5"]
+  defense_3:
+    Name: "&b防御符文 III"
+    Type: DEFENSE
+    Material: DIAMOND
+    UpgradeTo: "defense_4"
+    Attributes: ["&b防御力: +60", "&a生命上限: +400", "&b暴击抵抗: +10", "&b韧性: +20"]
+  defense_4:
+    Name: "&3防御符文 IV"
+    Type: DEFENSE
+    Material: DIAMOND_BLOCK
+    UpgradeTo: "defense_5"
+    Attributes: ["&b防御力: +120", "&a生命上限: +800", "&b暴击抵抗: +15", "&b韧性: +50", "&a生命恢复: +3"]
+  defense_5:
+    Name: "&3&l防御符文 V"
+    Type: DEFENSE
+    Material: EMERALD_BLOCK
+    UpgradeTo: "defense_6"
+    Attributes: ["&b防御力: +250", "&a生命上限: +1500", "&b暴击抵抗: +25", "&b韧性: +100", "&a生命恢复: +8"]
+  defense_6:
+    Name: "&9&l防御符文 VI"
+    Type: DEFENSE
+    Material: DRAGON_EGG
+    Attributes: ["&b防御力: +500", "&a生命上限: +3000", "&b暴击抵抗: +35", "&b韧性: +200", "&a生命恢复: +15"]
+  magic_1:
+    Name: "&5法术符文 I"
+    Type: MAGIC
+    Material: LAPIS_LAZULI
+    Recipe:
+      Points: 1500
+      Items: ["LAPIS_LAZULI:8", "ENDER_PEARL:2"]
+    UpgradeTo: "magic_2"
+    Attributes: ["&5法术伤害: +15", "&9法力上限: +50"]
+  magic_2:
+    Name: "&5法术符文 II"
+    Type: MAGIC
+    Material: LAPIS_BLOCK
+    UpgradeTo: "magic_3"
+    Attributes: ["&5法术伤害: +40", "&9法力上限: +150", "&9法力恢复: +3"]
+  magic_3:
+    Name: "&5法术符文 III"
+    Type: MAGIC
+    Material: ENDER_PEARL
+    UpgradeTo: "magic_4"
+    Attributes: ["&5法术伤害: +90", "&9法力上限: +400", "&9法力恢复: +8", "&5法术暴击几率: +5"]
+  magic_4:
+    Name: "&d法术符文 IV"
+    Type: MAGIC
+    Material: ENDER_EYE
+    UpgradeTo: "magic_5"
+    Attributes: ["&5法术伤害: +180", "&9法力上限: +800", "&9法力恢复: +15", "&5法术暴击几率: +10", "&5法术穿透: +20"]
+  magic_5:
+    Name: "&d&l法术符文 V"
+    Type: MAGIC
+    Material: ENDER_CHEST
+    UpgradeTo: "magic_6"
+    Attributes: ["&5法术伤害: +350", "&9法力上限: +1500", "&9法力恢复: +25", "&5法术暴击几率: +15", "&5法术穿透: +60"]
+  magic_6:
+    Name: "&5&l法术符文 VI"
+    Type: MAGIC
+    Material: NETHER_STAR
+    Attributes: ["&5法术伤害: +600", "&9法力上限: +3000", "&9法力恢复: +40", "&5法术暴击几率: +25", "&5法术穿透: +150"]
+  utility_1:
+    Name: "&f疾风符文 I"
+    Type: UTILITY
+    Material: SUGAR
+    Recipe:
+      Points: 800
+      Items: ["SUGAR:8", "FEATHER:4"]
+    UpgradeTo: "utility_2"
+    Attributes: ["&d速度百分比: +3", "&f闪避: +2"]
+  utility_2:
+    Name: "&f疾风符文 II"
+    Type: UTILITY
+    Material: FEATHER
+    UpgradeTo: "utility_3"
+    Attributes: ["&d速度百分比: +6", "&f闪避: +4", "&f命中率: +10"]
+  utility_3:
+    Name: "&f疾风符文 III"
+    Type: UTILITY
+    Material: RABBIT_FOOT
+    UpgradeTo: "utility_4"
+    Attributes: ["&d速度百分比: +10", "&f闪避: +7", "&f命中率: +25", "&f破甲: +30"]
+  utility_4:
+    Name: "&e疾风符文 IV"
+    Type: UTILITY
+    Material: GOLDEN_CARROT
+    UpgradeTo: "utility_5"
+    Attributes: ["&d速度百分比: +15", "&f闪避: +10", "&f命中率: +50", "&f破甲: +80", "&c吸血: +3"]
+  utility_5:
+    Name: "&e&l疾风符文 V"
+    Type: UTILITY
+    Material: GOLD_BLOCK
+    UpgradeTo: "utility_6"
+    Attributes: ["&d速度百分比: +22", "&f闪避: +15", "&f命中率: +100", "&f破甲: +150", "&c吸血: +6"]
+  utility_6:
+    Name: "&6&l疾风符文 VI"
+    Type: UTILITY
+    Material: NETHER_STAR
+    Attributes: ["&d速度百分比: +30", "&f闪避: +20", "&f命中率: +200", "&f破甲: +300", "&c吸血: +10"]
+  special_1:
+    Name: "&6龙纹符文 I"
+    Type: SPECIAL
+    Material: GOLD_NUGGET
+    Recipe:
+      Points: 5000
+      Items: ["GOLD_INGOT:8", "GOLD_NUGGET:16"]
+    UpgradeTo: "special_2"
+    Attributes: ["&c攻击力: +8", "&b防御力: +8", "&a生命上限: +40"]
+  special_2:
+    Name: "&6龙纹符文 II"
+    Type: SPECIAL
+    Material: GOLD_INGOT
+    UpgradeTo: "special_3"
+    Attributes: ["&c攻击力: +20", "&b防御力: +20", "&a生命上限: +120", "&c暴击机率: +3"]
+  special_3:
+    Name: "&6龙纹符文 III"
+    Type: SPECIAL
+    Material: GOLD_BLOCK
+    UpgradeTo: "special_4"
+    Attributes: ["&c攻击力: +50", "&b防御力: +50", "&a生命上限: +300", "&c暴击机率: +6", "&a暴击伤害: +20"]
+  special_4:
+    Name: "&6&l龙纹符文 IV"
+    Type: SPECIAL
+    Material: DIAMOND_BLOCK
+    UpgradeTo: "special_5"
+    Attributes: ["&c攻击力: +100", "&b防御力: +100", "&a生命上限: +700", "&c暴击机率: +10", "&a暴击伤害: +40", "&b暴击抵抗: +8"]
+  special_5:
+    Name: "&6&l龙纹符文 V"
+    Type: SPECIAL
+    Material: EMERALD_BLOCK
+    UpgradeTo: "special_6"
+    Attributes: ["&c攻击力: +200", "&b防御力: +200", "&a生命上限: +1500", "&c暴击机率: +15", "&a暴击伤害: +70", "&b暴击抵抗: +15"]
+  special_6:
+    Name: "&4&l龙纹符文 VI"
+    Type: SPECIAL
+    Material: DRAGON_EGG
+    Attributes: ["&c攻击力: +400", "&b防御力: +400", "&a生命上限: +3000", "&c暴击机率: +25", "&a暴击伤害: +100", "&b暴击抵抗: +25"]
+  season_1:
+    Name: "&e赛季符文 I"
+    Type: SPECIAL
+    Material: BLAZE_ROD
+    UpgradeTo: "season_2"
+    Attributes: ["&c攻击力: +150", "&a暴击伤害: +50", "&f命中率: +100"]
+  season_2:
+    Name: "&e&l赛季符文 II"
+    Type: SPECIAL
+    Material: BLAZE_ROD
+    UpgradeTo: "season_3"
+    Attributes: ["&c攻击力: +300", "&a暴击伤害: +80", "&f命中率: +200", "&cPVP攻击力: +150"]
+  season_3:
+    Name: "&6&l赛季符文 III"
+    Type: SPECIAL
+    Material: BLAZE_ROD
+    Attributes: ["&c攻击力: +500", "&a暴击伤害: +120", "&f命中率: +350", "&cPVP攻击力: +250", "&cPVE攻击力: +250"]
+  event_xmas:
+    Name: "&f&l圣诞符文"
+    Type: UTILITY
+    Material: SNOW_BALL
+    Attributes: ["&c攻击力: +100", "&b防御力: +100", "&a生命上限: +800", "&a暴击伤害: +30"]
+  event_qixi:
+    Name: "&d&l七夕符文"
+    Type: UTILITY
+    Material: PINK_DYE
+    Attributes: ["&c攻击力: +120", "&b防御力: +150", "&a生命上限: +1000", "&a暴击伤害: +40"]
+  fate_atk:
+    Name: "&4&l命运审判·攻"
+    Type: SPECIAL
+    Material: NETHER_STAR
+    Attributes: ["&c攻击力: +800", "&cPVP攻击力: +400", "&c暴击机率: +30", "&a暴击伤害: +150"]
+  fate_def:
+    Name: "&4&l命运审判·守"
+    Type: SPECIAL
+    Material: NETHER_STAR
+    Attributes: ["&b防御力: +800", "&a生命上限: +5000", "&b暴击抵抗: +40", "&b韧性: +300"]
+  fate_mix:
+    Name: "&4&l命运审判·合"
+    Type: SPECIAL
+    Material: NETHER_STAR
+    Attributes: ["&c攻击力: +400", "&b防御力: +400", "&a生命上限: +2500", "&c暴击机率: +15", "&a暴击伤害: +75", "&b暴击抵抗: +20"]

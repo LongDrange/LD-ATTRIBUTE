@@ -1,0 +1,28 @@
+# ================================================
+#   属性克制系统
+#   Elements: 定义元素及其克制关系
+#     Beats: 克制哪些元素（伤害 ×1.5）
+#     WeakTo: 被哪些元素克制（伤害 ×0.75）
+# ================================================
+
+Elements:
+  FIRE:
+    Name: "&c火"
+    Beats: [ICE, NATURE]
+  ICE:
+    Name: "&b冰"
+    Beats: [LIGHTNING, FIRE]
+  LIGHTNING:
+    Name: "&e雷"
+    Beats: [WATER, ICE]
+  WATER:
+    Name: "&9水"
+    Beats: [FIRE]
+  NATURE:
+    Name: "&a木"
+    Beats: [WATER]
+
+# 克制伤害倍率
+StrongMultiplier: 1.5
+# 被克伤害倍率
+WeakMultiplier: 0.75

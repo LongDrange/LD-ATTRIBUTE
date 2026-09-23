@@ -1,0 +1,85 @@
+# ================================================
+#   限時 Buff
+#   Trigger.Event: PLAYER_ATTACK / PLAYER_KILL / PLAYER_DAMAGED
+#   Chance: 觸發機率 0.0 ~ 1.0
+#   Duration: 持續秒數
+#   Cooldown: 冷卻秒數
+#   Effects: 屬性 Lore（與卡片同格式）
+#   Message: 觸發時給玩家的訊息（可留空）
+# ================================================
+
+Buffs:
+  crit_frenzy:
+    Trigger:
+      Event: "PLAYER_ATTACK"
+      Chance: 0.3
+    Duration: 5
+    Cooldown: 30
+    Message: "&6✦ 暴擊狂熱啟動！攻擊力 +20 (5秒)"
+    Effects:
+    - "&c攻击力: +20"
+
+  bloodlust:
+    Trigger:
+      Event: "PLAYER_KILL"
+      Chance: 1.0
+    Duration: 10
+    Cooldown: 60
+    Message: "&c✦ 嗜血沸騰！攻擊力 +50 (10秒)"
+    Effects:
+    - "&c攻击力: +50"
+    - "&c吸血: +10"
+
+  iron_will:
+    Trigger:
+      Event: "PLAYER_DAMAGED"
+      Chance: 0.2
+    Duration: 8
+    Cooldown: 45
+    Message: "&b✦ 鋼鐵意志！防禦力 +30 (8秒)"
+    Effects:
+    - "&b防御力: +30"
+
+  crit_strike:
+    Trigger:
+      Event: "PLAYER_CRITICAL"
+      Chance: 1.0
+    Duration: 3
+    Cooldown: 20
+    Message: "&e✦ 暴擊強化！攻擊力 +30 (3秒)"
+    Effects:
+    - "&c攻击力: +30"
+
+  crit_defense:
+    Trigger:
+      Event: "PLAYER_BE_CRITICAL"
+      Chance: 1.0
+    Duration: 5
+    Cooldown: 30
+    Message: "&b✦ 堅毅！防禦力 +40 (5秒)"
+    Effects:
+    - "&b防御力: +40"
+
+  last_stand:
+    Trigger:
+      Event: "PLAYER_LOW_HP"
+      Chance: 1.0
+      Threshold: 30
+    Duration: 10
+    Cooldown: 120
+    Message: "&c✦ 背水一戰！攻擊力 +100 (10秒)"
+    Effects:
+    - "&c攻击力: +100"
+    - "&a吸血: +30"
+
+  killing_spree:
+    Trigger:
+      Event: "PLAYER_KILL_STREAK"
+      Chance: 1.0
+      Streak: 5
+    Duration: 30
+    Cooldown: 0
+    Message: "&6✦ 大殺特殺！攻擊力 +50 防禦力 +50 (30秒)"
+    Effects:
+    - "&c攻击力: +50"
+    - "&b防御力: +50"
