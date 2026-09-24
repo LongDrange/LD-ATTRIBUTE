@@ -8,3 +8,5 @@ Thumbs.db
 *.log
 TESTSERVER/
 dump-*.txt
+
+dump-*.txt
