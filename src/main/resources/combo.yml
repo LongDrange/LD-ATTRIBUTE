@@ -1,0 +1,92 @@
+# ============================================================
+#  [分类] 卡片
+#  [文件] combo.yml
+#  [功能] 卡片组合技能：多卡组合触发战斗效果
+#  [重载] /ldc reload combo
+#  [路径] plugins/LD-Attribute/combo.yml
+# ============================================================
+# ================================================
+#   卡片组合技能
+#   满足条件后触发战斗效果
+#   Effect 类型:
+#     LIGHTNING_ON_HIT  攻击时额外闪电伤害（EffectValue = 伤害值）
+#     FIRE_ON_HIT       攻击时点燃目标
+#     LIFESTEAL_ON_HIT  攻击吸血（EffectValue = %）
+#     DAMAGE_REDUCE     受伤减伤（EffectValue = %）
+#     HEAL_ON_KILL      击杀回血（EffectValue = 血量）
+#     THORNS            反伤（EffectValue = %）
+# ================================================
+
+Combos:
+  three_heroes:
+    Name: "&d三侠合璧"
+    Description: "同时装备 孙逊 + 貂蝉 + 庞德"
+    Cards: [孙逊, 貂蝉, 庞德]
+    Required: 3
+    Attributes:
+    - "攻击力: +50"
+    - "生命上限: +500"
+    Effect: LIFESTEAL_ON_HIT
+    EffectValue: 10
+    Message: "&d✦ 三侠合璧已激活"
+
+  dragon_pair:
+    Name: "&6双龙会"
+    Description: "同时装备 赵云神 + 关羽神"
+    Cards: [zhaoyun_god_t5, guanyu_god_t5]
+    Required: 2
+    Attributes:
+    - "PVP攻击力: +200"
+    - "暴击伤害: +50"
+    Effect: LIGHTNING_ON_HIT
+    EffectValue: 50
+    Message: "&6✦ 双龙会已激活"
+
+  wei_emperor:
+    Name: "&c魏武帝"
+    Description: "同时装备 曹操 + 张飞"
+    Cards: [caocao_t5, zhangfei_t2]
+    Required: 2
+    Attributes:
+    - "攻击力: +100"
+    - "破甲: +30"
+    Effect: FIRE_ON_HIT
+    EffectValue: 0
+    Message: "&c✦ 魏武帝已激活"
+
+  shu_king:
+    Name: "&a蜀汉仁君"
+    Description: "同时装备 刘备 + 孙权"
+    Cards: [liubei_t5, sunquan_t5]
+    Required: 2
+    Attributes:
+    - "生命上限: +1000"
+    - "防御力: +100"
+    Effect: DAMAGE_REDUCE
+    EffectValue: 15
+    Message: "&a✦ 蜀汉仁君已激活"
+
+  fire_water:
+    Name: "&9水火既济"
+    Description: "同时装备 周瑜 + 孙尚香"
+    Cards: [zhouyu_t25, sunshangxiang_t25]
+    Required: 2
+    Attributes:
+    - "法术伤害: +150"
+    - "攻击力: +80"
+    Effect: THORNS
+    EffectValue: 20
+    Message: "&9✦ 水火既济已激活"
+
+  lifeweaver:
+    Name: "&a&l生命守护"
+    Description: "同时装备 刘备 + 孙权 + 曹操"
+    Cards: [liubei_t5, sunquan_t5, caocao_t5]
+    Required: 3
+    Attributes:
+    - "生命上限: +2000"
+    - "生命恢复: +20"
+    - "防御力: +200"
+    Effect: HEAL_ON_KILL
+    EffectValue: 100
+    Message: "&a✦ 生命守护已激活"

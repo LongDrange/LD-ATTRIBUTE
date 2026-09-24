@@ -344,3 +344,377 @@ Backup:
 ---
 
 > 文档更新：2026-09-24
+
+---
+
+## 9. 物品类型系统
+
+所有物品有唯一类型，GUI 中不能混用：
+
+| 类型 | 说明 |
+|---|---|
+| `CARD` | 卡牌 |
+| `RUNE` | 符文 |
+| `PET_EGG` | 宠物蛋 |
+| `PET_EQUIP` | 宠物装备 |
+| `EXP_STONE` | 经验石 |
+| `SPELL_BOOK` | 法术书 |
+| `MATERIAL` | 材料 |
+
+**校验点**：
+- 宠物背包空槽 → 只接受 `PET_EGG`
+- 经验石升级 → 只接受 `CARD`
+- 宠物装备槽 → 只接受 `PET_EQUIP` + 槽位匹配
+
+**兼容旧物品**：无类型标记时通过 NBT 推断（`pet_egg` / `ld_rune_id` / `card_id` 等）。
+
+---
+
+## 10. 宠物装备
+
+配置文件：`pet_equipment.yml`
+
+```yaml
+Equipments:
+  iron_fang:
+    Name: "&7铁牙"
+    Slot: WEAPON       # WEAPON / ARMOR / ACCESSORY
+    Material: IRON_SWORD
+    Description: "宠物的利齿"
+    Attributes:
+    - "攻击力: +20"
+```
+
+**槽位**：
+- `WEAPON` 武器
+- `ARMOR` 护甲
+- `ACCESSORY` 饰品
+
+**指令**：
+```
+/ldc petequip list           列出所有装备
+/ldc petequip give <id> [玩家] [数量]   发装备
+```
+
+**操作**：宠物详情 → 手拿装备 → 点对应槽位 → 装备。再点取出。
+
+---
+
+## 11. 元素反应
+
+配置文件：`element.yml` → `Reactions` 段
+
+```yaml
+Reactions:
+  vaporize:
+    Name: "&6蒸发"
+    Elements: [FIRE, WATER]
+    DamageMultiplier: 1.5
+    Effect: BURN         # BURN / SLOW / WEAK / HEAL
+    Message: "&6✦ 蒸发反应！"
+```
+
+**内置 9 种反应**：蒸发 / 融化（双向）/ 超载 / 感电 / 冻结 / 超导 / 燃烧 / 绽放
+
+触发条件：攻击者元素 + 受害者元素匹配。
+
+---
+
+## 12. 卡片组合技能
+
+配置文件：`combo.yml`
+
+```yaml
+Combos:
+  three_heroes:
+    Name: "&d三侠合璧"
+    Description: "同时装备 孙逊 + 貂蝉 + 庞德"
+    Cards: [孙逊, 貂蝉, 庞德]
+    Required: 3
+    Attributes:
+    - "攻击力: +50"
+    Effect: LIFESTEAL_ON_HIT
+    EffectValue: 10
+    Message: "&d✦ 三侠合璧已激活"
+```
+
+**Effect 类型**：
+
+| Effect | 效果 | EffectValue 含义 |
+|---|---|---|
+| `LIGHTNING_ON_HIT` | 攻击落雷 + 额外伤害 | 伤害值 |
+| `FIRE_ON_HIT` | 攻击点燃目标 | — |
+| `LIFESTEAL_ON_HIT` | 攻击吸血 | % |
+| `DAMAGE_REDUCE` | 受伤减伤 | % |
+| `HEAL_ON_KILL` | 击杀回血 | 血量 |
+| `THORNS` | 反伤 | % |
+
+---
+
+## 13. 成就系统
+
+配置文件：`achievement.yml`
+
+```yaml
+Achievements:
+  collect_cards_10:
+    Name: "&e卡片爱好者"
+    Description: "收集 10 张不同卡片"
+    Type: CARD_COUNT
+    Target: 10
+    Icon: PAPER
+    Category: COLLECTION
+    Reward:
+      Points: 3000
+      Cards: ["孙逊:1"]
+      Runes: ["attack_2:1"]
+```
+
+**Type 类型**：
+- `CARD_COUNT` 卡片收集数（快照）
+- `RUNE_COLLECT` 符文图鉴数（快照）
+- `PET_COLLECT` 宠物收集数（快照）
+- `LEVEL_UP` / `STAR_UP` / `MERGE` / `KILL` / `RUNE_EQUIP`（累加）
+- `POINTS` 点券数（快照）
+
+**指令**：`/ldc achievement`
+
+**奖励**：`Points` / `Cards` / `Runes` / `Commands`
+
+---
+
+## 14. 抽奖系统
+
+配置文件：`gacha.yml`
+
+```yaml
+Gachas:
+  normal:
+    Name: "&a普通抽奖"
+    Icon: CHEST
+    Cost:
+      Points: 1000
+      Items: []
+    Pools:
+    - "孙逊:50"                # 卡片:权重
+    - "rune:attack_1:40"       # rune:符文ID:权重
+    Pity:
+      Enabled: true
+      Count: 50
+      Guarantee: "zhaoyun_t2"
+```
+
+**指令**：
+```
+/ldc gacha                    打开抽奖界面
+/ldc gacha list               列出卡池
+/ldc gacha draw <id>          直接抽
+```
+
+**保底**：连续 N 次未中 Guarantee 时强制获得。
+
+---
+
+## 15. 幸运掉落
+
+基础幸运 = 100%（每位玩家无需装备）
+
+| 幸运 | 掉落次数 |
+|---|---|
+| 100% | 1 次 |
+| 150% | 1 次 + 50% 概率额外 1 次 |
+| 200% | 2 次 |
+| 300% | 3 次 |
+
+**生效范围**：MM 掉落（`DropToCards` + `RuneDrops`），原版怪不受影响。
+
+---
+
+> 文档更新：2026-09-24
+
+---
+
+## 9. 物品类型系统
+
+所有物品有唯一类型，GUI 中不能混用：
+
+| 类型 | 说明 |
+|---|---|
+| `CARD` | 卡牌 |
+| `RUNE` | 符文 |
+| `PET_EGG` | 宠物蛋 |
+| `PET_EQUIP` | 宠物装备 |
+| `EXP_STONE` | 经验石 |
+| `SPELL_BOOK` | 法术书 |
+| `MATERIAL` | 材料 |
+
+**校验点**：
+- 宠物背包空槽 → 只接受 `PET_EGG`
+- 经验石升级 → 只接受 `CARD`
+- 宠物装备槽 → 只接受 `PET_EQUIP` + 槽位匹配
+
+**兼容旧物品**：无类型标记时通过 NBT 推断（`pet_egg` / `ld_rune_id` / `card_id` 等）。
+
+---
+
+## 10. 宠物装备
+
+配置文件：`pet_equipment.yml`
+
+```yaml
+Equipments:
+  iron_fang:
+    Name: "&7铁牙"
+    Slot: WEAPON       # WEAPON / ARMOR / ACCESSORY
+    Material: IRON_SWORD
+    Description: "宠物的利齿"
+    Attributes:
+    - "攻击力: +20"
+```
+
+**槽位**：
+- `WEAPON` 武器
+- `ARMOR` 护甲
+- `ACCESSORY` 饰品
+
+**指令**：
+```
+/ldc petequip list           列出所有装备
+/ldc petequip give <id> [玩家] [数量]   发装备
+```
+
+**操作**：宠物详情 → 手拿装备 → 点对应槽位 → 装备。再点取出。
+
+---
+
+## 11. 元素反应
+
+配置文件：`element.yml` → `Reactions` 段
+
+```yaml
+Reactions:
+  vaporize:
+    Name: "&6蒸发"
+    Elements: [FIRE, WATER]
+    DamageMultiplier: 1.5
+    Effect: BURN         # BURN / SLOW / WEAK / HEAL
+    Message: "&6✦ 蒸发反应！"
+```
+
+**内置 9 种反应**：蒸发 / 融化（双向）/ 超载 / 感电 / 冻结 / 超导 / 燃烧 / 绽放
+
+触发条件：攻击者元素 + 受害者元素匹配。
+
+---
+
+## 12. 卡片组合技能
+
+配置文件：`combo.yml`
+
+```yaml
+Combos:
+  three_heroes:
+    Name: "&d三侠合璧"
+    Description: "同时装备 孙逊 + 貂蝉 + 庞德"
+    Cards: [孙逊, 貂蝉, 庞德]
+    Required: 3
+    Attributes:
+    - "攻击力: +50"
+    Effect: LIFESTEAL_ON_HIT
+    EffectValue: 10
+    Message: "&d✦ 三侠合璧已激活"
+```
+
+**Effect 类型**：
+
+| Effect | 效果 | EffectValue 含义 |
+|---|---|---|
+| `LIGHTNING_ON_HIT` | 攻击落雷 + 额外伤害 | 伤害值 |
+| `FIRE_ON_HIT` | 攻击点燃目标 | — |
+| `LIFESTEAL_ON_HIT` | 攻击吸血 | % |
+| `DAMAGE_REDUCE` | 受伤减伤 | % |
+| `HEAL_ON_KILL` | 击杀回血 | 血量 |
+| `THORNS` | 反伤 | % |
+
+---
+
+## 13. 成就系统
+
+配置文件：`achievement.yml`
+
+```yaml
+Achievements:
+  collect_cards_10:
+    Name: "&e卡片爱好者"
+    Description: "收集 10 张不同卡片"
+    Type: CARD_COUNT
+    Target: 10
+    Icon: PAPER
+    Category: COLLECTION
+    Reward:
+      Points: 3000
+      Cards: ["孙逊:1"]
+      Runes: ["attack_2:1"]
+```
+
+**Type 类型**：
+- `CARD_COUNT` 卡片收集数（快照）
+- `RUNE_COLLECT` 符文图鉴数（快照）
+- `PET_COLLECT` 宠物收集数（快照）
+- `LEVEL_UP` / `STAR_UP` / `MERGE` / `KILL` / `RUNE_EQUIP`（累加）
+- `POINTS` 点券数（快照）
+
+**指令**：`/ldc achievement`
+
+**奖励**：`Points` / `Cards` / `Runes` / `Commands`
+
+---
+
+## 14. 抽奖系统
+
+配置文件：`gacha.yml`
+
+```yaml
+Gachas:
+  normal:
+    Name: "&a普通抽奖"
+    Icon: CHEST
+    Cost:
+      Points: 1000
+      Items: []
+    Pools:
+    - "孙逊:50"                # 卡片:权重
+    - "rune:attack_1:40"       # rune:符文ID:权重
+    Pity:
+      Enabled: true
+      Count: 50
+      Guarantee: "zhaoyun_t2"
+```
+
+**指令**：
+```
+/ldc gacha                    打开抽奖界面
+/ldc gacha list               列出卡池
+/ldc gacha draw <id>          直接抽
+```
+
+**保底**：连续 N 次未中 Guarantee 时强制获得。
+
+---
+
+## 15. 幸运掉落
+
+基础幸运 = 100%（每位玩家无需装备）
+
+| 幸运 | 掉落次数 |
+|---|---|
+| 100% | 1 次 |
+| 150% | 1 次 + 50% 概率额外 1 次 |
+| 200% | 2 次 |
+| 300% | 3 次 |
+
+**生效范围**：MM 掉落（`DropToCards` + `RuneDrops`），原版怪不受影响。
+
+---
+
+> 文档更新：2026-09-24

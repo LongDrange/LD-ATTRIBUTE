@@ -1,0 +1,219 @@
+# ============================================================
+#  [分类] 玩法
+#  [文件] achievement.yml
+#  [功能] 成就系统：20 个成就 / 类型 / 奖励
+#  [重载] /ldc reload achievement
+#  [路径] plugins/LD-Attribute/achievement.yml
+# ============================================================
+# ================================================
+#   成就系统
+#   Type: CARD_COUNT / LEVEL_UP / STAR_UP / MERGE / KILL
+#         RUNE_EQUIP / RUNE_COLLECT / PET_COLLECT / POINTS
+# ================================================
+
+Achievements:
+  collect_cards_5:
+    Name: "&e新手收藏家"
+    Description: "收集 5 张不同卡片"
+    Type: CARD_COUNT
+    Target: 5
+    Icon: PAPER
+    Category: COLLECTION
+    Reward:
+      Points: 1000
+
+  collect_cards_10:
+    Name: "&e卡片爱好者"
+    Description: "收集 10 张不同卡片"
+    Type: CARD_COUNT
+    Target: 10
+    Icon: PAPER
+    Category: COLLECTION
+    Reward:
+      Points: 3000
+      Cards: ["孙逊:1"]
+
+  collect_cards_20:
+    Name: "&6资深收藏家"
+    Description: "收集 20 张不同卡片"
+    Type: CARD_COUNT
+    Target: 20
+    Icon: BOOK
+    Category: COLLECTION
+    Reward:
+      Points: 10000
+      Cards: ["zhaoyun_t2:1"]
+
+  collect_cards_all:
+    Name: "&c&l卡片大师"
+    Description: "收集全部 33 张卡片"
+    Type: CARD_COUNT
+    Target: 33
+    Icon: NETHER_STAR
+    Category: COLLECTION
+    Reward:
+      Points: 100000
+      Cards: ["lubu_god_t5:1"]
+
+  level_up_10:
+    Name: "&a初出茅庐"
+    Description: "累计升级卡片 10 次"
+    Type: LEVEL_UP
+    Target: 10
+    Icon: EXPERIENCE_BOTTLE
+    Category: UPGRADE
+    Reward:
+      Points: 500
+
+  level_up_100:
+    Name: "&a经验老手"
+    Description: "累计升级卡片 100 次"
+    Type: LEVEL_UP
+    Target: 100
+    Icon: EXPERIENCE_BOTTLE
+    Category: UPGRADE
+    Reward:
+      Points: 5000
+
+  level_up_500:
+    Name: "&6升级狂人"
+    Description: "累计升级卡片 500 次"
+    Type: LEVEL_UP
+    Target: 500
+    Icon: EXP_BOTTLE
+    Category: UPGRADE
+    Reward:
+      Points: 20000
+
+  star_up_10:
+    Name: "&b星辉初现"
+    Description: "累计升星 10 次"
+    Type: STAR_UP
+    Target: 10
+    Icon: NETHER_STAR
+    Category: UPGRADE
+    Reward:
+      Points: 2000
+
+  star_up_50:
+    Name: "&b&l璀璨星辰"
+    Description: "累计升星 50 次"
+    Type: STAR_UP
+    Target: 50
+    Icon: NETHER_STAR
+    Category: UPGRADE
+    Reward:
+      Points: 15000
+
+  merge_10:
+    Name: "&d合成学徒"
+    Description: "累计合成 10 次"
+    Type: MERGE
+    Target: 10
+    Icon: CRAFTING_TABLE
+    Category: UPGRADE
+    Reward:
+      Points: 2000
+
+  merge_50:
+    Name: "&d&l合成大师"
+    Description: "累计合成 50 次"
+    Type: MERGE
+    Target: 50
+    Icon: CRAFTING_TABLE
+    Category: UPGRADE
+    Reward:
+      Points: 10000
+
+  kill_100:
+    Name: "&c猎魔新手"
+    Description: "累计击杀 100 只怪"
+    Type: KILL
+    Target: 100
+    Icon: DIAMOND_SWORD
+    Category: COMBAT
+    Reward:
+      Points: 1000
+
+  kill_1000:
+    Name: "&c猎魔猎人"
+    Description: "累计击杀 1000 只怪"
+    Type: KILL
+    Target: 1000
+    Icon: DIAMOND_SWORD
+    Category: COMBAT
+    Reward:
+      Points: 10000
+
+  kill_10000:
+    Name: "&4&l猎魔传说"
+    Description: "累计击杀 10000 只怪"
+    Type: KILL
+    Target: 10000
+    Icon: DIAMOND_SWORD
+    Category: COMBAT
+    Reward:
+      Points: 100000
+      Cards: ["machao_t4:1"]
+
+  rune_equip_10:
+    Name: "&d符文新手"
+    Description: "累计镶嵌 10 个符文"
+    Type: RUNE_EQUIP
+    Target: 10
+    Icon: REDSTONE
+    Category: RUNE
+    Reward:
+      Points: 2000
+
+  rune_equip_100:
+    Name: "&d&l符文大师"
+    Description: "累计镶嵌 100 个符文"
+    Type: RUNE_EQUIP
+    Target: 100
+    Icon: REDSTONE_BLOCK
+    Category: RUNE
+    Reward:
+      Points: 20000
+
+  rune_collect_10:
+    Name: "&5符文收藏家"
+    Description: "图鉴收集 10 个符文"
+    Type: RUNE_COLLECT
+    Target: 10
+    Icon: BOOK
+    Category: RUNE
+    Reward:
+      Points: 5000
+      Runes: ["attack_2:1"]
+
+  rune_collect_all:
+    Name: "&5&l符文全书"
+    Description: "图鉴收集全部 38 个符文"
+    Type: RUNE_COLLECT
+    Target: 38
+    Icon: ENCHANTED_BOOK
+    Category: RUNE
+    Reward:
+      Points: 200000
+      Runes: ["fate_mix:1"]
+
+  pet_collect_5:
+    Name: "&a宠物饲主"
+    Description: "收集 5 只宠物"
+    Type: PET_COLLECT
+    Target: 5
+    Icon: BONE
+    Category: PET
+    Reward:
+      Points: 5000
+
+  pet_collect_11:
+    Name: "&a&l宠物大师"
+    Description: "收集全部 11 只宠物"
+    Type: PET_COLLECT
+    Target: 11
+    Icon: BONE
+    Category: PET
+    Reward:
+      Points: 50000

@@ -27,7 +27,7 @@ public class StateConfig {
 
     public static void load(LDAttribute plugin) {
         states.clear();
-        File f = new File(plugin.getDataFolder(), "state.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "state.yml");
         if (!f.exists()) { try { plugin.saveResource("state.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
         ConfigurationSection sec = cfg.getConfigurationSection("States");
@@ -35,11 +35,11 @@ public class StateConfig {
         for (String key : sec.getKeys(false)) {
             ConfigurationSection s = sec.getConfigurationSection(key);
             if (s == null) continue;
-            String name = s.getString("Name", key);
+            String name = org.bukkit.ChatColor.translateAlternateColorCodes((char) 38, s.getString("Name", key));
             String cond = s.getString("Condition", "");
             List<String> attrs = s.getStringList("Attributes");
             if (attrs == null) attrs = new ArrayList<>();
-            String msg = s.getString("Message", "");
+            String msg = org.bukkit.ChatColor.translateAlternateColorCodes((char)38, s.getString("Message", ""));
             String type = ""; double value = 0;
             if (cond.contains(":")) {
                 type = cond.split(":")[0].toUpperCase();

@@ -67,7 +67,7 @@ public class PageConfig {
 
     public static void load(LDAttribute plugin) {
         pages.clear();
-        File file = new File(plugin.getDataFolder(), "page.yml");
+        File file = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "page.yml");
         if (!file.exists()) {
             try { plugin.saveResource("page.yml", false); } catch (Exception ignored) {}
         }

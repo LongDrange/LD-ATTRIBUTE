@@ -8,6 +8,8 @@ public class PetInstance {
     public String petId;
     public int level;
     public int exp;
+    /** 宠物装备：key = "WEAPON" / "ARMOR" */
+    public final java.util.Map<String, org.bukkit.inventory.ItemStack> equipment = new java.util.HashMap<>();
 
     public PetInstance(String petId, int level, int exp) {
         this.petId = petId;

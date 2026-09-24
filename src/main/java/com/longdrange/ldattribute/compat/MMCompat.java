@@ -44,7 +44,7 @@ public class MMCompat {
         drops.clear();
         amounts.clear();
 
-        File f = new File(plugin.getDataFolder(), "mm.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "mm.yml");
         if (!f.exists()) { try { plugin.saveResource("mm.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
 

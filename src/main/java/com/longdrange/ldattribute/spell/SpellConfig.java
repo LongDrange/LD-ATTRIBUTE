@@ -45,7 +45,7 @@ public class SpellConfig {
 
     public static void load(LDAttribute plugin) {
         spells.clear();
-        File f = new File(plugin.getDataFolder(), "spells.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "spells.yml");
         if (!f.exists()) { try { plugin.saveResource("spells.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
         ConfigurationSection sec = cfg.getConfigurationSection("Spells");

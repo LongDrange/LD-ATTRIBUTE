@@ -26,7 +26,8 @@ public class RuneItem {
         lore.add("\u00a7e\u5c07\u6b64\u7b26\u6587\u947d\u5d4c\u5230\u5361\u7247\u5b54\u4f4d");
         m.setLore(lore);
         item.setItemMeta(m);
-        return CardNBT.setString(item, KEY, r.id);
+        return com.longdrange.ldattribute.item.ItemTypeNBT.setType(CardNBT.setString(item, KEY, r.id),
+                com.longdrange.ldattribute.item.ItemType.RUNE);
     }
 
     public static String getRuneId(ItemStack item) {

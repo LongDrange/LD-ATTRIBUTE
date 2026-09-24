@@ -178,6 +178,8 @@ public class PetManager {
         item = com.longdrange.ldattribute.card.CardNBT.setString(item, "pet_egg", petId);
         item = com.longdrange.ldattribute.card.CardNBT.setInt(item, "pet_lv", level);
         item = com.longdrange.ldattribute.card.CardNBT.setInt(item, "pet_exp", exp);
+        item = com.longdrange.ldattribute.item.ItemTypeNBT.setType(item,
+                com.longdrange.ldattribute.item.ItemType.PET_EGG);
         return item;
     }
 

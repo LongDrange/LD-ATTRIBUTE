@@ -21,7 +21,7 @@ public class CollectionConfig {
 
     public static void load(LDAttribute plugin) {
         rewards.clear();
-        File f = new File(plugin.getDataFolder(), "collection.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "collection.yml");
         if (!f.exists()) {
             try { plugin.saveResource("collection.yml", false); } catch (Exception ignored) {}
         }

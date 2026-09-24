@@ -34,7 +34,7 @@ public class CommandConfig {
     }
 
     public static void load(LDAttribute plugin) {
-        File f = new File(plugin.getDataFolder(), "command.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "command.yml");
         if (!f.exists()) {
             try { plugin.saveResource("command.yml", false); } catch (Exception ignored) {}
         }
@@ -54,7 +54,7 @@ public class CommandConfig {
                 List<String> aliases = s.getStringList("aliases");
                 if (aliases == null) aliases = new ArrayList<>();
                 String perm = s.getString("permission", "");
-                String desc = s.getString("description", "");
+                String desc = org.bukkit.ChatColor.translateAlternateColorCodes((char)38, s.getString("description", ""));
                 subs.put(key, new SubCmd(name, aliases, perm, desc));
             }
         }

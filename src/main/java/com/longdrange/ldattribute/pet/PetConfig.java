@@ -39,7 +39,7 @@ public class PetConfig {
         pets.clear();
         permissionSlots.clear();
 
-        File f = new File(plugin.getDataFolder(), "pet.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "pet.yml");
         if (!f.exists()) { try { plugin.saveResource("pet.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
 
@@ -67,7 +67,7 @@ public class PetConfig {
             if (s == null) continue;
             Pet p = new Pet();
             p.id = key;
-            p.name = s.getString("Name", key);
+            p.name = org.bukkit.ChatColor.translateAlternateColorCodes((char) 38, s.getString("Name", key));
             p.type = s.getString("Type", "WOLF").toUpperCase();
             p.rarity = s.getString("Rarity", "COMMON").toUpperCase();
             p.baby = s.getBoolean("Baby", false);

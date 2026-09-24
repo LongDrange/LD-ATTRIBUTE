@@ -1,170 +1,259 @@
-# ================================================
-#   LD-Attribute 指令配置
-#   子指令改完用 /ldc reload 立即生效
-#   主指令改完需重啟伺服器
-# ================================================
-
+# ============================================================
+#  [分类] 系统
+#  [文件] command.yml
+#  [功能] 指令配置：子命令 / 别名 / 权限 / 说明
+#  [重载] /ldc reload command
+#  [路径] plugins/LD-Attribute/command.yml
+# ============================================================
+# ==================================================
+#  主指令
+# ==================================================
 Main:
   name: "ldc"
-  aliases:
-    - "card"
-    - "卡片"
-
+  aliases: ["ld", "card", "卡牌"]
+# ==================================================
+#  指令配置（子命令 · 支持简写 / 中文别名 / Tab 补全）
+#    name       = 主名字（聊天命令用）
+#    aliases    = 简写 / 中文别名（Tab 会一起补全）
+#    permission = 需要的权限（留空 = 谁都能用）
+#    description= 说明（显示在帮助里，支持 & 颜色代码）
+# ==================================================
 Sub:
+
+  # ---------- 卡片管理 ----------
   Open:
     name: "open"
-    aliases: ["o", "開"]
+    aliases: ["o", "open", "打开", "背包", "card", "卡片", "卡包"]
     permission: ""
-    description: "開啟卡片背包"
+    description: "&b打开卡片背包"
   Collection:
     name: "collection"
-    aliases: ["col", "圖鑑", "图鉴"]
+    aliases: ["col", "collection", "图鉴"]
     permission: ""
-    description: "開啟卡片圖鑑"
-  Top:
-    name: "top"
-    aliases: ["rank", "排行", "rankcard"]
-    permission: ""
-    description: "卡片等級排行榜"
-  Stats:
-    name: "stats"
-    aliases: ["st", "屬性", "属性"]
-    permission: ""
-    description: "查看屬性總覽（可加卡片ID）"
-  Merge:
-    name: "merge"
-    aliases: ["合成", "合", "m"]
-    permission: ""
-    description: "卡片合成/升級"
+    description: "&b打开卡片图鉴"
   List:
     name: "list"
-    aliases: ["l"]
-    permission: "ldattribute.command.list"
-    description: "列出所有卡片"
+    aliases: ["ls", "list", "列表", "所有", "all", "全部"]
+    permission: ""
+    description: "&b列出所有卡片 ID"
+  Info:
+    name: "info"
+    aliases: ["i", "信息", "查询"]
+    permission: ""
+    description: "&b查看卡片详细信息"
   Give:
     name: "give"
-    aliases: ["g"]
-    permission: "ldattribute.command.give"
-    description: "給予卡片"
+    aliases: ["g", "give", "给", "发放", "发卡"]
+    permission: "ldattribute.command.admin"
+    description: "&e给玩家卡片"
+  Remove:
+    name: "remove"
+    aliases: ["rm", "remove", "删", "收回", "删除"]
+    permission: "ldattribute.command.admin"
+    description: "&e收回玩家卡片"
+
+  # ---------- 卡片数值 ----------
+  Star:
+    name: "star"
+    aliases: ["st", "star", "星", "星级"]
+    permission: "ldattribute.command.admin"
+    description: "&e设置卡片星级"
+  Level:
+    name: "level"
+    aliases: ["lv", "level", "等级"]
+    permission: "ldattribute.command.admin"
+    description: "&e设置卡片等级"
+  Exp:
+    name: "exp"
+    aliases: ["e", "经验"]
+    permission: "ldattribute.command.admin"
+    description: "&e设置卡片经验"
+  Merge:
+    name: "merge"
+    aliases: ["m", "merge", "合成", "合"]
+    permission: ""
+    description: "&b合成卡片"
+  Stats:
+    name: "stats"
+    aliases: ["attr", "属性"]
+    permission: ""
+    description: "&b查看属性"
+  Top:
+    name: "top"
+    aliases: ["rank", "排行"]
+    permission: ""
+    description: "&b查看排行"
+
+  # ---------- 宠物 ----------
+  Pet:
+    name: "pet"
+    aliases: ["p", "pet", "pets", "宠物"]
+    permission: ""
+    description: "&b打开宠物背包"
+  PetEquip:
+    name: "petequip"
+    aliases: ["pe", "petequip", "宠物装备"]
+    permission: ""
+    description: "&b宠物装备管理"
+
+  # ---------- 符文 ----------
+  Rune:
+    name: "rune"
+    aliases: ["r", "rune", "runes", "符文"]
+    permission: ""
+    description: "&b符文操作"
+  Cast:
+    name: "cast"
+    aliases: ["c", "cast", "施法"]
+    permission: ""
+    description: "&b释放技能"
+  GiveBook:
+    name: "givebook"
+    aliases: ["gb", "给书"]
+    permission: "ldattribute.command.admin"
+    description: "&e发法术书"
+
+  # ---------- 玩法 ----------
+  Gacha:
+    name: "gacha"
+    aliases: ["gc", "gacha", "抽奖", "抽卡", "draw"]
+    permission: ""
+    description: "&b抽奖系统"
+  Achievement:
+    name: "achievement"
+    aliases: ["ach", "achievement", "成就"]
+    permission: ""
+    description: "&b查看成就"
+  Synergy:
+    name: "synergy"
+    aliases: ["sy", "synergy", "共鸣", "羁绊"]
+    permission: ""
+    description: "&b查看卡片共鸣 / 羁绊"
+
+  # ---------- 管理员 ----------
   Save:
     name: "save"
-    aliases: []
-    permission: "ldattribute.command.save"
-    description: "儲存手上的物品為卡片"
+    aliases: ["sv", "保存"]
+    permission: "ldattribute.command.admin"
+    description: "&e保存数据"
   Reload:
     name: "reload"
-    aliases: ["rl"]
-    permission: "ldattribute.command.reload"
-    description: "重新載入配置"
+    aliases: ["rl", "reload", "重载", "refresh"]
+    permission: "ldattribute.command.admin"
+    description: "&e重载配置"
+  Backup:
+    name: "backup"
+    aliases: ["bk", "备份"]
+    permission: "ldattribute.command.admin"
+    description: "&e备份数据"
+  Log:
+    name: "log"
+    aliases: ["lg", "日志"]
+    permission: "ldattribute.command.admin"
+    description: "&e日志操作"
+  Debug:
+    name: "debug"
+    aliases: ["db", "调试"]
+    permission: "ldattribute.command.admin"
+    description: "&e调试模式"
+  Lang:
+    name: "lang"
+    aliases: ["la", "语言"]
+    permission: "ldattribute.command.admin"
+    description: "&e切换语言"
+  Msg:
+    name: "msg"
+    aliases: ["ms", "消息"]
+    permission: "ldattribute.command.admin"
+    description: "&e发送消息"
+  Mm:
+    name: "mm"
+    aliases: ["mm", "mythic", "mm怪"]
+    permission: "ldattribute.command.admin"
+    description: "&eMythicMobs 相关"
   Version:
     name: "version"
-    aliases: ["ver", "v"]
+    aliases: ["ver", "v", "版本"]
     permission: ""
-    description: "顯示版本"
-
+    description: "&b显示版本"
+  Mana:
+    name: "mana"
+    aliases: ["mp", "法力"]
+    permission: ""
+    description: "&b法力值"
   Unlock:
     name: "unlock"
-    aliases: ["ul", "解鎖", "解锁"]
+    aliases: ["u", "解锁"]
     permission: "ldattribute.command.admin"
-    description: "強制解鎖玩家頁面"
+    description: "&e解锁卡片页"
   Reset:
     name: "reset"
     aliases: ["rs", "重置"]
     permission: "ldattribute.command.admin"
-    description: "清空玩家卡片數據"
-  Remove:
-    name: "remove"
-    aliases: ["del", "rm", "刪除", "删除"]
-    permission: "ldattribute.command.admin"
-    description: "刪除玩家指定卡片"
-  Star:
-    name: "star"
-    aliases: ["s"]
-    permission: "ldattribute.command.admin"
-    description: "設定卡片星級"
-  Level:
-    name: "level"
-    aliases: ["lv"]
-    permission: "ldattribute.command.admin"
-    description: "設定卡片等級"
-  Exp:
-    name: "exp"
-    aliases: ["e"]
-    permission: "ldattribute.command.admin"
-    description: "設定卡片經驗"
-  Info:
-    name: "info"
-    aliases: ["i"]
-    permission: "ldattribute.command.admin"
-    description: "查看卡片配置"
-  Msg:
-    name: "msg"
-    aliases: ["message"]
-    permission: "ldattribute.command.admin"
-    description: "測試訊息 key"
+    description: "&e重置数据"
 
-  Mana:
-    name: "mana"
-    aliases: ["mp", "法力"]
+  # ---------- 聊天栏物品 ----------
+  ChatItem:
+    name: "chatitem"
+    aliases: ["ci", "聊天物品"]
     permission: "ldattribute.command.admin"
-    description: "管理玩家法力值"
+    description: "&e发一条带可点击物品的聊天消息"
+  GiveMe:
+    name: "giveme"
+    aliases: ["gm", "领取"]
+    permission: "ldattribute.command.admin"
+    description: "&e实际发放动作（被 chatitem 点击触发）"
 
-  Cast:
-    name: "cast"
-    aliases: ["c", "施法"]
+  Export:
+    name: "export"
+    aliases: ["export", "导出", "dump"]
+    permission: "ldattribute.command.admin"
+    description: "&e导出玩家数据到文件"
+
+  Overview:
+    name: "overview"
+    aliases: ["overview", "总览", "概况", "info"]
+    permission: "ldattribute.command.admin"
+    description: "&e查看服务器总览"
+
+  Find:
+    name: "find"
+    aliases: ["find", "查找", "拥有"]
+    permission: "ldattribute.command.admin"
+    description: "&e查找谁拥有某张卡片"
+
+  BackupNow:
+    name: "backupnow"
+    aliases: ["立即备份", "bn"]
+    permission: "ldattribute.command.admin"
+    description: "&e立即触发一次备份"
+
+  Points:
+    name: "points"
+    aliases: ["点券", "pts"]
+    permission: "ldattribute.command.admin"
+    description: "&e点券操作：get/set/add/take"
+
+  Player:
+    name: "player"
+    aliases: ["玩家", "pinfo"]
+    permission: "ldattribute.command.admin"
+    description: "&e查看指定玩家的数据"
+
+  Buff:
+    name: "buff"
+    aliases: ["状态", "buffs"]
+    permission: "ldattribute.command.admin"
+    description: "&eBuff 管理：list/add/clear"
+
+  Compare:
+    name: "compare"
+    aliases: ["对比", "cmp"]
     permission: ""
-    description: "施放法術"
+    description: "&e对比两张卡片的属性"
 
-  GiveBook:
-    name: "givebook"
-    aliases: ["gb", "給法術書"]
-    permission: "ldattribute.command.admin"
-    description: "給予法術書"
-
-  Synergy:
-    name: "synergy"
-    aliases: ["sy", "共鳴"]
+  Damage:
+    name: "damage"
+    aliases: ["伤害", "属性"]
     permission: ""
-    description: "查看共鳴與羈絆狀態"
-
-  Log:
-    name: "log"
-    aliases: ["jl", "战斗日志"]
-    permission: ""
-    description: "查看最近 10 场战斗记录"
-
-  Lang:
-    name: "lang"
-    aliases: ["language", "语言"]
-    permission: "ldattribute.command.admin"
-    description: "切换语言"
-
-  Mm:
-    name: "mm"
-    aliases: ["mythic", "神话"]
-    permission: "ldattribute.command.admin"
-    description: "查看 MythicMobs 兼容状态"
-
-  Pet:
-    name: "pet"
-    aliases: ["宠物", "pets"]
-    permission: ""
-    description: "宠物背包"
-
-  Rune:
-    name: "rune"
-    aliases: ["符文", "runes"]
-    permission: ""
-    description: "符文系统"
-
-  Backup:
-    name: "backup"
-    aliases: ["備份", "备份"]
-    permission: "ldattribute.command.admin"
-    description: "手动触发数据备份"
-
-  Debug:
-    name: "debug"
-    aliases: ["診斷", "诊断"]
-    permission: "ldattribute.command.admin"
-    description: "打印插件诊断信息"
+    description: "&e查看伤害分解（攻击/防御/其他属性）"

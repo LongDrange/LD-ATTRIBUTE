@@ -19,7 +19,7 @@ public class CardDataManager {
     public static void load(LDAttribute plugin) {
         cards.clear();
 
-        File file = new File(plugin.getDataFolder(), "item.yml");
+        File file = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "item.yml");
         if (!file.exists()) {
             try { plugin.saveResource("item.yml", false); } catch (Exception ignored) {}
         }
@@ -29,7 +29,7 @@ public class CardDataManager {
             ConfigurationSection sec = cfg.getConfigurationSection(id);
             if (sec == null) continue;
 
-            String name = sec.getString("Name", id);
+            String name = org.bukkit.ChatColor.translateAlternateColorCodes((char) 38, sec.getString("Name", id));
             int materialId = sec.getInt("ID", 339);
             String type = sec.getString("Type", "");
             List<String> lore = sec.getStringList("Lore");
@@ -49,6 +49,9 @@ public class CardDataManager {
             if (enchant) meta.addEnchant(Enchantment.DURABILITY, 1, true);
             meta.setUnbreakable(unbreakable);
             item.setItemMeta(meta);
+
+            // 标记物品类型
+            item = com.longdrange.ldattribute.item.ItemTypeNBT.setType(item, com.longdrange.ldattribute.item.ItemType.CARD);
 
             // 初始化等級 NBT + 動態 Lore
             if (CardLevelConfig.isUpgradable(id)) {

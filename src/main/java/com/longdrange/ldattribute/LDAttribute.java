@@ -83,16 +83,23 @@ public class LDAttribute extends JavaPlugin {
         DecomposeConfig.load(this);
         com.longdrange.ldattribute.rune.RuneConfig.load(this);
         com.longdrange.ldattribute.rune.RuneData.init(this);
+        com.longdrange.ldattribute.achievement.AchievementConfig.load(this);
+        com.longdrange.ldattribute.achievement.AchievementData.init(this);
+        com.longdrange.ldattribute.gacha.GachaConfig.load(this);
+        com.longdrange.ldattribute.gacha.GachaData.init(this);
         CardDataManager.load(this);
         PlayerData.init(this);
         com.longdrange.ldattribute.card.ManaManager.init(this);
         SuitData.load(this);
         com.longdrange.ldattribute.card.SynergyData.load(this);
+        com.longdrange.ldattribute.card.ComboData.load(this);
         com.longdrange.ldattribute.combat.ElementConfig.load(this);
         com.longdrange.ldattribute.combat.StateConfig.load(this);
         com.longdrange.ldattribute.combat.StateManager.init(this);
         PageConfig.load(this);
         CommandConfig.load(this);
+        try { com.longdrange.ldattribute.util.AuditLog.init(getDataFolder()); } catch (Throwable ignored) {}
+        try { com.longdrange.ldattribute.command.CardCommand.loadPending(this); } catch (Throwable ignored) {}
         CollectionConfig.load(this);
         RecipeConfig.load(this);
         CardCommand cardCmd = new CardCommand(this);
@@ -102,6 +109,7 @@ public class LDAttribute extends JavaPlugin {
         // 點券系統
         PointData.init(this);
         com.longdrange.ldattribute.pet.PetConfig.load(this);
+        com.longdrange.ldattribute.pet.PetEquipmentConfig.load(this);
         com.longdrange.ldattribute.pet.PetData.init(this);
         com.longdrange.ldattribute.pet.PetEntityManager.init(this);
         Bukkit.getPluginManager().registerEvents(new com.longdrange.ldattribute.pet.PetKillListener(this), this);
@@ -271,35 +279,44 @@ public class LDAttribute extends JavaPlugin {
             }
         } catch (Throwable ignored) {}
     }
-    public void reloadAll() {
+    public void reloadAll() { reloadAll("all"); }
+
+    public void reloadAll(String only) {
+        String k = (only == null ? "all" : only.toLowerCase().trim());
+        boolean all = "all".equals(k);
         try { com.longdrange.ldattribute.card.CardLevel.clearCache(); } catch (Throwable ignored) {}
         int ok = 0, fail = 0;
-        try { this.configUtil.reload(); ok++; } catch (Throwable t) { fail++; getLogger().warning("config 重載失敗: " + t.getMessage()); }
-        try { com.longdrange.ldattribute.util.LanguageManager.load(this); ok++; } catch (Throwable t) { fail++; }
-        try { Message.load(this, configUtil.getConfig().getString("Language", "zh_TW")); ok++; } catch (Throwable t) { fail++; getLogger().warning("message 重載失敗: " + t.getMessage()); }
-        try { com.longdrange.ldattribute.card.UIConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("ui 重載失敗: " + t.getMessage()); }
-        try { CardLevelConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("cardlevel 重載失敗: " + t.getMessage()); }
-        try { StarConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("star 重載失敗: " + t.getMessage()); }
-        try { TempBuffConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("tempbuff 重載失敗: " + t.getMessage()); }
-        try { DecomposeConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("decompose 重載失敗: " + t.getMessage()); }
-        try { com.longdrange.ldattribute.rune.RuneConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("rune 重載失敗: " + t.getMessage()); }
-        try { CardDataManager.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("item 重載失敗: " + t.getMessage()); }
-        try { SuitData.load(this);
-        com.longdrange.ldattribute.card.SynergyData.load(this);
-        com.longdrange.ldattribute.combat.ElementConfig.load(this);
-        com.longdrange.ldattribute.combat.StateConfig.load(this);
-        com.longdrange.ldattribute.combat.StateManager.init(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("suit 重載失敗: " + t.getMessage()); }
-        try { PageConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("page 重載失敗: " + t.getMessage()); }
-        try { CommandConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("command 重載失敗: " + t.getMessage()); }
-        try { CollectionConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("collection 重載失敗: " + t.getMessage()); }
-        try { RecipeConfig.load(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("recipe 重載失敗: " + t.getMessage()); }
-        try { PointData.loadData(this); ok++; } catch (Throwable t) { fail++; getLogger().warning("points 重載失敗: " + t.getMessage()); }
-        try { com.longdrange.ldattribute.compat.MMCompat.loadConfig(); ok++; } catch (Throwable t) { fail++; }
-        // 重算所有在线玩家的卡片 Lore（新配置立即可见）
+        if (all || "config".equals(k)) {
+            try { this.configUtil.reload(); ok++; } catch (Throwable t) { fail++; getLogger().warning("config 重載失敗: " + t.getMessage()); }
+            try { com.longdrange.ldattribute.util.LanguageManager.load(this); ok++; } catch (Throwable t) { fail++; }
+            try { Message.load(this, configUtil.getConfig().getString("Language", "zh_TW")); ok++; } catch (Throwable t) { fail++; }
+        }
+        if (all || "ui".equals(k))        { try { com.longdrange.ldattribute.card.UIConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "cardlevel".equals(k)) { try { CardLevelConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "star".equals(k))      { try { StarConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "tempbuff".equals(k))  { try { TempBuffConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "decompose".equals(k)) { try { DecomposeConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "rune".equals(k))      { try { com.longdrange.ldattribute.rune.RuneConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "achievement".equals(k)) { try { com.longdrange.ldattribute.achievement.AchievementConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "gacha".equals(k))     { try { com.longdrange.ldattribute.gacha.GachaConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "item".equals(k) || "card".equals(k)) { try { CardDataManager.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "suit".equals(k))      { try { SuitData.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "synergy".equals(k))   { try { com.longdrange.ldattribute.card.SynergyData.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "combo".equals(k))     { try { com.longdrange.ldattribute.card.ComboData.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "element".equals(k))   { try { com.longdrange.ldattribute.combat.ElementConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "state".equals(k)) {
+            try { com.longdrange.ldattribute.combat.StateConfig.load(this); ok++; } catch (Throwable t) { fail++; }
+            try { com.longdrange.ldattribute.combat.StateManager.init(this); ok++; } catch (Throwable t) { fail++; }
+        }
+        if (all || "page".equals(k))       { try { PageConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "command".equals(k))    { try { CommandConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "collection".equals(k)) { try { CollectionConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "recipe".equals(k))     { try { RecipeConfig.load(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "points".equals(k))     { try { PointData.loadData(this); ok++; } catch (Throwable t) { fail++; } }
+        if (all || "mm".equals(k))         { try { com.longdrange.ldattribute.compat.MMCompat.loadConfig(); ok++; } catch (Throwable t) { fail++; } }
         for (org.bukkit.entity.Player p : org.bukkit.Bukkit.getOnlinePlayers()) {
             try { recalcPlayerCards(p); } catch (Throwable ignored) {}
         }
-
-        getLogger().info("熱加載完成: " + ok + " 成功, " + fail + " 失敗");
+        getLogger().info("[reload " + k + "] 熱加載完成: " + ok + " 成功, " + fail + " 失敗");
     }
 }

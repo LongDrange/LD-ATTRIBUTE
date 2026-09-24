@@ -62,7 +62,22 @@ public class PetData {
                             int lv = sec.getInt(sKey + ".level", 1);
                             int exp = sec.getInt(sKey + ".exp", 0);
                             if (!petId.isEmpty()) {
-                                slotMap.put(slot, new PetInstance(petId, lv, exp));
+                                PetInstance pi = new PetInstance(petId, lv, exp);
+                                // 读取装备
+                                for (String eqKey : new String[]{"WEAPON", "ARMOR"}) {
+                                    String b64 = sec.getString(sKey + ".equip." + eqKey, "");
+                                    if (b64 != null && !b64.isEmpty()) {
+                                        try {
+                                            byte[] data = java.util.Base64.getDecoder().decode(b64);
+                                            org.bukkit.inventory.ItemStack it = org.bukkit.util.io.BukkitObjectInputStream.class != null ? null : null;
+                                            java.io.ByteArrayInputStream bais = new java.io.ByteArrayInputStream(data);
+                                            org.bukkit.util.io.BukkitObjectInputStream bois = new org.bukkit.util.io.BukkitObjectInputStream(bais);
+                                            Object obj = bois.readObject(); bois.close();
+                                            if (obj instanceof org.bukkit.inventory.ItemStack) pi.equipment.put(eqKey, (org.bukkit.inventory.ItemStack) obj);
+                                        } catch (Throwable ignored) {}
+                                    }
+                                }
+                                slotMap.put(slot, pi);
                             }
                         } catch (Exception ignored) {}
                     }
@@ -119,6 +134,15 @@ public class PetData {
                 data.set(base + ".petId", se.getValue().petId);
                 data.set(base + ".level", se.getValue().level);
                 data.set(base + ".exp", se.getValue().exp);
+                // 保存装备
+                for (java.util.Map.Entry<String, org.bukkit.inventory.ItemStack> eq : se.getValue().equipment.entrySet()) {
+                    try {
+                        java.io.ByteArrayOutputStream baos = new java.io.ByteArrayOutputStream();
+                        org.bukkit.util.io.BukkitObjectOutputStream boos = new org.bukkit.util.io.BukkitObjectOutputStream(baos);
+                        boos.writeObject(eq.getValue()); boos.close();
+                        data.set(base + ".equip." + eq.getKey(), java.util.Base64.getEncoder().encodeToString(baos.toByteArray()));
+                    } catch (Throwable ignored) {}
+                }
             }
         }
         saveFile();

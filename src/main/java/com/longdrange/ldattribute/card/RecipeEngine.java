@@ -84,6 +84,7 @@ public class RecipeEngine {
             player.sendTitle("§a§l合成成功", "§e獲得 §f" + gotStr, 10, 40, 10);
         } catch (Throwable ignored) {}
         PlayerData.incrementMergeCount(player.getUniqueId());
+        try { com.longdrange.ldattribute.achievement.AchievementChecker.addProgress(player, com.longdrange.ldattribute.achievement.AchievementConfig.Type.MERGE, 1); } catch (Throwable ignored) {}
         PlayerData.savePlayer(player.getUniqueId());
         return "§a合成成功！獲得: §e" + gotStr;
     }

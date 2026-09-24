@@ -1,0 +1,77 @@
+# ============================================================
+#  [分类] 玩法
+#  [文件] gacha.yml
+#  [功能] 抽奖系统：3 个卡池 / 权重 / 保底
+#  [重载] /ldc reload gacha
+#  [路径] plugins/LD-Attribute/gacha.yml
+# ============================================================
+# ================================================
+#   抽奖系统
+#   Cost: 消耗点券/物品
+#   Pools: 奖池（"ID:权重"，权重越大越容易）
+#   Pity: 保底（连续 N 次未中 Guarantee 时强制）
+# ================================================
+
+Gachas:
+  normal:
+    Name: "&a普通抽奖"
+    Description: "消耗 1000 点券抽取随机卡片"
+    Icon: CHEST
+    Cost:
+      Points: 1000
+      Vault: 0
+      Items: []
+    Pools:
+    - "孙逊:50"
+    - "貂蝉:50"
+    - "庞德:50"
+    - "zhaoyun_t2:20"
+    - "zhangfei_t2:20"
+    - "guanyu_t3:5"
+    - "lubu_t3:5"
+    Pity:
+      Enabled: true
+      Count: 50
+      Guarantee: "zhaoyun_t2"
+
+  premium:
+    Name: "&6高级抽奖"
+    Description: "消耗 5000 点券抽取稀有卡片"
+    Icon: ENDER_CHEST
+    Cost:
+      Points: 5000
+      Vault: 0
+      Items: []
+    Pools:
+    - "zhaoyun_t2:30"
+    - "zhangfei_t2:30"
+    - "guanyu_t3:20"
+    - "lubu_t3:20"
+    - "huangzhong_t4:8"
+    - "machao_t4:8"
+    - "lubu_god_t5:1"
+    Pity:
+      Enabled: true
+      Count: 80
+      Guarantee: "guanyu_t3"
+
+  rune_gacha:
+    Name: "&d符文抽奖"
+    Description: "消耗 2000 点券抽取随机符文"
+    Icon: REDSTONE_BLOCK
+    Cost:
+      Points: 2000
+      Items: ["NETHER_STAR:1"]
+    Pools:
+    - "rune:attack_1:40"
+    - "rune:defense_1:40"
+    - "rune:magic_1:40"
+    - "rune:utility_1:40"
+    - "rune:attack_2:10"
+    - "rune:defense_2:10"
+    - "rune:attack_3:3"
+    - "rune:attack_4:1"
+    Pity:
+      Enabled: false
+      Count: 100
+      Guarantee: "rune:attack_3"

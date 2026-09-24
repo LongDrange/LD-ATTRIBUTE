@@ -37,14 +37,14 @@ public class StatsGUIConfig {
         hideZero = true;
         layout = new String[0][0];
 
-        File f = new File(plugin.getDataFolder(), "stats_gui.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "stats_gui.yml");
         if (!f.exists()) {
             try { plugin.saveResource("stats_gui.yml", false); } catch (Exception ignored) {}
         }
         if (!f.exists()) return;
 
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
-        title = cfg.getString("Title", title);
+        title = org.bukkit.ChatColor.translateAlternateColorCodes((char)38, cfg.getString("Title", title));
         title = org.bukkit.ChatColor.translateAlternateColorCodes('&', title);
         rows = Math.max(1, Math.min(6, cfg.getInt("Rows", 6)));
         hideZero = cfg.getBoolean("HideZero", true);
@@ -80,8 +80,8 @@ public class StatsGUIConfig {
                 String matName = s.getString("Material", "PAPER");
                 Material mat = Material.getMaterial(matName.toUpperCase());
                 if (mat == null) mat = Material.PAPER;
-                String name = s.getString("Name", "§b" + key);
-                List<String> lore = s.getStringList("Lore");
+                String name = org.bukkit.ChatColor.translateAlternateColorCodes((char) 38, s.getString("Name", "§b" + key));
+                List<String> lore = new java.util.ArrayList<>(); for (String ls : s.getStringList("Lore")) lore.add(org.bukkit.ChatColor.translateAlternateColorCodes((char)38, ls));
                 if (lore == null) lore = new ArrayList<>();
                 icons.put(key, new IconDef(mat, name, lore));
             }

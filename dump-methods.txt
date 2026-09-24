@@ -1,0 +1,479 @@
+===== sendHelp (行 328 → 337, 共 10 行) =====
+328:     private void sendHelp(CommandSender sender, String label) {
+329:         sender.sendMessage(Message.get("Command.Help.Title"));
+330:         for (Map.Entry<String, CommandConfig.SubCmd> e : CommandConfig.getAllSubs().entrySet()) {
+331:             CommandConfig.SubCmd c = e.getValue();
+332:             if (c.permission != null && !c.permission.isEmpty()
+333:                     && !sender.hasPermission(c.permission)) continue;
+334:             sender.sendMessage(msg("&e/" + label + " " + c.name + " &7- " + c.description));
+335:         }
+336:         sender.sendMessage(Message.get("Command.Help.Bottom"));
+337:     }
+
+===== sendList (行 339 → 359, 共 21 行) =====
+339:     private void sendList(CommandSender sender) {
+340:         sender.sendMessage(Message.get("Command.List.Title"));
+341:         boolean canGive = !(sender instanceof Player)
+342:                 || sender.hasPermission("ldattribute.command.admin");
+343:         String selfName = sender instanceof Player ? ((Player) sender).getName() : "";
+344: 
+345:         for (CardData card : CardDataManager.getAllCardOnly()) {
+346:             if (canGive && sender instanceof Player) {
+347:                 // OP：可点击领取
+348:                 com.longdrange.ldattribute.util.ChatItemLink.send(
+349:                         (Player) sender,
+350:                         msg("&e" + card.getId() + " &7"),
+351:                         card.getItem(),
+352:                         "/ldc giveme " + selfName + " " + card.getId() + " 1",
+353:                         "§a§l[领取]");
+354:             } else {
+355:                 sender.sendMessage(msg("&e" + card.getId()));
+356:             }
+357:         }
+358:         sender.sendMessage(Message.get("Command.Help.Bottom"));
+359:     }
+
+===== onTop (行 393 → 447, 共 55 行) =====
+393:     private boolean onTop(CommandSender sender, String[] args) {
+394:         int page = 1;
+395:         if (args.length >= 2) {
+396:             try { page = Integer.parseInt(args[1]); } catch (Exception ignored) {}
+397:         }
+398:         if (page < 1) page = 1;
+399:         int perPage = 10;
+400: 
+401:         java.util.List<String> uuids = PlayerData.getAllPlayerUUIDs();
+402:         java.util.Map<String, Integer> totals = new java.util.HashMap<>();
+403:         java.util.Map<String, Integer> counts = new java.util.HashMap<>();
+404: 
+405:         for (String uuid : uuids) {
+406:             int unlocked = PlayerData.getUnlockedPagesFromFile(uuid);
+407:             int total = 0;
+408:             int count = 0;
+409:             for (int p = 0; p < unlocked; p++) {
+410:                 org.bukkit.inventory.ItemStack[] items = PlayerData.getPageInventoryFromFile(uuid, p);
+411:                 for (org.bukkit.inventory.ItemStack it : items) {
+412:                     if (it == null) continue;
+413:                     com.longdrange.ldattribute.card.CardData cd = CardDataManager.findCard(it);
+414:                     if (cd == null) continue;
+415:                     if (!CardLevelConfig.isUpgradable(cd.getId())) continue;
+416:                     total += com.longdrange.ldattribute.card.CardNBT.getLevel(it);
+417:                     count++;
+418:                 }
+419:             }
+420:             totals.put(uuid, total);
+421:             counts.put(uuid, count);
+422:         }
+423: 
+424:         java.util.List<java.util.Map.Entry<String, Integer>> sorted = new java.util.ArrayList<>(totals.entrySet());
+425:         sorted.removeIf(e -> e.getValue() == 0);
+426:         sorted.sort((a, b) -> b.getValue() - a.getValue());
+427: 
+428:         int total_players = sorted.size();
+429:         int maxPage = Math.max(1, (total_players + perPage - 1) / perPage);
+430:         if (page > maxPage) page = maxPage;
+431:         int start = (page - 1) * perPage;
+432:         int end = Math.min(start + perPage, total_players);
+433: 
+434:         sender.sendMessage(Message.get("Command.Top.Title"));
+435:         if (sorted.isEmpty()) {
+436:             sender.sendMessage(Message.get("Command.Top.Empty"));
+437:         } else {
+438:             for (int i = start; i < end; i++) {
+439:                 java.util.Map.Entry<String, Integer> e = sorted.get(i);
+440:                 String name = getPlayerName(e.getKey());
+441:                 int cnt = counts.getOrDefault(e.getKey(), 0);
+442:                 sender.sendMessage(Message.get("Command.Top.Line", i + 1, name, e.getValue(), cnt));
+443:             }
+444:         }
+445:         sender.sendMessage(Message.get("Command.Top.Footer", page, maxPage));
+446:         return true;
+447:     }
+
+===== printAttributes (行 483 → 496, 共 14 行) =====
+483:     private void printAttributes(Player player, LDAttributeData data) {
+484:         if (data == null) { player.sendMessage(Message.get("Command.Stats.NoAttr")); return; }
+485:         java.util.Map<Integer, LDSubAttribute> map = data.getAttributeMap();
+486:         boolean any = false;
+487:         for (java.util.Map.Entry<Integer, LDSubAttribute> e : map.entrySet()) {
+488:             LDSubAttribute attr = e.getValue();
+489:             double v = attr.getValue();
+490:             if (v == 0) continue;
+491:             any = true;
+492:             String num = LDSubAttribute.getDf().format(v);
+493:             player.sendMessage(Message.get("Command.Stats.AttrLine", attr.getName(), num));
+494:         }
+495:         if (!any) player.sendMessage(Message.get("Command.Stats.NoBonus"));
+496:     }
+
+===== onInfo (行 738 → 764, 共 27 行) =====
+738:     private boolean onInfo(CommandSender sender, String[] args) {
+739:         if (args.length < 2) {
+740:             sender.sendMessage(Message.get("Command.Info.Usage"));
+741:             return true;
+742:         }
+743:         CardData card = CardDataManager.getCard(args[1]);
+744:         if (card == null) {
+745:             sender.sendMessage(Message.get("Command.Give.NoCard", args[1]));
+746:             return true;
+747:         }
+748:         sender.sendMessage(Message.get("Command.Info.Title", card.getId()));
+749:         sender.sendMessage(Message.get("Command.Info.Id", card.getId()));
+750:         try { sender.sendMessage(Message.get("Command.Info.Name", card.getItem().getItemMeta().getDisplayName())); } catch (Throwable ignored) {}
+751:         CardLevelConfig.CardLevel cl = CardLevelConfig.get(card.getId());
+752:         if (cl != null) {
+753:             sender.sendMessage(Message.get("Command.Info.MaxLevel", cl.maxLevel));
+754:             sender.sendMessage(Message.get("Command.Info.MaxStar", (cl.maxStar > 0 ? cl.maxStar : StarConfig.getMaxStar())));
+755:             sender.sendMessage(Message.get("Command.Info.Attrs"));
+756:             for (CardLevelConfig.AttrConf a : cl.attrs.values()) {
+757:                 sender.sendMessage(Message.get("Command.Info.AttrLine", a.name, a.base, a.growth, a.max, a.mode));
+758:             }
+759:         } else {
+760:             sender.sendMessage(Message.get("Command.Info.NoUpgrade"));
+761:         }
+762:         sender.sendMessage(msg("&8&m----------------------------"));
+763:         return true;
+764:     }
+
+===== onSynergy (行 862 → 879, 共 18 行) =====
+862:     private boolean onSynergy(CommandSender sender, String[] args) {
+863:         if (!(sender instanceof Player)) { sender.sendMessage(msg("&c玩家限定")); return true; }
+864:         Player p = (Player) sender;
+865:         List<org.bukkit.inventory.ItemStack> cards = com.longdrange.ldattribute.card.PlayerData.getCards(p);
+866:         sender.sendMessage(msg("&8&m--------&r &d共鳴/羈絆狀態 &8&m--------"));
+867:         for (com.longdrange.ldattribute.card.SynergyData.Synergy s : com.longdrange.ldattribute.card.SynergyData.getAllResonances()) {
+868:             int m = com.longdrange.ldattribute.card.SynergyData.getMatched(cards, s);
+869:             String claim = com.longdrange.ldattribute.card.PlayerData.hasClaimed(p.getUniqueId(), "synergy_" + s.id) ? "§7[已領]" : "§a[未領]";
+870:             sender.sendMessage(msg("&d共鳴 &f" + s.name + " &7" + m + "/" + s.required + " " + claim));
+871:         }
+872:         for (com.longdrange.ldattribute.card.SynergyData.Synergy s : com.longdrange.ldattribute.card.SynergyData.getAllBonds()) {
+873:             int m = com.longdrange.ldattribute.card.SynergyData.getMatched(cards, s);
+874:             String claim = com.longdrange.ldattribute.card.PlayerData.hasClaimed(p.getUniqueId(), "synergy_" + s.id) ? "§7[已領]" : "§a[未領]";
+875:             sender.sendMessage(msg("&a羈絆 &f" + s.name + " &7" + m + "/" + s.required + " " + claim));
+876:         }
+877:         sender.sendMessage(msg("&8&m------------------------------------"));
+878:         return true;
+879:     }
+
+===== onLog (行 880 → 895, 共 16 行) =====
+880:     private boolean onLog(CommandSender sender, String[] args) {
+881:         if (!(sender instanceof Player)) {
+882:             sender.sendMessage(msg("&c此指令只能由玩家執行！"));
+883:             return true;
+884:         }
+885:         Player p = (Player) sender;
+886:         java.util.List<String> log = com.longdrange.ldattribute.combat.CombatLog.get(p.getUniqueId());
+887:         sender.sendMessage(msg("&8&m-------- &6戰鬥日誌 &8&m--------"));
+888:         if (log.isEmpty()) {
+889:             sender.sendMessage(msg("&7暫無記錄"));
+890:         } else {
+891:             for (String line : log) sender.sendMessage(msg(line));
+892:         }
+893:         sender.sendMessage(msg("&8&m----------------------------"));
+894:         return true;
+895:     }
+
+===== onPet (行 931 → 1008, 共 78 行) =====
+931:     private boolean onPet(CommandSender sender, String[] args) {
+932:         if (!(sender instanceof Player)) { sender.sendMessage(msg("&c玩家限定")); return true; }
+933:         Player p = (Player) sender;
+934:         if (args.length < 2) {
+935:             com.longdrange.ldattribute.pet.inventory.PetInventory.open(p);
+936:             return true;
+937:         }
+938:         String sub = args[1].toLowerCase();
+939:         switch (sub) {
+940:             case "open":
+941:                 com.longdrange.ldattribute.pet.inventory.PetInventory.open(p);
+942:                 return true;
+943:             case "list":
+944:                 sender.sendMessage(msg("&8&m-------- &d宠物列表 &8&m--------"));
+945:                 for (com.longdrange.ldattribute.pet.PetConfig.Pet def :
+946:                         com.longdrange.ldattribute.pet.PetConfig.getAll()) {
+947:                     sender.sendMessage(msg("&e" + def.id + " &7- " + def.name + " &7[" + def.rarity + "]"));
+948:                 }
+949:                 sender.sendMessage(msg("&8&m----------------------------"));
+950:                 return true;
+951:             case "give":
+952:                 if (!sender.hasPermission("ldattribute.command.admin")) {
+953:                     sender.sendMessage(msg("&c无权限"));
+954:                     return true;
+955:                 }
+956:                 if (args.length < 3) { sender.sendMessage(msg("&c用法：/ldc pet give <宠物ID> [玩家]")); return true; }
+957:                 String petId = args[2];
+958:                 if (com.longdrange.ldattribute.pet.PetConfig.get(petId) == null) {
+959:                     sender.sendMessage(msg("&c找不到宠物：&e" + petId));
+960:                     return true;
+961:                 }
+962:                 Player target = p;
+963:                 if (args.length >= 4) {
+964:                     target = Bukkit.getPlayerExact(args[3]);
+965:                     if (target == null) { sender.sendMessage(msg("&c玩家不在线")); return true; }
+966:                 }
+967:                 org.bukkit.inventory.ItemStack egg = com.longdrange.ldattribute.pet.PetManager.createPetEgg(petId);
+968:                 if (egg == null) { sender.sendMessage(msg("&c生成失败")); return true; }
+969:                 target.getInventory().addItem(egg);
+970:                 sender.sendMessage(msg("&a已给予 &e" + target.getName() + " &a宠物蛋 &e" + petId));
+971:                 return true;
+972:             case "evolve":
+973:                 if (args.length < 3) { sender.sendMessage(msg("&c用法：/ldc pet evolve <宠物ID>")); return true; }
+974:                 int[] pos = com.longdrange.ldattribute.pet.PetData.findPetPos(p.getUniqueId(), args[2]);
+975:                 if (pos == null) { sender.sendMessage(msg("&c你还没有此宠物")); return true; }
+976:                 com.longdrange.ldattribute.pet.PetManager.evolve(p, pos[0], pos[1]);
+977:                 com.longdrange.ldattribute.pet.inventory.PetInventory.open(p, pos[0]);
+978:                 return true;
+979:             case "level":
+980:                 if (!sender.hasPermission("ldattribute.command.admin")) { sender.sendMessage(msg("&c无权限")); return true; }
+981:                 if (args.length < 5) { sender.sendMessage(msg("&c用法：/ldc pet level <玩家> <宠物ID> <值>")); return true; }
+982:                 Player t2 = Bukkit.getPlayerExact(args[2]);
+983:                 if (t2 == null) { sender.sendMessage(msg("&c玩家不在线")); return true; }
+984:                 int[] pos2 = com.longdrange.ldattribute.pet.PetData.findPetPos(t2.getUniqueId(), args[3]);
+985:                 if (pos2 == null) { sender.sendMessage(msg("&c该玩家没有此宠物")); return true; }
+986:                 int lv;
+987:                 try { lv = Integer.parseInt(args[4]); } catch (Exception e) { sender.sendMessage(msg("&c值必须是数字")); return true; }
+988:                 com.longdrange.ldattribute.pet.PetInstance pi2 =
+989:                         com.longdrange.ldattribute.pet.PetData.getPet(t2.getUniqueId(), pos2[0], pos2[1]);
+990:                 if (pi2 != null) { pi2.level = Math.max(1, lv); pi2.exp = 0; }
+991:                 com.longdrange.ldattribute.pet.PetData.save(t2.getUniqueId());
+992:                 try { com.longdrange.ldattribute.card.StatsDataRead.updatePlayer(t2); } catch (Throwable ignored) {}
+993:                 sender.sendMessage(msg("&a已设置 " + t2.getName() + " 的 " + args[3] + " 为 Lv." + lv));
+994:                 return true;
+995:             case "unlock":
+996:                 if (!sender.hasPermission("ldattribute.command.admin")) { sender.sendMessage(msg("&c无权限")); return true; }
+997:                 if (args.length < 4) { sender.sendMessage(msg("&c用法：/ldc pet unlock <玩家> <页数>")); return true; }
+998:                 Player t3 = Bukkit.getPlayerExact(args[2]);
+999:                 if (t3 == null) { sender.sendMessage(msg("&c玩家不在线")); return true; }
+1000:                 int pg;
+1001:                 try { pg = Integer.parseInt(args[3]); } catch (Exception e) { sender.sendMessage(msg("&c值必须是数字")); return true; }
+1002:                 com.longdrange.ldattribute.pet.PetData.setUnlockedPages(t3.getUniqueId(), pg);
+1003:                 sender.sendMessage(msg("&a已解锁 " + t3.getName() + " 到第 " + pg + " 页"));
+1004:                 return true;
+1005:         }
+1006:         sender.sendMessage(msg("&7用法：/ldc pet [open|list|give|evolve|level|unlock]"));
+1007:         return true;
+1008:     }
+
+===== onRune (行 1117 → 1290, 共 174 行) =====
+1117:     private boolean onRune(CommandSender sender, String[] args) {
+1118:         if (args.length < 2) {
+1119:             sender.sendMessage(msg("&7用法：/ldc rune [list|give|socket|clear]"));
+1120:             return true;
+1121:         }
+1122:         String sub = args[1].toLowerCase();
+1123:         switch (sub) {
+1124:             case "recycle": {
+1125:                 if (!(sender instanceof Player)) { sender.sendMessage(msg("&c玩家限定")); return true; }
+1126:                 com.longdrange.ldattribute.rune.RuneRecycleInventory.open((Player) sender);
+1127:                 return true;
+1128:             }            case "craft": {
+1129:                 if (!(sender instanceof Player)) { sender.sendMessage(msg("&c玩家限定")); return true; }
+1130:                 if (args.length < 3) { sender.sendMessage(msg("&c用法：/ldc rune craft <符文ID>")); return true; }
+1131:                 Player p = (Player) sender;
+1132:                 com.longdrange.ldattribute.rune.RuneConfig.Rune r =
+1133:                         com.longdrange.ldattribute.rune.RuneConfig.getRune(args[2]);
+1134:                 if (r == null) { sender.sendMessage(msg("&c符文不存在")); return true; }
+1135:                 if (r.costPoints <= 0 && r.costItems.isEmpty()) {
+1136:                     sender.sendMessage(msg("&c此符文无合成配方")); return true;
+1137:                 }
+1138:                 // 检查点券
+1139:                 if (r.costPoints > 0) {
+1140:                     int pp = com.longdrange.ldattribute.points.PointAPI.getPlayerPoints(p.getName());
+1141:                     if (pp < r.costPoints) {
+1142:                         sender.sendMessage(msg("&c点券不足！需要 &e" + r.costPoints + " &c你有 &e" + pp));
+1143:                         return true;
+1144:                     }
+1145:                 }
+1146:                 // 检查材料
+1147:                 for (String spec : r.costItems) {
+1148:                     if (!hasEnoughItemCmd(p, spec)) {
+1149:                         sender.sendMessage(msg("&c缺少物品: &e" + spec));
+1150:                         return true;
+1151:                     }
+1152:                 }
+1153:                 // 扣点券
+1154:                 if (r.costPoints > 0) com.longdrange.ldattribute.points.PointAPI.takePlayerPoints(p.getName(), r.costPoints);
+1155:                 // 扣材料
+1156:                 for (String spec : r.costItems) takeItemCmd(p, spec);
+1157: 
+1158:                 // 发符文
+1159:                 org.bukkit.inventory.ItemStack rune =
+1160:                         com.longdrange.ldattribute.rune.RuneItem.create(r, 1);
+1161:                 java.util.HashMap<Integer, org.bukkit.inventory.ItemStack> left =
+1162:                         p.getInventory().addItem(rune);
+1163:                 for (org.bukkit.inventory.ItemStack drop : left.values())
+1164:                     p.getWorld().dropItemNaturally(p.getLocation(), drop);
+1165:                 sender.sendMessage(msg("&a✦ 合成成功！获得 &e" + r.name));
+1166:                 try { p.playSound(p.getLocation(), org.bukkit.Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f); } catch (Throwable ignored) {}
+1167:                 return true;
+1168:             }            case "upgrade": {
+1169:                 if (!(sender instanceof Player)) { sender.sendMessage(msg("&c玩家限定")); return true; }
+1170:                 if (args.length < 3) { sender.sendMessage(msg("&c用法：/ldc rune upgrade <符文ID>")); return true; }
+1171:                 if (com.longdrange.ldattribute.rune.RuneConfig.getRune(args[2]) == null) {
+1172:                     sender.sendMessage(msg("&c符文不存在")); return true;
+1173:                 }
+1174:                 com.longdrange.ldattribute.rune.RuneUpgradeInventory.open((Player) sender, args[2]);
+1175:                 return true;
+1176:             }            case "collection": {
+1177:                 if (!(sender instanceof Player)) { sender.sendMessage(msg("&c玩家限定")); return true; }
+1178:                 com.longdrange.ldattribute.rune.RuneCollectionInventory.open((Player) sender);
+1179:                 return true;
+1180:             }            case "list": {
+1181:                 sender.sendMessage(msg("&8&m-------- &d符文列表 &8&m--------"));
+1182:                 for (com.longdrange.ldattribute.rune.RuneConfig.Rune r :
+1183:                         com.longdrange.ldattribute.rune.RuneConfig.getAllRunes()) {
+1184:                     sender.sendMessage(msg("&e" + r.id + " &7- " + r.name + " &7[" + r.type + "]"));
+1185:                 }
+1186:                 sender.sendMessage(msg("&8&m----------------------------"));
+1187:                 return true;
+1188:             }
+1189:             case "give": {
+1190:                 if (!sender.hasPermission("ldattribute.command.admin")) {
+1191:                     sender.sendMessage(msg("&c无权限"));
+1192:                     return true;
+1193:                 }
+1194:                 if (args.length < 3) {
+1195:                     sender.sendMessage(msg("&c用法：/ldc rune give <符文ID> [玩家] [数量]"));
+1196:                     return true;
+1197:                 }
+1198:                 String runeId = args[2];
+1199:                 com.longdrange.ldattribute.rune.RuneConfig.Rune r =
+1200:                         com.longdrange.ldattribute.rune.RuneConfig.getRune(runeId);
+1201:                 if (r == null) {
+1202:                     sender.sendMessage(msg("&c找不到符文：&e" + runeId));
+1203:                     return true;
+1204:                 }
+1205:                 Player target;
+1206:                 if (args.length >= 4) {
+1207:                     target = Bukkit.getPlayerExact(args[3]);
+1208:                     if (target == null) { sender.sendMessage(msg("&c玩家不在线")); return true; }
+1209:                 } else {
+1210:                     if (!(sender instanceof Player)) { sender.sendMessage(msg("&c请指定玩家")); return true; }
+1211:                     target = (Player) sender;
+1212:                 }
+1213:                 int amount = 1;
+1214:                 if (args.length >= 5) {
+1215:                     try { amount = Integer.parseInt(args[4]); } catch (Exception ignored) {}
+1216:                 }
+1217:                 org.bukkit.inventory.ItemStack item =
+1218:                         com.longdrange.ldattribute.rune.RuneItem.create(r, amount);
+1219:                 java.util.HashMap<Integer, org.bukkit.inventory.ItemStack> left =
+1220:                         target.getInventory().addItem(item);
+1221:                 for (org.bukkit.inventory.ItemStack drop : left.values()) {
+1222:                     target.getWorld().dropItemNaturally(target.getLocation(), drop);
+1223:                 }
+1224:                 sender.sendMessage(msg("&a已给予 &e" + target.getName() + " &a符文 &e" + runeId + " &7×" + amount));
+1225:                 return true;
+1226:             }
+1227:             case "socket": {
+1228:                 if (!sender.hasPermission("ldattribute.command.admin")) {
+1229:                     sender.sendMessage(msg("&c无权限")); return true;
+1230:                 }
+1231:                 if (!(sender instanceof Player)) { sender.sendMessage(msg("&c玩家限定")); return true; }
+1232:                 Player p = (Player) sender;
+1233:                 if (args.length < 5) {
+1234:                     sender.sendMessage(msg("&c用法：/ldc rune socket <孔位序号> <符文ID> [卡槽0-35]"));
+1235:                     return true;
+1236:                 }
+1237:                 int idx;
+1238:                 try { idx = Integer.parseInt(args[2]); } catch (Exception e) {
+1239:                     sender.sendMessage(msg("&c孔位序号必须是数字")); return true;
+1240:                 }
+1241:                 String runeId = args[3];
+1242:                 com.longdrange.ldattribute.rune.RuneConfig.Rune r =
+1243:                         com.longdrange.ldattribute.rune.RuneConfig.getRune(runeId);
+1244:                 if (r == null) { sender.sendMessage(msg("&c找不到符文")); return true; }
+1245:                 int slot = p.getInventory().getHeldItemSlot();
+1246:                 if (args.length >= 5) {
+1247:                     try { slot = Integer.parseInt(args[4]); } catch (Exception ignored) {}
+1248:                 }
+1249:                 org.bukkit.inventory.ItemStack card = p.getInventory().getItem(slot);
+1250:                 if (card == null) { sender.sendMessage(msg("&c该槽位没有物品")); return true; }
+1251:                 com.longdrange.ldattribute.card.CardData cd =
+1252:                         com.longdrange.ldattribute.card.CardDataManager.findCard(card);
+1253:                 if (cd == null) { sender.sendMessage(msg("&c该物品不是卡片")); return true; }
+1254:                 org.bukkit.inventory.ItemStack newCard =
+1255:                         com.longdrange.ldattribute.card.CardNBT.setSocketRune(card, idx, runeId);
+1256:                 newCard = com.longdrange.ldattribute.card.CardNBT.unlockSocket(newCard, idx);
+1257:                 newCard = com.longdrange.ldattribute.card.CardLevel.recalc(newCard, cd.getId(),
+1258:                         com.longdrange.ldattribute.card.CardNBT.getLevel(newCard),
+1259:                         com.longdrange.ldattribute.card.CardNBT.getExp(newCard));
+1260:                 p.getInventory().setItem(slot, newCard);
+1261:                 sender.sendMessage(msg("&a已在孔位 &e" + idx + " &a镶嵌 &e" + runeId));
+1262:                 return true;
+1263:             }
+1264:             case "clear": {
+1265:                 if (!sender.hasPermission("ldattribute.command.admin")) {
+1266:                     sender.sendMessage(msg("&c无权限")); return true;
+1267:                 }
+1268:                 if (!(sender instanceof Player)) { sender.sendMessage(msg("&c玩家限定")); return true; }
+1269:                 Player p = (Player) sender;
+1270:                 int slot = args.length >= 3 ? Integer.parseInt(args[2]) : p.getInventory().getHeldItemSlot();
+1271:                 org.bukkit.inventory.ItemStack card = p.getInventory().getItem(slot);
+1272:                 if (card == null) { sender.sendMessage(msg("&c该槽位没有物品")); return true; }
+1273:                 com.longdrange.ldattribute.card.CardData cd =
+1274:                         com.longdrange.ldattribute.card.CardDataManager.findCard(card);
+1275:                 if (cd == null) { sender.sendMessage(msg("&c该物品不是卡片")); return true; }
+1276:                 int max = 16;
+1277:                 for (int i = 0; i < max; i++) {
+1278:                     card = com.longdrange.ldattribute.card.CardNBT.setSocketRune(card, i, "");
+1279:                 }
+1280:                 card = com.longdrange.ldattribute.card.CardLevel.recalc(card, cd.getId(),
+1281:                         com.longdrange.ldattribute.card.CardNBT.getLevel(card),
+1282:                         com.longdrange.ldattribute.card.CardNBT.getExp(card));
+1283:                 p.getInventory().setItem(slot, card);
+1284:                 sender.sendMessage(msg("&a已清空该卡所有符文"));
+1285:                 return true;
+1286:             }
+1287:         }
+1288:         sender.sendMessage(msg("&7用法：/ldc rune [list|give|socket|clear]"));
+1289:         return true;
+1290:     }
+
+===== onPetEquip (行 282 → 327, 共 46 行) =====
+282:     private boolean onPetEquip(CommandSender sender, String[] args) {
+283:         if (args.length < 2 || args[1].equalsIgnoreCase("list")) {
+284:             sender.sendMessage("§6§l✦ 宠物装备列表 ✦");
+285:             java.util.Collection<com.longdrange.ldattribute.pet.PetEquipmentConfig.Equip> all =
+286:                     com.longdrange.ldattribute.pet.PetEquipmentConfig.getAll();
+287:             if (all.isEmpty()) { sender.sendMessage("§7(空)"); return true; }
+288:             for (com.longdrange.ldattribute.pet.PetEquipmentConfig.Equip e : all) {
+289:                 sender.sendMessage("§e" + e.id + " §7[" + e.slot + "] §f" + e.name);
+290:             }
+291:             return true;
+292:         }
+293:         if (args[1].equalsIgnoreCase("give")) {
+294:             if (!sender.hasPermission("ldattribute.command.admin")) {
+295:                 sender.sendMessage(Message.get("Command.Help.NoPerm"));
+296:                 return true;
+297:             }
+298:             if (args.length < 3) {
+299:                 sender.sendMessage("§c用法: /ldc petequip give <id> [player] [amount]");
+300:                 return true;
+301:             }
+302:             com.longdrange.ldattribute.pet.PetEquipmentConfig.Equip e =
+303:                     com.longdrange.ldattribute.pet.PetEquipmentConfig.get(args[2]);
+304:             if (e == null) { sender.sendMessage("§c装备不存在: " + args[2]); return true; }
+305:             Player target;
+306:             if (args.length >= 4) {
+307:                 target = Bukkit.getPlayer(args[3]);
+308:                 if (target == null) { sender.sendMessage("§c玩家不在线: " + args[3]); return true; }
+309:             } else if (sender instanceof Player) {
+310:                 target = (Player) sender;
+311:             } else {
+312:                 sender.sendMessage("§c请指定玩家");
+313:                 return true;
+314:             }
+315:             int amount = 1;
+316:             if (args.length >= 5) {
+317:                 try { amount = Integer.parseInt(args[4]); } catch (Exception ignored) {}
+318:             }
+319:             ItemStack item = com.longdrange.ldattribute.pet.PetEquipmentItem.create(e, amount);
+320:             if (item == null) { sender.sendMessage("§c装备生成失败"); return true; }
+321:             target.getInventory().addItem(item);
+322:             sender.sendMessage("§a✓ 已给予 " + target.getName() + " " + amount + " 个 " + e.id);
+323:             return true;
+324:         }
+325:         sender.sendMessage("§c用法: /ldc petequip list | give <id> [player] [amount]");
+326:         return true;
+327:     }
+

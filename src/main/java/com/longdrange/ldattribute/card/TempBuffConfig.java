@@ -32,7 +32,7 @@ public class TempBuffConfig {
 
     public static void load(LDAttribute plugin) {
         buffs.clear();
-        File f = new File(plugin.getDataFolder(), "tempbuff.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "tempbuff.yml");
         if (!f.exists()) { try { plugin.saveResource("tempbuff.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
         ConfigurationSection sec = cfg.getConfigurationSection("Buffs");
@@ -46,7 +46,7 @@ public class TempBuffConfig {
             double chance = trig.getDouble("Chance", 1.0);
             int duration = s.getInt("Duration", 5);
             int cooldown = s.getInt("Cooldown", 0);
-            String message = s.getString("Message", "");
+            String message = org.bukkit.ChatColor.translateAlternateColorCodes((char)38, s.getString("Message", ""));
             List<String> effects = s.getStringList("Effects");
             if (effects == null) effects = new ArrayList<>();
             int threshold = trig.getInt("Threshold", 0);

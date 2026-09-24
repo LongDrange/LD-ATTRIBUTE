@@ -55,7 +55,7 @@ public class SynergyData {
 
     private static Map<String, Synergy> loadFile(LDAttribute plugin, String fileName, String rootKey, String type) {
         Map<String, Synergy> map = new LinkedHashMap<>();
-        File f = new File(plugin.getDataFolder(), fileName);
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, fileName);
         if (!f.exists()) {
             try { plugin.saveResource(fileName, false); } catch (Exception ignored) {}
         }
@@ -73,8 +73,8 @@ public class SynergyData {
             int required = s.getInt("Required", cards.size());
             List<String> attrs = s.getStringList("Attributes");
             if (attrs == null) attrs = new ArrayList<>();
-            String msg = s.getString("Message", "");
-            String name = s.getString("Name", key);
+            String msg = org.bukkit.ChatColor.translateAlternateColorCodes((char)38, s.getString("Message", ""));
+            String name = org.bukkit.ChatColor.translateAlternateColorCodes((char) 38, s.getString("Name", key));
 
             List<String> rewardCmds = new ArrayList<>();
             String rewardMsg = "";
@@ -82,7 +82,7 @@ public class SynergyData {
             if (ro != null) {
                 List<String> tmp = ro.getStringList("Commands");
                 if (tmp != null) rewardCmds = tmp;
-                rewardMsg = ro.getString("Message", "");
+                rewardMsg = org.bukkit.ChatColor.translateAlternateColorCodes((char)38, ro.getString("Message", ""));
             }
             map.put(key, new Synergy(key, type, name, cards, required, attrs, msg, rewardCmds, rewardMsg));
         }

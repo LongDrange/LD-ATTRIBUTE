@@ -119,6 +119,84 @@ public class OnDamageListener implements Listener {
             }
         } catch (Throwable ignored) {}
 
+        // ===== 触发元素反应 =====
+        try {
+            String atkEl = com.longdrange.ldattribute.combat.ElementHelper.getEntityElement(attacker);
+            String defEl = com.longdrange.ldattribute.combat.ElementHelper.getEntityElement(victim);
+            if (!atkEl.isEmpty() && !defEl.isEmpty()) {
+                com.longdrange.ldattribute.combat.ElementConfig.Reaction rxn =
+                        com.longdrange.ldattribute.combat.ElementConfig.getReaction(atkEl, defEl);
+                if (rxn != null) {
+                    // 伤害倍率
+                    if (rxn.damageMultiplier != 1.0) {
+                        damageData.setDamage(damageData.getDamage() * rxn.damageMultiplier);
+                    }
+                    // 效果
+                    if ("BURN".equals(rxn.effect)) {
+                        victim.setFireTicks(60);
+                    } else if ("SLOW".equals(rxn.effect)) {
+                        victim.addPotionEffect(new org.bukkit.potion.PotionEffect(
+                                org.bukkit.potion.PotionEffectType.SLOW, 60, 1));
+                    } else if ("WEAK".equals(rxn.effect)) {
+                        victim.addPotionEffect(new org.bukkit.potion.PotionEffect(
+                                org.bukkit.potion.PotionEffectType.WEAKNESS, 60, 0));
+                    } else if ("HEAL".equals(rxn.effect)) {
+                        if (attacker instanceof Player) {
+                            Player ap = (Player) attacker;
+                            double heal = Math.max(0, damageData.getDamage()) * 0.5;
+                            ap.setHealth(Math.min(ap.getMaxHealth(), ap.getHealth() + heal));
+                        }
+                    }
+                    // 消息
+                    if (attacker instanceof Player && rxn.message != null && !rxn.message.isEmpty()) {
+                        ((Player) attacker).sendMessage(org.bukkit.ChatColor.translateAlternateColorCodes(
+                                (char) 38, rxn.message));
+                    }
+                    // 粒子特效
+                    try {
+                        victim.getWorld().spawnParticle(org.bukkit.Particle.EXPLOSION_NORMAL,
+                                victim.getLocation().add(0, 1, 0), 10, 0.5, 0.5, 0.5, 0.1);
+                    } catch (Throwable ignored) {}
+                }
+            }
+        } catch (Throwable ignored) {}
+        // ===== 触发组合效果 =====
+        try {
+            if (attacker instanceof Player) {
+                Player ap = (Player) attacker;
+                for (com.longdrange.ldattribute.card.ComboData.Combo cb :
+                        com.longdrange.ldattribute.card.ComboData.getAll()) {
+                    if (!com.longdrange.ldattribute.card.ComboData.isActive(ap, cb.id)) continue;
+                    String ef = cb.effect;
+                    double ev = cb.effectValue;
+                    if ("LIGHTNING_ON_HIT".equals(ef)) {
+                        victim.getWorld().strikeLightningEffect(victim.getLocation());
+                        damageData.addDamage(ev);
+                    } else if ("FIRE_ON_HIT".equals(ef)) {
+                        victim.setFireTicks(60);
+                    } else if ("LIFESTEAL_ON_HIT".equals(ef)) {
+                        double heal = Math.max(0, damageData.getDamage()) * ev / 100.0;
+                        ap.setHealth(Math.min(ap.getMaxHealth(), ap.getHealth() + heal));
+                    } else if ("THORNS".equals(ef)) {
+                        if (victim instanceof LivingEntity) {
+                            double reflect = damageData.getDamage() * ev / 100.0;
+                            double nh = victim.getHealth() - reflect;
+                            victim.setHealth(nh > 0 ? nh : 0);
+                        }
+                    }
+                }
+            }
+            if (victim instanceof Player) {
+                Player vp = (Player) victim;
+                for (com.longdrange.ldattribute.card.ComboData.Combo cb :
+                        com.longdrange.ldattribute.card.ComboData.getAll()) {
+                    if (!com.longdrange.ldattribute.card.ComboData.isActive(vp, cb.id)) continue;
+                    if ("DAMAGE_REDUCE".equals(cb.effect)) {
+                        damageData.setDamage(damageData.getDamage() * (1.0 - cb.effectValue / 100.0));
+                    }
+                }
+            }
+        } catch (Throwable ignored) {}
         // ===== 战斗日志 =====
         try {
             double finalDmg = Math.max(0, damageData.getDamage());

@@ -23,7 +23,7 @@ public class DecomposeConfig {
     public static void load(LDAttribute plugin) {
         cards.clear();
         def = new Entry();
-        File f = new File(plugin.getDataFolder(), "decompose.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "decompose.yml");
         if (!f.exists()) { try { plugin.saveResource("decompose.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
 

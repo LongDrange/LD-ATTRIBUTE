@@ -1,3 +1,10 @@
+# ============================================================
+#  [分类] 战斗
+#  [文件] tempbuff.yml
+#  [功能] 限时 Buff：击杀 / 死亡等事件触发
+#  [重载] /ldc reload tempbuff
+#  [路径] plugins/LD-Attribute/tempbuff.yml
+# ============================================================
 # ================================================
 #   限時 Buff
 #   Trigger.Event: PLAYER_ATTACK / PLAYER_KILL / PLAYER_DAMAGED

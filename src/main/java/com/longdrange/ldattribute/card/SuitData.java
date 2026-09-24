@@ -29,7 +29,7 @@ public class SuitData {
         suitItems.clear();
         suitEffects.clear();
 
-        File file = new File(plugin.getDataFolder(), "suit.yml");
+        File file = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "suit.yml");
         if (!file.exists()) {
             try { plugin.saveResource("suit.yml", false); } catch (Exception ignored) {}
         }
@@ -39,7 +39,7 @@ public class SuitData {
             ConfigurationSection sec = cfg.getConfigurationSection(key);
             if (sec == null) continue;
 
-            String name = sec.getString("Name", key);
+            String name = org.bukkit.ChatColor.translateAlternateColorCodes((char) 38, sec.getString("Name", key));
             List<String> list = sec.getStringList("List");
             List<String> effect = sec.getStringList("Effect");
 

@@ -1,8 +1,19 @@
+# ============================================================
+#  [分类] 战斗
+#  [文件] element.yml
+#  [功能] 元素反应：5 元素 / 9 反应 / 倍率 / 特效
+#  [重载] /ldc reload element
+#  [路径] plugins/LD-Attribute/element.yml
+# ============================================================
 # ================================================
 #   属性克制系统
 #   Elements: 定义元素及其克制关系
 #     Beats: 克制哪些元素（伤害 ×1.5）
-#     WeakTo: 被哪些元素克制（伤害 ×0.75）
+#   Reactions: 元素反应（两种元素组合触发）
+#     Elements: [A, B] 触发组合
+#     DamageMultiplier: 伤害倍率（1.0 = 不变）
+#     Message: 触发消息
+#     Effect: 额外效果（BURN / SLOW / WEAK / HEAL）
 # ================================================
 
 Elements:
@@ -22,7 +33,66 @@ Elements:
     Name: "&a木"
     Beats: [WATER]
 
-# 克制伤害倍率
 StrongMultiplier: 1.5
-# 被克伤害倍率
 WeakMultiplier: 0.75
+
+# ===== 元素反应 =====
+Reactions:
+  vaporize:
+    Name: "&6蒸发"
+    Elements: [FIRE, WATER]
+    DamageMultiplier: 1.5
+    Message: "&6✦ 蒸发反应！"
+
+  melt_fire:
+    Name: "&c融化"
+    Elements: [FIRE, ICE]
+    DamageMultiplier: 1.5
+    Message: "&c✦ 融化反应！"
+
+  melt_ice:
+    Name: "&b融化"
+    Elements: [ICE, FIRE]
+    DamageMultiplier: 2.0
+    Message: "&b✦ 融化反应！"
+
+  overload:
+    Name: "&e超载"
+    Elements: [FIRE, LIGHTNING]
+    DamageMultiplier: 1.3
+    Effect: BURN
+    Message: "&e✦ 超载反应！"
+
+  electro_charged:
+    Name: "&9感电"
+    Elements: [WATER, LIGHTNING]
+    DamageMultiplier: 1.2
+    Message: "&9✦ 感电反应！"
+
+  frozen:
+    Name: "&b冻结"
+    Elements: [WATER, ICE]
+    DamageMultiplier: 1.0
+    Effect: SLOW
+    Message: "&b✦ 冻结反应！"
+
+  superconduct:
+    Name: "&f超导"
+    Elements: [ICE, LIGHTNING]
+    DamageMultiplier: 1.3
+    Effect: WEAK
+    Message: "&f✦ 超导反应！"
+
+  burning:
+    Name: "&c燃烧"
+    Elements: [FIRE, NATURE]
+    DamageMultiplier: 1.2
+    Effect: BURN
+    Message: "&c✦ 燃烧反应！"
+
+  bloom:
+    Name: "&a绽放"
+    Elements: [WATER, NATURE]
+    DamageMultiplier: 1.0
+    Effect: HEAL
+    Message: "&a✦ 绽放反应！"

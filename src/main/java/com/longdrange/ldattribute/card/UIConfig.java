@@ -26,7 +26,7 @@ public class UIConfig {
 
     public static void load(LDAttribute plugin) {
         screens.clear();
-        File f = new File(plugin.getDataFolder(), "ui.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "ui.yml");
         if (!f.exists()) { try { plugin.saveResource("ui.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
 

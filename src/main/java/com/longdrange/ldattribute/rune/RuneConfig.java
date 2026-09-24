@@ -39,7 +39,7 @@ public class RuneConfig {
         cardSockets.clear();
         defaultSockets = new ArrayList<>();
 
-        File f = new File(plugin.getDataFolder(), "rune.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "rune.yml");
         if (!f.exists()) { try { plugin.saveResource("rune.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
 

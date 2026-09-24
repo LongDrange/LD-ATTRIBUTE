@@ -48,7 +48,7 @@ public class CardLevelConfig {
 
     public static void load(LDAttribute plugin) {
         map.clear();
-        File f = new File(plugin.getDataFolder(), "cardlevel.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "cardlevel.yml");
         if (!f.exists()) { try { plugin.saveResource("cardlevel.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
         ConfigurationSection sec = cfg.getConfigurationSection("Cards");

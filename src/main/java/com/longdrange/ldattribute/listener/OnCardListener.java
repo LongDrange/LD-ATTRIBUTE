@@ -146,11 +146,32 @@ public class OnCardListener implements Listener {
         if (killer == null) return;
         com.longdrange.ldattribute.card.TempBuffManager.tryTrigger(killer, "PLAYER_KILL");
         com.longdrange.ldattribute.card.TempBuffManager.addKillStreak(killer);
+        // 组合技能：击杀回血
+        try {
+            for (com.longdrange.ldattribute.card.ComboData.Combo cb :
+                    com.longdrange.ldattribute.card.ComboData.getAll()) {
+                if (!com.longdrange.ldattribute.card.ComboData.isActive(killer, cb.id)) continue;
+                if ("HEAL_ON_KILL".equals(cb.effect)) {
+                    double heal = cb.effectValue;
+                    if (heal > 0 && killer.getHealth() < killer.getMaxHealth()) {
+                        killer.setHealth(Math.min(killer.getMaxHealth(), killer.getHealth() + heal));
+                    }
+                }
+            }
+        } catch (Throwable ignored) {}
+        try { com.longdrange.ldattribute.achievement.AchievementChecker.addProgress(killer, com.longdrange.ldattribute.achievement.AchievementConfig.Type.KILL, 1); } catch (Throwable ignored) {}
     }
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         processOfflineCardExp(event.getPlayer());
         StatsDataRead.scheduleUpdate(event.getPlayer());
+        org.bukkit.Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            try {
+                com.longdrange.ldattribute.achievement.AchievementChecker.checkSnapshot(event.getPlayer(), com.longdrange.ldattribute.achievement.AchievementConfig.Type.CARD_COUNT);
+                com.longdrange.ldattribute.achievement.AchievementChecker.checkSnapshot(event.getPlayer(), com.longdrange.ldattribute.achievement.AchievementConfig.Type.RUNE_COLLECT);
+                com.longdrange.ldattribute.achievement.AchievementChecker.checkSnapshot(event.getPlayer(), com.longdrange.ldattribute.achievement.AchievementConfig.Type.PET_COLLECT);
+            } catch (Throwable ignored) {}
+        }, 40L);
     }
     private void scanRunesOnJoin(Player p) {
         try {
@@ -257,9 +278,46 @@ public class OnCardListener implements Listener {
         else if (com.longdrange.ldattribute.pet.inventory.PetInventory.isPetInventory(title)) handlePetInventory(player, event);
         else if (com.longdrange.ldattribute.pet.inventory.PetDetailInventory.isDetail(title)) handlePetDetail(player, event);
         else if (com.longdrange.ldattribute.card.inventory.StatsInventory.isStatsInventory(title)) handleStats(player, event);
+        else if (com.longdrange.ldattribute.achievement.AchievementInventory.isAchievement(title)) handleAchievement(player, event);
+        else if (com.longdrange.ldattribute.achievement.AchievementDetailInventory.isDetail(title)) handleAchievementDetail(player, event);
+        else if (com.longdrange.ldattribute.card.inventory.SynergyDetailInventory.isDetail(title)) handleSynergyDetail(player, event);
+        else if (com.longdrange.ldattribute.card.inventory.PlayerInspectInventory.isInspect(title)) handlePlayerInspect(player, event);
+        else if (com.longdrange.ldattribute.gacha.GachaInventory.isGacha(title)) handleGacha(player, event);
         else if (com.longdrange.ldattribute.card.inventory.RankInventory.isRankInventory(title)) handleRank(player, event, title);
     }
 
+    private void handlePlayerInspect(Player player, InventoryClickEvent event) {
+        event.setCancelled(true);
+        int slot = event.getRawSlot();
+        if (slot == com.longdrange.ldattribute.card.inventory.PlayerInspectInventory.SLOT_BACK) {
+            player.closeInventory();
+            return;
+        }
+        if (slot == com.longdrange.ldattribute.card.inventory.PlayerInspectInventory.SLOT_PREV) {
+            com.longdrange.ldattribute.card.inventory.PlayerInspectInventory.openPrev(player);
+            return;
+        }
+        if (slot == com.longdrange.ldattribute.card.inventory.PlayerInspectInventory.SLOT_NEXT) {
+            com.longdrange.ldattribute.card.inventory.PlayerInspectInventory.openNext(player);
+            return;
+        }
+    }
+    private void handleSynergyDetail(Player player, InventoryClickEvent event) {
+        event.setCancelled(true);
+        int slot = event.getRawSlot();
+        if (slot == com.longdrange.ldattribute.card.inventory.SynergyDetailInventory.SLOT_BACK) {
+            player.closeInventory();
+            return;
+        }
+        if (slot == com.longdrange.ldattribute.card.inventory.SynergyDetailInventory.SLOT_PREV) {
+            com.longdrange.ldattribute.card.inventory.SynergyDetailInventory.openPrev(player);
+            return;
+        }
+        if (slot == com.longdrange.ldattribute.card.inventory.SynergyDetailInventory.SLOT_NEXT) {
+            com.longdrange.ldattribute.card.inventory.SynergyDetailInventory.openNext(player);
+            return;
+        }
+    }
     private void handlePetInventory(Player player, InventoryClickEvent event) {
         event.setCancelled(true);
         int slot = event.getRawSlot();
@@ -306,6 +364,20 @@ public class OnCardListener implements Listener {
         // 空槽 + 手上有宠物蛋 → 放入
         if (pi == null) {
             org.bukkit.inventory.ItemStack hand = player.getInventory().getItemInMainHand();
+            // 类型校验：只能放宠物蛋
+            if (hand != null && hand.getType() != org.bukkit.Material.AIR
+                    && !com.longdrange.ldattribute.item.ItemTypeNBT.isPetEgg(hand)) {
+                player.sendMessage("§c此槽只接受 §e宠物蛋§c，你放的是 §e" +
+                        com.longdrange.ldattribute.item.ItemTypeNBT.getType(hand) + "§c");
+                return;
+            }
+            // 类型校验：只能放宠物蛋
+            if (hand != null && hand.getType() != org.bukkit.Material.AIR
+                    && !com.longdrange.ldattribute.item.ItemTypeNBT.isPetEgg(hand)) {
+                player.sendMessage("§c此槽只接受 §e宠物蛋§c，你放的是 §e" +
+                        com.longdrange.ldattribute.item.ItemTypeNBT.getType(hand) + "§c");
+                return;
+            }
             String eggId = com.longdrange.ldattribute.pet.PetManager.getPetEggId(hand);
             player.sendMessage("§7[调试] 手物品: " + (hand == null ? "null" : hand.getType()) + " eggId=" + eggId);
             if (eggId != null) {
@@ -358,7 +430,58 @@ public class OnCardListener implements Listener {
         int page = com.longdrange.ldattribute.pet.PetData.getCurrentPage(player.getUniqueId());
         int[] viewPos = playerViewPos.get(player.getUniqueId());
 
-        if (slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_BACK) {
+// 装备槽：点击放入/取出（只接受 PET_EQUIP 类型且槽位匹配）
+        if (slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_WEAPON
+                || slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_ARMOR
+                || slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_ACCESSORY) {
+            if (viewPos == null) return;
+            com.longdrange.ldattribute.pet.PetInstance pi =
+                    com.longdrange.ldattribute.pet.PetData.getPet(player.getUniqueId(), viewPos[0], viewPos[1]);
+            if (pi == null) return;
+            String expectSlot;
+            if (slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_WEAPON) expectSlot = "WEAPON";
+            else if (slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_ARMOR) expectSlot = "ARMOR";
+            else expectSlot = "ACCESSORY";
+
+            org.bukkit.inventory.ItemStack existing = pi.equipment.get(expectSlot);
+            if (existing != null && existing.getType() != org.bukkit.Material.AIR) {
+                // 取出
+                pi.equipment.remove(expectSlot);
+                java.util.HashMap<Integer, org.bukkit.inventory.ItemStack> left =
+                        player.getInventory().addItem(existing);
+                for (org.bukkit.inventory.ItemStack drop : left.values())
+                    player.getWorld().dropItemNaturally(player.getLocation(), drop);
+                player.sendMessage("§a✦ 已取出装备");
+            } else {
+                // 放入主手物品
+                org.bukkit.inventory.ItemStack hand = player.getInventory().getItemInMainHand();
+                if (hand == null || hand.getType() == org.bukkit.Material.AIR) {
+                    player.sendMessage("§c把装备拿在主手");
+                    return;
+                }
+                // 类型校验
+                if (!com.longdrange.ldattribute.item.ItemTypeNBT.isPetEquip(hand)) {
+                    player.sendMessage("§c此槽只接受 §e宠物装备§c，你放的是 §e" +
+                            com.longdrange.ldattribute.item.ItemTypeNBT.getType(hand) + "§c");
+                    return;
+                }
+                // 槽位校验
+                String itemSlot = com.longdrange.ldattribute.pet.PetEquipmentItem.getSlot(hand);
+                if (itemSlot == null || !itemSlot.equals(expectSlot)) {
+                    player.sendMessage("§c此装备槽位是 §e" + expectSlot + "§c，你放的是 §e" + itemSlot);
+                    return;
+                }
+                pi.equipment.put(expectSlot, hand.clone());
+                player.getInventory().setItemInMainHand(null);
+                player.sendMessage("§a✦ 已装备");
+            }
+            com.longdrange.ldattribute.pet.PetData.save(player.getUniqueId());
+            try { com.longdrange.ldattribute.card.StatsDataRead.updatePlayer(player); } catch (Throwable ignored) {}
+            try { player.playSound(player.getLocation(), org.bukkit.Sound.ITEM_ARMOR_EQUIP_IRON, 1f, 1f); } catch (Throwable ignored) {}
+            com.longdrange.ldattribute.pet.inventory.PetDetailInventory.open(player, viewPos[0], viewPos[1]);
+            return;
+        }
+if (slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_BACK) {
             com.longdrange.ldattribute.pet.inventory.PetInventory.open(player, page);
             return;
         }
@@ -915,6 +1038,8 @@ public class OnCardListener implements Listener {
 
         if (replaceCardInBag(player, cur, newCard, cd.getId())) {
             player.sendMessage("§a✦ 鑲嵌成功！§f" + rn.name);
+            try { com.longdrange.ldattribute.achievement.AchievementChecker.addProgress(player, com.longdrange.ldattribute.achievement.AchievementConfig.Type.RUNE_EQUIP, 1); } catch (Throwable ignored) {}
+            try { com.longdrange.ldattribute.achievement.AchievementChecker.checkSnapshot(player, com.longdrange.ldattribute.achievement.AchievementConfig.Type.RUNE_COLLECT); } catch (Throwable ignored) {}
             try { player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 1.5f); } catch (Throwable ignored) {}
             com.longdrange.ldattribute.rune.RuneInventory.open(player, cd, newCard);
         } else {
@@ -1140,6 +1265,7 @@ public class OnCardListener implements Listener {
                     com.longdrange.ldattribute.card.CardNBT.getExp(newCard));
             if (replaceCardInBag(player, cur, newCard, cd.getId())) {
                 player.sendMessage("§6✦ 升星成功！§e" + cd.getId() + " §7→ §6" + newStar + " 星");
+                try { com.longdrange.ldattribute.achievement.AchievementChecker.addProgress(player, com.longdrange.ldattribute.achievement.AchievementConfig.Type.STAR_UP, 1); } catch (Throwable ignored) {}
                 try { player.playSound(player.getLocation(), org.bukkit.Sound.ENTITY_PLAYER_LEVELUP, 1f, 2f); } catch (Throwable ignored) {}
                 try {
                     org.bukkit.Location loc = player.getLocation().add(0, 1, 0);
@@ -1340,7 +1466,20 @@ public class OnCardListener implements Listener {
 
         ExpStoneData.ExpStone stone = ExpStoneData.parse(ExpStoneSelectInventory.getPendingStone(player.getUniqueId()));
         if (stone == null) { player.sendMessage("§c經驗石資料遺失"); return; }
-        CardData cd = CardDataManager.findCard(clicked);
+        
+
+        // 类型校验：只能放卡牌
+        if (!com.longdrange.ldattribute.item.ItemTypeNBT.isCard(clicked)) {
+            player.sendMessage("§c此槽只接受 §e卡牌§c，你放的是 §e" +
+                    com.longdrange.ldattribute.item.ItemTypeNBT.getType(clicked) + "§c");
+            return;
+        }        // 类型校验：只能放卡牌
+        if (!com.longdrange.ldattribute.item.ItemTypeNBT.isCard(clicked)) {
+            player.sendMessage("§c此槽只接受 §e卡牌§c，你放的是 §e" +
+                    com.longdrange.ldattribute.item.ItemTypeNBT.getType(clicked) + "§c");
+            return;
+        }
+CardData cd = CardDataManager.findCard(clicked);
         if (cd == null) { player.sendMessage("§c這不是卡片"); return; }
 
         if (!CardLevelConfig.isUpgradable(cd.getId())) {
@@ -1609,6 +1748,53 @@ public class OnCardListener implements Listener {
             com.longdrange.ldattribute.card.inventory.RankInventory.open(player, type, 2);
             return;
         }
+    }
+    private void handleGacha(Player player, InventoryClickEvent event) {
+        int slot = event.getRawSlot();
+        event.setCancelled(true);
+        if (slot == com.longdrange.ldattribute.gacha.GachaInventory.SLOT_BACK) {
+            player.closeInventory();
+            return;
+        }
+        com.longdrange.ldattribute.gacha.GachaConfig.Gacha g =
+                com.longdrange.ldattribute.gacha.GachaInventory.getBySlot(slot);
+        if (g == null) return;
+        com.longdrange.ldattribute.gacha.GachaManager.Result r =
+                com.longdrange.ldattribute.gacha.GachaManager.draw(player, g);
+        player.sendMessage(r.message);
+        com.longdrange.ldattribute.gacha.GachaInventory.open(player);
+    }
+    private void handleAchievementDetail(Player player, InventoryClickEvent event) {
+        event.setCancelled(true);
+        int slot = event.getRawSlot();
+        if (slot == com.longdrange.ldattribute.achievement.AchievementDetailInventory.SLOT_BACK) {
+            player.closeInventory();
+        }
+    }
+    private void handleAchievement(Player player, InventoryClickEvent event) {
+        int slot = event.getRawSlot();
+        event.setCancelled(true);
+        if (slot == com.longdrange.ldattribute.achievement.AchievementInventory.SLOT_BACK) {
+            player.closeInventory();
+            return;
+        }
+        int cur = com.longdrange.ldattribute.achievement.AchievementInventory.getLastPage(player.getUniqueId());
+        if (slot == com.longdrange.ldattribute.achievement.AchievementInventory.SLOT_PREV) {
+            com.longdrange.ldattribute.achievement.AchievementInventory.open(player, cur - 1);
+            return;
+        }
+        if (slot == com.longdrange.ldattribute.achievement.AchievementInventory.SLOT_NEXT) {
+            com.longdrange.ldattribute.achievement.AchievementInventory.open(player, cur + 1);
+            return;
+        }
+        if (slot >= 45) return;
+        // 点击成就 → 打开详情 GUI
+        java.util.List<com.longdrange.ldattribute.achievement.AchievementConfig.Achievement> all =
+                new java.util.ArrayList<>(com.longdrange.ldattribute.achievement.AchievementConfig.getAll());
+        int idx = cur * com.longdrange.ldattribute.achievement.AchievementInventory.PER_PAGE + slot;
+        if (idx < 0 || idx >= all.size()) return;
+        com.longdrange.ldattribute.achievement.AchievementConfig.Achievement a = all.get(idx);
+        com.longdrange.ldattribute.achievement.AchievementDetailInventory.open(player, a.id);
     }
     private void handleStats(Player player, InventoryClickEvent event) {
         event.setCancelled(true);

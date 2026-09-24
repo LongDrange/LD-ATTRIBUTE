@@ -35,7 +35,7 @@ public class RecipeConfig {
 
     public static void load(LDAttribute plugin) {
         recipes.clear();
-        File f = new File(plugin.getDataFolder(), "recipe.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "recipe.yml");
         if (!f.exists()) { try { plugin.saveResource("recipe.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
         ConfigurationSection sec = cfg.getConfigurationSection("Recipes");
@@ -44,7 +44,7 @@ public class RecipeConfig {
         for (String key : sec.getKeys(false)) {
             ConfigurationSection s = sec.getConfigurationSection(key);
             if (s == null) continue;
-            Recipe r = new Recipe(key, s.getString("Display", key), s.getString("Icon", ""));
+            Recipe r = new Recipe(key, org.bukkit.ChatColor.translateAlternateColorCodes((char) 38, s.getString("Display", key)), s.getString("Icon", ""));
             ConfigurationSection input = s.getConfigurationSection("Input");
             if (input != null) for (String c : input.getStringList("Cards")) parse(c, r.inputCards);
             ConfigurationSection cost = s.getConfigurationSection("Cost");
@@ -62,7 +62,7 @@ public class RecipeConfig {
             }
             r.keepLevel = s.getBoolean("KeepLevel", false);
             r.keepStar = s.getBoolean("KeepStar", false);
-            r.broadcast = s.getString("Broadcast", "");
+            r.broadcast = org.bukkit.ChatColor.translateAlternateColorCodes((char)38, s.getString("Broadcast", ""));
             r.requireMaxLevel = s.getBoolean("RequireMaxLevel", false);
             r.requireMaxStar = s.getBoolean("RequireMaxStar", false);
             recipes.put(key, r);

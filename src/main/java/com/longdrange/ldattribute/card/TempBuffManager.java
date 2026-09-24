@@ -97,6 +97,34 @@ public class TempBuffManager {
     public static int getKillStreak(UUID uuid) {
         return killStreak.getOrDefault(uuid, 0);
     }
+    public static boolean addBuff(java.util.UUID uuid, String buffId, int seconds) {
+        TempBuffConfig.Buff b = TempBuffConfig.get(buffId);
+        if (b == null) return false;
+        long now = System.currentTimeMillis();
+        java.util.Map<String, Long> activeMap = active.computeIfAbsent(uuid, k -> new java.util.HashMap<>());
+        activeMap.put(buffId, now + seconds * 1000L);
+        org.bukkit.entity.Player p = org.bukkit.Bukkit.getPlayer(uuid);
+        if (p != null) {
+            try { StatsDataRead.scheduleUpdate(p); } catch (Throwable ignored) {}
+            try { p.playSound(p.getLocation(), org.bukkit.Sound.BLOCK_NOTE_PLING, 1f, 1.5f); } catch (Throwable ignored) {}
+        }
+        return true;
+    }
+
+    public static void clearAllActive(java.util.UUID uuid) {
+        java.util.Map<String, Long> activeMap = active.get(uuid);
+        if (activeMap != null) activeMap.clear();
+        org.bukkit.entity.Player p = org.bukkit.Bukkit.getPlayer(uuid);
+        if (p != null) {
+            try { StatsDataRead.scheduleUpdate(p); } catch (Throwable ignored) {}
+        }
+    }
+
+    public static java.util.Map<String, Long> getActiveMap(java.util.UUID uuid) {
+        java.util.Map<String, Long> m = active.get(uuid);
+        return m == null ? new java.util.HashMap<>() : m;
+    }
+
     public static void clear(UUID uuid) {
         active.remove(uuid);
         cooldowns.remove(uuid);

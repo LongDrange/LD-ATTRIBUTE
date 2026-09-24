@@ -25,6 +25,9 @@ public class PetDetailInventory {
     public static int SLOT_EVOLVE = 29;
     public static int SLOT_EXTRACT = 33;   // 取出宠物
     public static int SLOT_FEED = 31;      // 喂食
+    public static int SLOT_WEAPON = 21;    // 装备槽：武器
+    public static int SLOT_ARMOR = 23;     // 装备槽：护甲
+    public static int SLOT_ACCESSORY = 25; // 装备槽：饰品
 
     public static void open(Player player, int page, int slot) {
         PetInstance pi = PetData.getPet(player.getUniqueId(), page, slot);
@@ -77,6 +80,10 @@ public class PetDetailInventory {
         feed.setItemMeta(fm);
         inv.setItem(SLOT_FEED, feed);
 
+        // 装备槽
+        inv.setItem(SLOT_WEAPON, buildEquipmentIcon("WEAPON", pi.equipment.get("WEAPON"), "§c§l✦ 武器槽"));
+        inv.setItem(SLOT_ARMOR, buildEquipmentIcon("ARMOR", pi.equipment.get("ARMOR"), "§b§l✦ 护甲槽"));
+        inv.setItem(SLOT_ACCESSORY, buildEquipmentIcon("ACCESSORY", pi.equipment.get("ACCESSORY"), "§e§l✦ 饰品槽"));
         // 取出按钮
         int activePage = PetData.getActivePage(player.getUniqueId());
         int activeSlot = PetData.getActiveSlot(player.getUniqueId());
@@ -108,6 +115,29 @@ public class PetDetailInventory {
         player.openInventory(inv);
     }
 
+    private static ItemStack buildEquipmentIcon(String key, ItemStack equipped, String title) {
+        if (equipped != null && equipped.getType() != Material.AIR) {
+            ItemStack copy = equipped.clone();
+            ItemMeta m = copy.getItemMeta();
+            List<String> lore = m.hasLore() ? new ArrayList<>(m.getLore()) : new ArrayList<>();
+            lore.add("");
+            lore.add("§e点击取出装备");
+            m.setLore(lore);
+            copy.setItemMeta(m);
+            return copy;
+        }
+        ItemStack item = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) 7);
+        ItemMeta m = item.getItemMeta();
+        m.setDisplayName(title);
+        m.setLore(Arrays.asList(
+                "§7把装备拿在主手",
+                "§7点击此处装备",
+                "",
+                "§8槽位: " + key
+        ));
+        item.setItemMeta(m);
+        return item;
+    }
     public static boolean isDetail(String title) {
         return title.equals("§8§l✦ 宠物详情");
     }

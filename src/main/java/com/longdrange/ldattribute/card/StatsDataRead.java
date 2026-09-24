@@ -51,6 +51,7 @@ public class StatsDataRead {
         }
         SuitData.applySuits(player, valid, statsData);
         SynergyData.apply(player, valid, statsData);
+        try { ComboData.apply(player, valid, statsData); } catch (Throwable ignored) {}
 
         // 宠物属性（宠物背包里所有宠物都生效）
         try {
@@ -74,7 +75,37 @@ public class StatsDataRead {
         return statsData;
     }
 
+    private static final java.util.Set<java.util.UUID> pendingUpdates =
+            java.util.concurrent.ConcurrentHashMap.newKeySet();
+    private static volatile boolean taskScheduled = false;
+
     public static void updatePlayer(Player player) {
+        if (player == null) return;
+        pendingUpdates.add(player.getUniqueId());
+        if (taskScheduled) return;
+        taskScheduled = true;
+        try {
+            org.bukkit.Bukkit.getScheduler().runTaskLater(
+                    LDAttribute.getInstance(),
+                    () -> {
+                        taskScheduled = false;
+                        java.util.Set<java.util.UUID> batch = new java.util.HashSet<>(pendingUpdates);
+                        pendingUpdates.clear();
+                        for (java.util.UUID id : batch) {
+                            org.bukkit.entity.Player p = org.bukkit.Bukkit.getPlayer(id);
+                            if (p != null && p.isOnline()) {
+                                try { updatePlayerNow(p); } catch (Throwable ignored) {}
+                            }
+                        }
+                    },
+                    10L);
+        } catch (Throwable t) {
+            taskScheduled = false;
+            updatePlayerNow(player);
+        }
+    }
+
+    public static void updatePlayerNow(Player player) {
         LDAttributeData data = loadPlayerStats(player);
         LDAttribute.getInstance().getApi().setEntityAPIData(
                 LDAttribute.class, player.getUniqueId(), data);

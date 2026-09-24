@@ -27,7 +27,7 @@ public class StarConfig {
 
     public static void load(LDAttribute plugin) {
         costs.clear();
-        File f = new File(plugin.getDataFolder(), "star.yml");
+        File f = com.longdrange.ldattribute.util.ConfigPaths.resolve(plugin, "star.yml");
         if (!f.exists()) { try { plugin.saveResource("star.yml", false); } catch (Exception ignored) {} }
         YamlConfiguration cfg = YamlConfiguration.loadConfiguration(f);
         multiplier = cfg.getDouble("Multiplier", 0.10);

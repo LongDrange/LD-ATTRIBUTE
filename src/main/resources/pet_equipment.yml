@@ -1,0 +1,98 @@
+# ============================================================
+#  [分类] 宠物
+#  [文件] pet_equipment.yml
+#  [功能] 宠物装备：武器 / 护甲 / 饰品 定义
+#  [重载] /ldc reload pet
+#  [路径] plugins/LD-Attribute/pet_equipment.yml
+# ============================================================
+# ================================================
+#   宠物装备（独立物品，不能和卡片/符文混用）
+#   Slot: WEAPON / ARMOR / ACCESSORY（决定能放哪个槽）
+#   Attributes: 属性加成（宠物生效时加到玩家）
+# ================================================
+
+Equipments:
+  # ===== 武器槽（WEAPON）=====
+  iron_fang:
+    Name: "&7铁牙"
+    Slot: WEAPON
+    Material: IRON_SWORD
+    Description: "宠物的利齿"
+    Attributes:
+    - "攻击力: +20"
+
+  steel_claw:
+    Name: "&b钢爪"
+    Slot: WEAPON
+    Material: DIAMOND_SWORD
+    Description: "坚硬的爪子"
+    Attributes:
+    - "攻击力: +50"
+    - "暴击机率: +5"
+
+  dragon_fang:
+    Name: "&6&l龙牙"
+    Slot: WEAPON
+    Material: GOLDEN_SWORD
+    Description: "传说中的龙牙"
+    Attributes:
+    - "攻击力: +150"
+    - "暴击机率: +15"
+    - "暴击伤害: +30"
+
+  # ===== 护甲槽（ARMOR）=====
+  leather_vest:
+    Name: "&7皮革背心"
+    Slot: ARMOR
+    Material: LEATHER_CHESTPLATE
+    Description: "简易护甲"
+    Attributes:
+    - "防御力: +15"
+    - "生命上限: +100"
+
+  iron_armor:
+    Name: "&b铁甲"
+    Slot: ARMOR
+    Material: IRON_CHESTPLATE
+    Description: "坚固的铁甲"
+    Attributes:
+    - "防御力: +50"
+    - "生命上限: +300"
+
+  dragon_scale:
+    Name: "&6&l龙鳞甲"
+    Slot: ARMOR
+    Material: DIAMOND_CHESTPLATE
+    Description: "龙鳞打造的铠甲"
+    Attributes:
+    - "防御力: +150"
+    - "生命上限: +1000"
+    - "暴击抵抗: +10"
+
+  # ===== 饰品槽（ACCESSORY）=====
+  lucky_charm:
+    Name: "&e幸运符"
+    Slot: ACCESSORY
+    Material: RABBIT_FOOT
+    Description: "提升幸运"
+    Attributes:
+    - "幸运: +20"
+
+  swift_feather:
+    Name: "&f疾风羽"
+    Slot: ACCESSORY
+    Material: FEATHER
+    Description: "提升速度"
+    Attributes:
+    - "速度百分比: +10"
+    - "闪避: +5"
+
+  phoenix_wing:
+    Name: "&c&l凤凰羽翼"
+    Slot: ACCESSORY
+    Material: BLAZE_POWDER
+    Description: "浴火重生"
+    Attributes:
+    - "生命恢复: +10"
+    - "生命上限: +800"
+    - "攻击力: +50"
