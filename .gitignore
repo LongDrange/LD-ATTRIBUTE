@@ -3,10 +3,8 @@ target/
 *.class
 *.war
 
-# libs：只允许 2 个小 jar 进仓库，paper 30MB 不进
-libs/*.jar
-!libs/PlaceholderAPI-2.9.2.jar
-!libs/Vault.jar
+# libs：全部提交（CI 需要）
+!libs/*.jar
 
 # IDE
 .idea/
