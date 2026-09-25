@@ -22,7 +22,7 @@ Thumbs.db
 config.local.yml
 secrets.yml
 
-# 运行数据
-data/
-core-data/
-配置/
+# 运行数据（只忽略根目录，不误伤 core/data/）
+/data/
+/core-data/
+/配置/
