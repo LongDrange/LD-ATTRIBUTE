@@ -1,0 +1,82 @@
+# ============================================================
+# 内置侧边栏 + Tab 头尾
+#  - 完全独立，不依赖 TAB 插件
+#  - 支持 PAPI 变量：%ldvalue_info_金币% / %ldring_total_攻击力% ...
+#  - 支持 {player} {display_name} {world}
+#  - 侧边栏每行支持 & 颜色码
+#  - 玩家用 /ldsb 或 /ldsb toggle 开关自己的侧边栏
+# ============================================================
+
+enabled: true
+# 刷新间隔（tick，20 = 1 秒）
+update-interval: 20
+# 玩家是否可以用 /ldsb 关掉自己的侧边栏
+allow-toggle: true
+# 默认记分板（Boards 里的 id）
+default: main
+
+# ============================================================
+# 侧边栏
+# 多套按顺序匹配，第一个满足 condition 的就用
+# condition 支持：
+#   "true"            → 全部
+#   "permission:xxx"  → 有权限 xxx
+#   "op"              → OP
+# ============================================================
+Boards:
+
+  # 管理员面板（OP 看到）
+  admin:
+    condition: "op"
+    title: "&c&l【管理面板】"
+    lines:
+      - "&7&m-----------------"
+      - "&f玩家: &a{player}"
+      - "&f身份: &r%luckperms_meta_身份%"
+      - "&fTPS: &a%server_tps%"
+      - "&f在线: &a%server_online%&7/&a%server_max_players%"
+      - "&f内存: &a%server_ram_used% MB"
+      - "&f坐标: &b%player_x% %player_y% %player_z%"
+      - "&7&m-----------------"
+      - "&f魂珠页: &6%ldring_pages%"
+      - "&f魂珠槽: &6%ldring_slots%"
+      - "&f魂珠类型: &6%ldring_types%"
+      - "&f怪物图鉴: &a已解锁"
+      - "&7&m-----------------"
+      - "&e/ldsb 开关侧边栏"
+
+  # 普通玩家
+  main:
+    condition: "true"
+    title: "%animation:ServerName%"
+    lines:
+      - "   &7%server_time_yy/MM/dd - HH:mm:ss%"
+      - " "
+      - "&f■ &f身份: &r%luckperms_meta_身份%"
+      - "&e■ &f金币: &6%vault_eco_balance_fixed%"
+      - "&3■ &f点券: &3%playerpoints_points%"
+      - "&6■ &f自定义币: &e%ldvalue_info_金币%"
+      - "&d■ &f声望: &d%ldvalue_info_声望%"
+      - " "
+      - "&c■ &f攻击力: &f%ldring_total_攻击力%"
+      - "&b■ &f防御力: &f%ldring_total_防禦力%"
+      - "&e■ &f暴击率: &f%ldring_total_暴擊機率%"
+      - "&a■ &f体力: &a%ldvalue_info_体力%&7/&a100"
+      - " "
+      - "&d■ &f等级: %player_level% ☆"
+      - "&7&m-----------------"
+
+# ============================================================
+# Tab 列表头尾（玩家按 Tab 键时看到的）
+# ============================================================
+header-footer:
+  enabled: true
+  header:
+    - "&6&l✦ 理想龙猫 ✦"
+    - "&7当前在线: &a%server_online%&7/&a%server_max_players%"
+    - ""
+    - "&e欢迎回来，&a{player}&e！"
+  footer:
+    - ""
+    - "&7官网: &bhttp://mcbbs.net"
+    - "&7QQ群: &b2442572761"

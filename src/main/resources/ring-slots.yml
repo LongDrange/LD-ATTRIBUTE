@@ -1,0 +1,49 @@
+# ============================================================
+# 槽位解锁配置
+# 全局槽位ID从 0 开始，第0页是 0-35，第1页是 36-71 …
+#
+# 字段：
+#   Permission - 需要的权限，留空不检查
+#   CostPoints - 需要点券数，0 = 不要
+#   CostVault  - 需要金币数，0 = 不要
+#   Items      - 需要的物品列表，格式 "材质:数量" 或 "材质:数量:数据值"
+#               例: "DIAMOND:10" / "WOOL:10:14" / "PAPER"
+# ============================================================
+Settings:
+  # 默认解锁的槽位数量（从 id=0 开始）
+  DefaultUnlocked: 6
+
+Slots:
+  # 第 7 格：只花点券
+  6:
+    Permission: ""
+    CostPoints: 500
+    CostVault: 0
+    Items: []
+  # 第 8 格：只花金币
+  7:
+    Permission: ""
+    CostPoints: 0
+    CostVault: 10000
+    Items: []
+  # 第 9 格：点券 + 金币
+  8:
+    Permission: ""
+    CostPoints: 1000
+    CostVault: 20000
+    Items: []
+  # 第 10 格：物品（钻石10 + 金锭32）
+  9:
+    Permission: ""
+    CostPoints: 0
+    CostVault: 0
+    Items:
+      - "DIAMOND:10"
+      - "GOLD_INGOT:32"
+  # 第 11 格：权限 + 点券 + 金币 + 物品（全部都要）
+  10:
+    Permission: "ldattribute.ring.slot.10"
+    CostPoints: 2000
+    CostVault: 50000
+    Items:
+      - "NETHER_STAR:1"

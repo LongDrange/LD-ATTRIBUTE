@@ -1,5 +1,5 @@
-name: LD-Attribute
-version: 1.0.0
+﻿name: LD-Attribute
+version: 1.2.0
 main: com.longdrange.ldattribute.LDAttribute
 api-version: "1.12"
 author: LongDrange
@@ -19,6 +19,37 @@ commands:
   ldpoints:
     aliases: [ldp]
     description: LD-Points 點券指令
+  ldcore:
+    aliases: [lcore]
+    description: LD-Core 核心模块指令
+  ldring:
+    aliases: [ring, hzring]
+    description: 魂珠空间
+    usage: /ldring
+  ldsp:
+    aliases: [jewelry, sp]
+    description: 饰品背包
+    usage: /ldsp [页id]
+  ldtalent:
+    aliases: [talent, tl]
+    description: 天赋加点
+    usage: /ldtalent [页id]
+  ldguide:
+    aliases: [guide, gd]
+    description: 怪物图鉴
+    usage: /ldguide
+  ldvalue:
+    aliases: [value, val, yeevalue]
+    description: 自定义值
+    usage: /ldvalue
+  ldsb:
+    aliases: [sb, sidebar]
+    description: 侧边栏开关
+    usage: /ldsb
+  ldsr:
+    aliases: [soulring, sr]
+    description: 灵魂空间
+    usage: /ldsr
 permissions:
   # ===== LD-Attribute 主功能 =====
   ldattribute.command.list:
@@ -61,3 +92,35 @@ permissions:
     ldattribute.command.admin:
       description: 管理員指令（unlock/reset/remove/star/level/exp/info/msg）
       default: op
+  # ===== LD-Core 核心模块 =====
+  ldattribute.core.admin:
+    description: LD-Core 管理员权限（reload/save/modules）
+    default: op
+  # ===== 魂珠空间 =====
+  ldattribute.ring.admin:
+    description: 魂珠空间管理权限
+    default: op
+  # ===== 饰品背包 =====
+  ldattribute.jewelry.admin:
+    description: 饰品背包管理权限
+    default: op
+  # ===== 天赋 =====
+  ldattribute.talent.admin:
+    description: 天赋管理权限
+    default: op
+  # ===== 怪物图鉴 =====
+  ldattribute.guide.admin:
+    description: 图鉴管理权限
+    default: op
+  # ===== 自定义值 =====
+  ldattribute.value.admin:
+    description: 自定义值管理权限
+    default: op
+  # ===== 侧边栏 =====
+  ldattribute.scoreboard.admin:
+    description: 侧边栏管理权限
+    default: op
+  # ===== 灵魂空间 =====
+  ldattribute.soulring.admin:
+    description: 灵魂空间管理权限
+    default: op

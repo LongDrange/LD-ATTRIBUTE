@@ -1,0 +1,46 @@
+# ============================================================
+# 魂珠套装
+# 满足 Requirements 里所有数量 → 触发 Attributes 里的属性
+# ============================================================
+Sets:
+  # 冰火共鸣：5个火 + 3个冰
+  ice_fire:
+    Name: "&c&l冰火共鸣"
+    Description: "&7集齐火系与冰系魂珠"
+    Message: "&a触发 &c&l冰火共鸣 &a！"
+    Requirements:
+      fire_ring: 5
+      ice_ring: 3
+    Attributes:
+      - "攻击力: 100"
+      - "防御力: 50"
+      - "暴击機率: 5"
+
+  # 雷霆之力：10个雷 + 5个火
+  thunder_power:
+    Name: "&e&l雷霆之力"
+    Description: "&7集齐雷系与火系魂珠"
+    Message: "&a触发 &e&l雷霆之力 &a！"
+    Requirements:
+      thunder_ring: 10
+      fire_ring: 5
+    Attributes:
+      - "攻击力: 200"
+      - "暴击傷害: 50"
+      - "闪避: 10"
+
+  # 全能大师：3系各10个
+  tri_element:
+    Name: "&6&l全能大师"
+    Description: "&7三系齐全，威力无边"
+    Message: "&a触发 &6&l全能大师 &a！"
+    Requirements:
+      fire_ring: 10
+      ice_ring: 10
+      thunder_ring: 10
+    Attributes:
+      - "攻击力: 500"
+      - "防御力: 300"
+      - "生命上限: 5000"
+      - "暴击機率: 15"
+      - "暴击傷害: 100"

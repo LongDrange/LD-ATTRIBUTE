@@ -1,0 +1,71 @@
+# ============================================================
+# 魂珠升级配置
+#  - 每个槽位的等级由"槽位"持有，一叠同类型魂珠共享一个等级
+#  - 属性 = 基础属性 × 数量 × (1 + (等级-1) × BonusPerLevel)
+# ============================================================
+Settings:
+  # 默认最大等级（未被 Types 覆盖时使用）
+  DefaultMaxLevel: 10
+  # 默认每级加成 10%
+  DefaultBonusPerLevel: 0.1
+
+# 默认成本（Types 里没单独配置某等级时用这个）
+# 留空 = 必须为每个类型单独配置
+DefaultCost:
+  CostPoints: 100
+  CostVault: 1000
+  Items:
+    - "EXPERIENCE_BOTTLE:10"
+
+# 各类型独立配置
+Types:
+  fire_ring:
+    MaxLevel: 20
+    BonusPerLevel: 0.15
+    Costs:
+      2:
+        CostPoints: 100
+        CostVault: 1000
+        Items:
+          - "EXPERIENCE_BOTTLE:10"
+      3:
+        CostPoints: 200
+        CostVault: 2000
+        Items:
+          - "EXPERIENCE_BOTTLE:20"
+      4:
+        CostPoints: 400
+        CostVault: 4000
+        Items:
+          - "EXPERIENCE_BOTTLE:40"
+      5:
+        CostPoints: 800
+        CostVault: 8000
+        Items:
+          - "EXPERIENCE_BOTTLE:80"
+          - "BLAZE_ROD:16"
+
+  ice_ring:
+    MaxLevel: 15
+    BonusPerLevel: 0.12
+    Costs:
+      2:
+        CostPoints: 80
+        CostVault: 800
+        Items:
+          - "SNOW_BALL:16"
+      3:
+        CostPoints: 160
+        CostVault: 1600
+        Items:
+          - "SNOW_BALL:32"
+
+  thunder_ring:
+    MaxLevel: 25
+    BonusPerLevel: 0.2
+    Costs:
+      2:
+        CostPoints: 200
+        CostVault: 3000
+        Items:
+          - "GLOWSTONE_DUST:10"

@@ -1,0 +1,122 @@
+# ============================================================
+# 天赋加点配置
+# 说明：
+#  - 每页一个独立点数池，管理员用 /ldtalent points 加减
+#  - 每个天赋有等级、每级消耗点数、每级属性加成
+#  - 玩家点击天赋图标加点，Shift+点击连续加到满级
+# ============================================================
+
+DefaultPage: "combat"
+
+Pages:
+
+  # ============ 战斗天赋 ============
+  combat:
+    Name: "&8&l⚔ 战斗天赋"
+    Talents:
+      attack_up:
+        Name: "&c攻击强化"
+        Icon: "DIAMOND_SWORD"
+        GuiSlot: 11
+        MaxLevel: 10
+        PointsPerLevel: 1
+        Attribute:
+          - "攻击力: +15"
+          - "暴击機率: +1"
+        Requires: []
+
+      defense_up:
+        Name: "&b防御强化"
+        Icon: "DIAMOND_CHESTPLATE"
+        GuiSlot: 13
+        MaxLevel: 10
+        PointsPerLevel: 1
+        Attribute:
+          - "防御力: +10"
+          - "生命上限: +100"
+        Requires: []
+
+      crit_up:
+        Name: "&e暴击强化"
+        Icon: "GOLD_INGOT"
+        GuiSlot: 15
+        MaxLevel: 10
+        PointsPerLevel: 2
+        Attribute:
+          - "暴击機率: +2"
+          - "暴击傷害: +5"
+        Requires:
+          - "attack_up"
+
+      lifesteal:
+        Name: "&5吸血"
+        Icon: "REDSTONE"
+        GuiSlot: 22
+        MaxLevel: 5
+        PointsPerLevel: 5
+        Attribute:
+          - "吸血: +1"
+        Requires:
+          - "crit_up"
+
+  # ============ 生存天赋 ============
+  survival:
+    Name: "&8&l❤ 生存天赋"
+    Talents:
+      health_up:
+        Name: "&c生命强化"
+        Icon: "REDSTONE_BLOCK"
+        GuiSlot: 11
+        MaxLevel: 10
+        PointsPerLevel: 1
+        Attribute:
+          - "生命上限: +200"
+        Requires: []
+
+      regen_up:
+        Name: "&a生命恢复"
+        Icon: "APPLE"
+        GuiSlot: 13
+        MaxLevel: 5
+        PointsPerLevel: 2
+        Attribute:
+          - "生命恢复: +2"
+        Requires:
+          - "health_up"
+
+      speed_up:
+        Name: "&b速度强化"
+        Icon: "FEATHER"
+        GuiSlot: 15
+        MaxLevel: 5
+        PointsPerLevel: 2
+        Attribute:
+          - "移动速度: +0.02"
+          - "速度百分比: +3"
+        Requires: []
+
+  # ============ 特殊天赋（自由加） ============
+  special:
+    Name: "&8&l✦ 特殊天赋"
+    Talents:
+      magic_up:
+        Name: "&5法术强化"
+        Icon: "ENCHANTED_BOOK"
+        GuiSlot: 13
+        MaxLevel: 10
+        PointsPerLevel: 3
+        Attribute:
+          - "法术伤害: +20"
+          - "法术穿透: +2"
+        Requires: []
+
+      luck_up:
+        Name: "&6幸运"
+        Icon: "GOLD_NUGGET"
+        GuiSlot: 22
+        MaxLevel: 5
+        PointsPerLevel: 4
+        Attribute:
+          - "幸运: +5"
+          - "經驗加成: +5"
+        Requires: []

@@ -1,6 +1,8 @@
 package com.longdrange.ldattribute.card;
 
 import com.longdrange.ldattribute.LDAttribute;
+import com.longdrange.ldattribute.core.api.AttributeSource;
+import com.longdrange.ldattribute.core.api.AttributeSourceRegistry;
 import com.longdrange.ldattribute.data.attribute.LDAttributeData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -22,60 +24,28 @@ public class StatsDataRead {
         return result;
     }
 
-    /** 檢查卡片是否對該玩家生效（綁定別人的卡無效） */
-    private static boolean isUsableBy(ItemStack card, Player player) {
-        if (!CardNBT.isBound(card)) return true;
-        String boundUUID = CardNBT.getBoundUUID(card);
-        return boundUUID.equals(player.getUniqueId().toString());
-    }
-
     public static LDAttributeData loadPlayerStats(Player player) {
-        List<ItemStack> all = PlayerData.getCards(player);
-        List<ItemStack> valid = new ArrayList<>();
-        for (ItemStack card : all) {
-            if (!isUsableBy(card, player)) continue;
-            valid.add(card);
-        }
-
         LDAttributeData statsData = new LDAttributeData();
-        for (ItemStack card : valid) {
-            List<String> normalLore = filterNormalLore(card);
-            statsData.add(LDAttribute.getInstance().getApi().getLoreData(player, null, normalLore));
-            // 符文属性（从卡片插槽读）
-            try {
-                List<String> runeAttrs = com.longdrange.ldattribute.rune.RuneHelper.getCardSocketAttributes(card);
-                if (!runeAttrs.isEmpty()) {
-                    statsData.add(LDAttribute.getInstance().getApi().getLoreData(player, null, runeAttrs));
-                }
-            } catch (Throwable ignored) {}
-        }
-        SuitData.applySuits(player, valid, statsData);
-        SynergyData.apply(player, valid, statsData);
-        try { ComboData.apply(player, valid, statsData); } catch (Throwable ignored) {}
 
-        // 宠物属性（宠物背包里所有宠物都生效）
-        try {
-            List<String> petAttrs = com.longdrange.ldattribute.pet.PetManager.getAllPetsAttributes(player);
-            if (!petAttrs.isEmpty()) {
-                statsData.add(LDAttribute.getInstance().getApi().getLoreData(player, null, petAttrs));
+        // ===== 所有注册来源（完全统一）=====
+        for (AttributeSource src : AttributeSourceRegistry.getAll()) {
+            if (!src.isEnabled()) continue;
+            try {
+                for (AttributeSource.Entry e : src.getEntries(player)) {
+                    if (e == null || e.data == null) continue;
+                    statsData.add(e.data);
+                }
+            } catch (Throwable t) {
+                LDAttribute.getInstance().getLogger().warning(
+                        "[Stats] 来源 " + src.getName() + " 失败: " + t.getMessage());
             }
-        } catch (Throwable ignored) {}
-        // 战斗状态属性
-        try {
-            List<String> stateAttrs = com.longdrange.ldattribute.combat.StateManager.getActiveAttributes(player);
-            if (!stateAttrs.isEmpty()) {
-                statsData.add(LDAttribute.getInstance().getApi().getLoreData(player, null, stateAttrs));
-            }
-        } catch (Throwable ignored) {}
-        // 限時 buff 加成
-        List<String> buffLore = TempBuffManager.getActiveEffects(player.getUniqueId());
-        if (!buffLore.isEmpty()) {
-            statsData.add(LDAttribute.getInstance().getApi().getLoreData(player, null, buffLore));
         }
+        // ==================================
+
         return statsData;
     }
 
-    private static final java.util.Set<java.util.UUID> pendingUpdates =
+    private static final Set<UUID> pendingUpdates =
             java.util.concurrent.ConcurrentHashMap.newKeySet();
     private static volatile boolean taskScheduled = false;
 
@@ -85,14 +55,14 @@ public class StatsDataRead {
         if (taskScheduled) return;
         taskScheduled = true;
         try {
-            org.bukkit.Bukkit.getScheduler().runTaskLater(
+            Bukkit.getScheduler().runTaskLater(
                     LDAttribute.getInstance(),
                     () -> {
                         taskScheduled = false;
-                        java.util.Set<java.util.UUID> batch = new java.util.HashSet<>(pendingUpdates);
+                        Set<UUID> batch = new HashSet<>(pendingUpdates);
                         pendingUpdates.clear();
-                        for (java.util.UUID id : batch) {
-                            org.bukkit.entity.Player p = org.bukkit.Bukkit.getPlayer(id);
+                        for (UUID id : batch) {
+                            Player p = Bukkit.getPlayer(id);
                             if (p != null && p.isOnline()) {
                                 try { updatePlayerNow(p); } catch (Throwable ignored) {}
                             }
@@ -106,33 +76,42 @@ public class StatsDataRead {
     }
 
     public static void updatePlayerNow(Player player) {
+        // ===== 血量保护：刷新属性前后保留血量 =====
+        double oldHealth = player.getHealth();
+        double oldMaxHealth = player.getMaxHealth();
+
         LDAttributeData data = loadPlayerStats(player);
         LDAttribute.getInstance().getApi().setEntityAPIData(
                 LDAttribute.class, player.getUniqueId(), data);
         LDAttribute.getInstance().getApi().updateHandData(player);
+
+        try {
+            double newMaxHealth = player.getMaxHealth();
+            // 如果刷新后 MaxHealth 变小了，血量不能超上限
+            double targetHealth = Math.min(oldHealth, newMaxHealth);
+            // 只有确实掉血了才恢复（防止覆盖玩家主动治疗）
+            if (player.getHealth() < targetHealth) {
+                player.setHealth(targetHealth);
+            }
+        } catch (Throwable ignored) {}
+        // =========================================
     }
 
-    // ==================== 合併刷新（性能優化）====================
-
-    private static final java.util.Set<java.util.UUID> pendingRefresh =
-            java.util.Collections.newSetFromMap(new java.util.concurrent.ConcurrentHashMap<>());
+    private static final Set<UUID> pendingRefresh =
+            Collections.newSetFromMap(new java.util.concurrent.ConcurrentHashMap<>());
 
     public static void scheduleUpdate(Player player) {
         if (player == null || !player.isOnline()) return;
-        final java.util.UUID uuid = player.getUniqueId();
+        final UUID uuid = player.getUniqueId();
         if (!pendingRefresh.add(uuid)) return;
-
         try {
-            Bukkit.getScheduler().runTask(
-                LDAttribute.getInstance(),
-                () -> {
-                    pendingRefresh.remove(uuid);
-                    Player p = Bukkit.getPlayer(uuid);
-                    if (p != null && p.isOnline()) {
-                        try { updatePlayer(p); } catch (Throwable ignored) {}
-                    }
+            Bukkit.getScheduler().runTask(LDAttribute.getInstance(), () -> {
+                pendingRefresh.remove(uuid);
+                Player p = Bukkit.getPlayer(uuid);
+                if (p != null && p.isOnline()) {
+                    try { updatePlayer(p); } catch (Throwable ignored) {}
                 }
-            );
+            });
         } catch (Throwable t) {
             pendingRefresh.remove(uuid);
         }

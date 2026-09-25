@@ -1,191 +1,187 @@
 # LD-Attribute
 
-> 综合属性 / 卡片 / 符文 / 宠物系统插件，适用于 Minecraft 1.12.2 (Paper/Spigot)
+自定義 RPG 屬性系統 · 卡片 · 魂珠 · 飾品 · 天賦 · 圖鑑 · 靈魂空間
 
-![Minecraft](https://img.shields.io/badge/Minecraft-1.12.2-green)
-![Paper](https://img.shields.io/badge/Paper-1562-blue)
-![Version](https://img.shields.io/badge/version-1.0.0-orange)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+適用 Minecraft 1.12.2 (Paper / Spigot)
 
 ---
 
-## ✨ 特性
+## 功能模組
 
-- 🎴 **卡片系统** — 33 种卡片，5 个稀有度（T1~T5），支持升级 / 升星 / 分解 / 合成 / 绑定
-- 💠 **符文系统** — 38 个符文，5 种孔位，打孔 / 镶嵌 / 取出 / 升级 / 合成 / 回收 / 锁定
-- ⚔️ **属性系统** — 62 种属性（攻击 / 防御 / 法术 / 元素 / 状态）
-- 🐾 **宠物系统** — 11 只宠物，进化链 + 多页 + 出战 + 喂食
-- 🔮 **法术系统** — 60 个法术，可升级，绑定法术书
-- 🎯 **共鸣 / 羁绊 / 套装** — 31 + 36 + 套装加成
-- 🌟 **幸运掉落** — 基础 100% 起，可提升 MM 掉落次数
-- 📊 **属性面板** — 分页 + 来源追踪 + 实时统计
-- 🔄 **热重载** — /ldc reload 无需重启，自动重算在线玩家数据
-- 💾 **自动备份** — 每小时备份玩家数据，保留 24 份
-- 🌐 **多语言** — 繁中 / 简中 / 英文
-- 🔌 **兼容** — Vault / PlaceholderAPI / MythicMobs 4.4.0
-- 🎁 **抽奖系统** — 3 个卡池（普通/高级/符文），支持保底
-- 🏆 **成就系统** — 17 个成就，带奖励（点券/卡片/符文）
-- 🐾 **宠物装备** — 武器/护甲/饰品 3 个槽位，独立物品
-- ⚡ **元素反应** — 9 种反应（蒸发/融化/超载/感电…）
-- 🔗 **卡片组合技** — 特定卡片组合触发战斗效果
-- 🏷️ **物品类型系统** — CARD / RUNE / PET_EGG / PET_EQUIP / EXP_STONE 不能混用
+### 卡片系統
+- 卡片背包（多頁）
+- 卡片等級 / 星級 / 經驗石
+- 卡片合成 / 分解 / 販賣
+- 套裝 / 共鳴 / 羈絆 / Combo
+- 卡片圖鑑 / 集齊獎勵
+- 卡片抽獎 + 保底
 
----
+### 魂珠空間（HZRing）
+- Lore 自動識別（物品類型: 魂珠）
+- 無限堆疊 · 多頁 · 分頁
+- 槽位解鎖（點券 / 金幣 / 物品）
+- 魂珠升級（屬性隨等級提升）
+- 魂珠套裝
+- 每種類型獨立上限
 
-## 📦 安装
+### 飾品背包
+- 多頁 · 完全自訂義槽位
+- 點擊背包飾品自動放入
 
-1. 下载 `LD-Attribute-1.0.0.jar`
-2. 放入服务器 `plugins/` 目录
-3. 重启服务器（首次会自动解压默认配置）
-4. 编辑配置后执行 `/ldc reload`
+### 天賦加點
+- 多天賦頁 · 每頁獨立點數
+- 前置天賦解鎖
+- 一鍵連加（Shift+點擊）
 
-### 依赖
+### 怪物圖鑑
+- 支援 MythicMobs 4.x / 5.x
+- 擊殺累積 / 機率直接解鎖
+- 解鎖石物品
+- 永久屬性加成
 
-| 插件 | 必需 | 说明 |
-|---|---|---|
-| **Vault** | 可选 | 经济功能 |
-| **PlaceholderAPI** | 可选 | 占位符 |
-| **MythicMobs 4.4.0** | 可选 | 掉落系统 |
+### 靈魂空間（SoulRing）
+- 無限堆疊 · 無限頁
+- 4 種存入 / 4 種取出
+- 自動拾取（怪物 / 挖礦）
+- 分類切換 / 排序切換
+- NBT 完整保留
+- 掉落倍率（權限 / 限時 / 幸運）
+- 靈魂兌換（配置驅動）
 
----
+### 內建側邊欄 + Tab 頭尾
+- 不依賴 TAB 插件
 
-## 🚀 快速开始
+### 自訂義值（YeeValue）
+- 任意數值 · 定時自動恢復
 
-### 玩家
+### 統一屬性來源註冊表
+- 所有來源自動合併
 
-```
-/ldc                    打开卡片背包
-/ldc collection         卡片图鉴
-/ldc stats              属性面板
-/ldc rune collection     符文图鉴
-/ldc rune recycle        符文回收
-/ldc pet                宠物背包
-/ldc achievement        成就
-/ldc gacha              抽奖
-```
-
-### 管理员
-
-```
-/ldc give <卡片ID> [玩家]         给卡片
-/ldc rune give <符文ID> [玩家]    给符文
-/ldc pet give <宠物ID> [玩家]     给宠物
-/ldc reload                       热重载
-/ldc backup                       备份数据
-/ldc debug                        诊断
-```
-
-完整指令见 **[DOCS.md](DOCS.md)**
+### 存儲抽象層
+- YAML / SQLite / MySQL 三選一
 
 ---
 
-## 📸 界面预览
+## 系統需求
 
-| 卡片详情 | 符文界面 | 属性面板 |
-|---|---|---|
-| 待截图 | 待截图 | 待截图 |
-
-> 截图放到 `docs/screenshots/` 目录，替换上面的占位
-
----
-
-## 🔧 配置文件
-
-配置目录：`plugins/LD-Attribute/`
-
-| 文件 | 说明 |
+| 項目 | 版本 |
 |---|---|
-| `config.yml` | 属性优先级 / 备份 |
-| `item.yml` | 卡片定义 |
-| `cardlevel.yml` | 卡片升级 |
-| `rune.yml` | 符文 / 孔位 / 合成 / 升级 |
-| `pet.yml` | 宠物定义 |
-| `spells.yml` | 法术 |
-| `mm.yml` | MythicMobs 掉落 |
-| `ui.yml` | 界面槽位 |
-| `recipe.yml` | 合成配方 |
-| `lang/*.yml` | 多语言别名 |
-
-全部配置说明见 **[DOCS.md](DOCS.md)**
+| Minecraft | 1.12.2 |
+| 服務端 | Paper / Spigot |
+| Java | 8+ |
+| PlaceholderAPI | 2.9.2+（可選） |
+| Vault | 1.7.3+（可選） |
+| MythicMobs | 4.4.0+（可選） |
 
 ---
 
-## 🔌 PlaceholderAPI
+## 指令
 
-```
-%ldattr_攻击力%                    玩家当前属性
-%ldattr_top_攻击力_1%             排行榜第 1 名
-%ldattr_top_攻击力_1_value%       第 1 名的值
-%ldattr_mana%                     当前法力
-%ldattr_mana_bar%                 法力条
-```
-
----
-
-## 🏗️ 从源码构建
-
-```bash
-git clone <repo>
-cd LD-Attribute
-mvn clean package -DskipTests
-# 产物在 target/LD-Attribute-1.0.0.jar
-```
-
-**环境要求**：JDK 8+，Maven 3.6+
+| 指令 | 別名 | 說明 |
+|---|---|---|
+| /ldattribute | /lda | 主指令 |
+| /ldring | /ring | 魂珠空間 |
+| /ldsp | /jewelry | 飾品背包 |
+| /ldtalent | /tl | 天賦加點 |
+| /ldguide | /gd | 怪物圖鑑 |
+| /ldvalue | /val | 自訂義值 |
+| /ldsb | /sb | 側邊欄開關 |
+| /ldsr | /sr | 靈魂空間 |
+| /ldcore | - | 核心管理 |
 
 ---
 
-## 📁 项目结构
+## 權限
 
-```
-LD-Attribute/
-├── pom.xml
-├── README.md
-├── DOCS.md
-├── src/main/
-│   ├── java/com/longdrange/ldattribute/
-│   │   ├── LDAttribute.java            主类
-│   │   ├── api/                        API 接口
-│   │   ├── card/                       卡片系统
-│   │   ├── combat/                     战斗系统
-│   │   ├── command/                    指令
-│   │   ├── compat/                     MythicMobs 兼容
-│   │   ├── data/attribute/             属性系统
-│   │   ├── listener/                   事件监听
-│   │   ├── pet/                        宠物系统
-│   │   ├── rune/                       符文系统
-│   │   ├── spell/                      法术系统
-│   │   └── util/                       工具类
-│   └── resources/
-│       ├── *.yml                       配置
-│       ├── lang/                       多语言
-│       └── plugin.yml
-└── target/
-```
+| 權限 | 說明 | 預設 |
+|---|---|---|
+| ldattribute.core.admin | 核心管理 | OP |
+| ldattribute.ring.admin | 魂珠管理 | OP |
+| ldattribute.jewelry.admin | 飾品管理 | OP |
+| ldattribute.talent.admin | 天賦管理 | OP |
+| ldattribute.guide.admin | 圖鑑管理 | OP |
+| ldattribute.value.admin | 自訂義值管理 | OP |
+| ldattribute.scoreboard.admin | 側邊欄管理 | OP |
+| ldattribute.soulring.admin | 靈魂空間管理 | OP |
+| soulring.vip | 雙倍掉落 | - |
+| soulring.svip | 三倍掉落 | - |
 
 ---
 
-## 📝 更新日志
+## 配置文件
 
-### v1.0.0 (2026-09-24)
+所有配置文件位於 plugins/LD-Attribute/：
 
-- 首次发布
-- 33 种卡片 + 62 种属性 + 38 个符文 + 11 只宠物 + 60 个法术
-- 符文系统（打孔 / 镶嵌 / 升级 / 合成 / 回收 / 锁定 / 图鉴）
-- 幸运掉落机制
-- 属性面板（分页 + 来源追踪）
-- 热重载 + 自动备份 + PAPI 排行榜
+| 文件 | 說明 |
+|---|---|
+| config.yml | 主配置 |
+| core.yml | 核心模組 |
+| rings.yml | 魂珠空間 |
+| ring-slots.yml | 魂珠槽位 |
+| ring-sets.yml | 魂珠套裝 |
+| ring-upgrade.yml | 魂珠升級 |
+| jewelry.yml | 飾品背包 |
+| talent.yml | 天賦 |
+| guide.yml | 圖鑑 |
+| value.yml | 自訂義值 |
+| scoreboard.yml | 側邊欄 |
+| soulring.yml | 靈魂空間 |
+| rates.yml | 掉落倍率 |
+| 配置/兌換商店/ | 靈魂兌換 |
 
 ---
 
-## 📄 许可
+## PlaceholderAPI 變數
 
-MIT License
+### 魂珠空間
+%ldring_total_<屬性>%
+%ldring_count_<類型>%
+%ldring_max_<類型>%
+%ldring_limit_<類型>%
+%ldring_has_<類型>%
+%ldring_slots%
+%ldring_pages%
+%ldring_types%
+
+text
+
+### 自訂義值
+%ldvalue_info_<值Id>%
+%ldvalue_name_<值Id>%
+%ldvalue_max_<值Id>%
+%ldvalue_remain_<值Id>%
+%ldvalue_has_<值Id>%
+
+text
 
 ---
 
-## 🙏 鸣谢
+## 存儲方式
 
-- Paper / Spigot 服务端
-- Vault / PlaceholderAPI / MythicMobs
-- 所有测试者
+修改 core.yml：
+
+```yaml
+storage:
+  type: YAML    # YAML / SQLITE / MYSQL
+開發進度
+☑ 核心框架
+☑ 魂珠空間
+☑ 飾品背包
+☑ 天賦加點
+☑ 統一屬性來源
+☑ 怪物圖鑑
+☑ 自訂義值
+☑ PAPI 全場景
+☑ 側邊欄 + Tab 頭尾
+☑ 靈魂空間
+☑ 靈魂自動拾取
+☑ 靈魂倍率
+☑ 靈魂兌換
+□ 靈魂商店
+□ SX-Attribute 直接對接
+聯繫
+作者: LongDrange
+
+倉庫: https://github.com/LongDrange/LD-ATTRIBUTE
+
+問題回報: https://github.com/LongDrange/LD-ATTRIBUTE/issues

@@ -1,0 +1,106 @@
+# ============================================================
+# 怪物图鉴配置
+# ============================================================
+# 【解锁方式】三种任选：
+#   1) 击杀累计：RequiredKills 达到即解锁（默认）
+#   2) 击杀概率：UnlockChance > 0 时，每次击杀按概率直接解锁
+#   3) 解锁石物品：玩家右键"圖鑑解鎖石(怪物id或怪物名)"直接解锁
+# ============================================================
+Title: "&8&l✦ 怪物图鉴"
+
+# 分组（顶部 tab，最多 9 个）
+Groups:
+  boss:
+    Name: "&c&lBOSS图鉴"
+    Icon: "DRAGON_EGG"
+  elite:
+    Name: "&e&l精英图鉴"
+    Icon: "GOLD_BLOCK"
+  normal:
+    Name: "&7普通怪物"
+    Icon: "IRON_INGOT"
+
+Monsters:
+
+  SkeletonKing:
+    Name: "&c骷髅王"
+    Group: "boss"
+    Icon: "SKELETON_SKULL"
+    RequiredKills: 10
+    UnlockChance: 0.02          # 每次击杀 2% 直接解锁（0 = 关闭概率解锁）
+    Lore:
+      - "&7地狱最深处的主宰"
+    Attribute:
+      - "攻击力: +50"
+      - "生命上限: +500"
+    Reward:
+      Points: 1000
+      Vault: 5000
+      Items:
+        - "DIAMOND:10"
+      Commands:
+        - "give %player% diamond 5"
+
+  ZombieBoss:
+    Name: "&2僵尸王"
+    Group: "boss"
+    Icon: "ROTTEN_FLESH"
+    RequiredKills: 5
+    UnlockChance: 0.05
+    Lore:
+      - "&7不死生物的领主"
+    Attribute:
+      - "攻击力: +30"
+      - "防御力: +20"
+    Reward:
+      Points: 500
+      Vault: 2000
+      Items: []
+      Commands: []
+
+  EliteWarrior:
+    Name: "&e精英战士"
+    Group: "elite"
+    Icon: "IRON_SWORD"
+    RequiredKills: 3
+    UnlockChance: 0.1
+    Lore:
+      - "&7训练有素的战士"
+    Attribute:
+      - "攻击力: +15"
+    Reward:
+      Points: 200
+      Vault: 500
+      Items: []
+      Commands: []
+
+  NormalZombie:
+    Name: "&7普通僵尸"
+    Group: "normal"
+    Icon: "ROTTEN_FLESH"
+    RequiredKills: 20
+    UnlockChance: 0
+    Lore:
+      - "&7随处可见的僵尸"
+    Attribute:
+      - "防御力: +5"
+    Reward:
+      Points: 50
+      Vault: 100
+      Items: []
+      Commands: []
+
+# ============================================================
+# 【解锁石物品】在 item.yml 里这样定义：
+# ============================================================
+# guide_stone_skeleton:
+#   Name: '&6&l骷髏王圖鑑解鎖石'
+#   ID: '339'
+#   Type: ''
+#   Lore:
+#   - '&6物品类型: &e圖鑑解鎖石(SkeletonKing)'
+#   - '&7右键使用，解锁骷髅王图鉴'
+#   Enchant: true
+#   Unbreakable: true
+#
+# 括号里可以写 id（SkeletonKing）或名字（骷髅王），都认

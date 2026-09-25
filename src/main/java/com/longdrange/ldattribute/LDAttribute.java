@@ -1,6 +1,15 @@
 package com.longdrange.ldattribute;
 
 import com.longdrange.ldattribute.api.LDAttributeAPI;
+import com.longdrange.ldattribute.core.CoreManager;
+import com.longdrange.ldattribute.core.command.CoreCommand;
+import com.longdrange.ldattribute.core.ring.command.RingCommand;
+import com.longdrange.ldattribute.core.jewelry.command.JewelryCommand;
+import com.longdrange.ldattribute.core.talent.command.TalentCommand;
+import com.longdrange.ldattribute.core.guide.command.GuideCommand;
+import com.longdrange.ldattribute.core.value.command.ValueCommand;
+import com.longdrange.ldattribute.core.scoreboard.command.ScoreboardCommand;
+import com.longdrange.ldattribute.core.soulring.command.SoulRingCommand;
 import com.longdrange.ldattribute.card.CardDataManager;
 import com.longdrange.ldattribute.card.CardExpTask;
 import com.longdrange.ldattribute.card.CollectionConfig;
@@ -45,6 +54,7 @@ public class LDAttribute extends JavaPlugin {
     private Config configUtil;
     private LDAttributeManager manager;
     private LDAttributeAPI api;
+    private CoreManager coreManager;
 
     @Override
     public void onEnable() {
@@ -72,6 +82,57 @@ public class LDAttribute extends JavaPlugin {
         LDCommand cmd = new LDCommand(this);
         getCommand("ldattribute").setExecutor(cmd);
         getCommand("ldattribute").setTabCompleter(cmd);
+
+        // ===== LD-Core 核心模块（批次 1）=====
+        this.coreManager = new CoreManager(this);
+        this.coreManager.enable();
+
+        CoreCommand coreCmd = new CoreCommand(this);
+        getCommand("ldcore").setExecutor(coreCmd);
+        getCommand("ldcore").setTabCompleter(coreCmd);
+
+        // ===== 魂珠空间（批次 2-1）=====
+        RingCommand ringCmd = new RingCommand(this);
+        getCommand("ldring").setExecutor(ringCmd);
+        getCommand("ldring").setTabCompleter(ringCmd);
+
+        // ===== 饰品背包（批次3-2）=====
+        JewelryCommand jewCmd = new JewelryCommand(this);
+        getCommand("ldsp").setExecutor(jewCmd);
+        getCommand("ldsp").setTabCompleter(jewCmd);
+
+        // ===== 天赋（批次3-3）=====
+        TalentCommand talCmd = new TalentCommand(this);
+        getCommand("ldtalent").setExecutor(talCmd);
+        getCommand("ldtalent").setTabCompleter(talCmd);
+
+        // ===== 怪物图鉴（批次4）=====
+        GuideCommand gdCmd = new GuideCommand(this);
+        getCommand("ldguide").setExecutor(gdCmd);
+        getCommand("ldguide").setTabCompleter(gdCmd);
+
+        // ===== 自定义值（批次5）=====
+        ValueCommand valCmd = new ValueCommand(this);
+        getCommand("ldvalue").setExecutor(valCmd);
+        getCommand("ldvalue").setTabCompleter(valCmd);
+
+        // ===== 侧边栏（批次7）=====
+        ScoreboardCommand sbCmd = new ScoreboardCommand(this);
+        getCommand("ldsb").setExecutor(sbCmd);
+        getCommand("ldsb").setTabCompleter(sbCmd);
+
+        // ===== 灵魂空间（批次8）=====
+        SoulRingCommand srCmd = new SoulRingCommand(this);
+        getCommand("ldsr").setExecutor(srCmd);
+        getCommand("ldsr").setTabCompleter(srCmd);
+        // =========================
+        // =========================
+        // =========================
+        // =========================
+        // =========================
+        // ===========================
+        // ==============================
+        // ======================================
 
         // 卡片系統
         Message.load(this, configUtil.getConfig().getString("Language", "zh_TW"));
@@ -232,6 +293,7 @@ public class LDAttribute extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        if (coreManager != null) coreManager.disable();
         if (manager != null) manager.saveAll();
         try { com.longdrange.ldattribute.card.ManaManager.saveAll(); } catch (Throwable ignored) {}
         getLogger().info("LD-Attribute 已關閉。");
@@ -318,5 +380,77 @@ public class LDAttribute extends JavaPlugin {
             try { recalcPlayerCards(p); } catch (Throwable ignored) {}
         }
         getLogger().info("[reload " + k + "] 熱加載完成: " + ok + " 成功, " + fail + " 失敗");
+    }
+
+    public CoreManager getCoreManager() { return coreManager; }
+
+    /** 便捷访问：核心存储管理器 */
+    public com.longdrange.ldattribute.core.storage.StorageManager getStorageManager() {
+        return coreManager == null ? null : coreManager.getStorageManager();
+    }
+
+    /** 便捷访问：模块数据管理器 */
+    public com.longdrange.ldattribute.core.data.ModuleDataManager getModuleDataManager() {
+        return coreManager == null ? null : coreManager.getModuleDataManager();
+    }
+
+    /** 便捷访问：魂珠管理器 */
+    public com.longdrange.ldattribute.core.ring.RingManager getRingManager() {
+        return coreManager == null ? null : coreManager.getRingManager();
+    }
+
+    /** 便捷访问：魂珠GUI */
+    public com.longdrange.ldattribute.core.ring.gui.RingGUI getRingGUI() {
+        return coreManager == null ? null : coreManager.getRingGUI();
+    }
+
+    /** 便捷访问：饰品管理器 */
+    public com.longdrange.ldattribute.core.jewelry.JewelryManager getJewelryManager() {
+        return coreManager == null ? null : coreManager.getJewelryManager();
+    }
+
+    /** 便捷访问：饰品 GUI */
+    public com.longdrange.ldattribute.core.jewelry.gui.JewelryGUI getJewelryGUI() {
+        return coreManager == null ? null : coreManager.getJewelryGUI();
+    }
+
+    public com.longdrange.ldattribute.core.talent.TalentManager getTalentManager() {
+        return coreManager == null ? null : coreManager.getTalentManager();
+    }
+
+    public com.longdrange.ldattribute.core.talent.gui.TalentGUI getTalentGUI() {
+        return coreManager == null ? null : coreManager.getTalentGUI();
+    }
+
+    public com.longdrange.ldattribute.core.guide.GuideManager getGuideManager() {
+        return coreManager == null ? null : coreManager.getGuideManager();
+    }
+
+    public com.longdrange.ldattribute.core.guide.gui.GuideGUI getGuideGUI() {
+        return coreManager == null ? null : coreManager.getGuideGUI();
+    }
+
+    public com.longdrange.ldattribute.core.value.ValueManager getValueManager() {
+        return coreManager == null ? null : coreManager.getValueManager();
+    }
+
+    public com.longdrange.ldattribute.core.scoreboard.ScoreboardManager getScoreboardManager() {
+        return coreManager == null ? null : coreManager.getScoreboardManager();
+    }
+
+    public com.longdrange.ldattribute.core.soulring.SoulRingManager getSoulRingManager() {
+        return coreManager == null ? null : coreManager.getSoulRingManager();
+    }
+
+    public com.longdrange.ldattribute.core.soulring.gui.SoulRingGUI getSoulRingGUI() {
+        return coreManager == null ? null : coreManager.getSoulRingGUI();
+    }
+
+    public com.longdrange.ldattribute.core.soulring.rate.RateManager getRateManager() {
+        return coreManager == null ? null : coreManager.getRateManager();
+    }
+
+    public com.longdrange.ldattribute.core.soulring.exchange.gui.ExchangeGUI getExchangeGUI() {
+        return coreManager == null ? null : coreManager.getExchangeGUI();
     }
 }

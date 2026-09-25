@@ -1,0 +1,150 @@
+# ============================================================
+# 灵魂兑换
+# ============================================================
+# 语法：
+#   MATERIAL:AMOUNT[:DATA][@名字][|Lore1|Lore2]
+#   SOULRING:MAT:AMOUNT[:DATA][@名字][|Lore1|Lore2]
+#   INVENTORY:MAT:AMOUNT[:DATA][@名字][|Lore1|Lore2]
+#   VAULT:金额
+#   POINT:数量
+#   VALUE:值Id:数量
+#   CMD:命令
+#
+# @名字 作用：
+#   - 输入：匹配 DisplayName/Lore 里含有该文字的物品
+#   - 输出：给物品设置 DisplayName
+#   - GUI：显示该文字（替代英文材质名）
+#
+# Lore 写法（两种都行）：
+#   写法 A（下一行续写）:
+#     Output:
+#       - "PAPER:1@貂蝉英雄卡"
+#       - "从高山上.........."
+#       - "第二行 lore"
+#   写法 B（行内 | 分隔）:
+#     Output:
+#       - "PAPER:1@貂蝉英雄卡|从高山上........|第二行"
+#
+# 注意：
+#   续写行不能包含"材质:数字"格式，否则会被当成新的物品定义
+#   "从高山上.........." 里如果没冒号或冒号后不是数字 → 就是 lore
+# ============================================================
+
+Pages:
+
+  main:
+    Title: "&8&l✦ 灵魂兑换"
+    Permission: ""
+    Exchanges:
+
+      dirt_to_diamond:
+        Name: "&7泥土 &e→ &b钻石"
+        Icon: "DIAMOND"
+        Slot: 10
+        Input:
+          - "SOULRING:DIRT:64"
+        Output:
+          - "DIAMOND:1"
+
+      stone_to_iron:
+        Name: "&7圆石 &e→ &f铁锭"
+        Icon: "IRON_INGOT"
+        Slot: 11
+        Input:
+          - "SOULRING:COBBLESTONE:32"
+        Output:
+          - "IRON_INGOT:1"
+
+      vault_to_diamond:
+        Name: "&6金币 &e→ &b钻石"
+        Icon: "GOLD_BLOCK"
+        Slot: 12
+        Input:
+          - "VAULT:10000"
+        Output:
+          - "DIAMOND:1"
+
+      sell_dirt:
+        Name: "&7泥土 &e→ &6金币"
+        Icon: "GOLD_NUGGET"
+        Slot: 13
+        Input:
+          - "SOULRING:DIRT:64"
+        Output:
+          - "VAULT:500"
+
+      # ========== 卡片兑换（用 @名字 + Lore 区分）==========
+      孙逊换貂蝉:
+        Name: "&e孙逊 &a→ &6貂蝉"
+        Icon: "PAPER"
+        Slot: 19
+        Input:
+          - "SOULRING:PAPER:3@孙逊"
+        Output:
+          - "PAPER:1@&6&l貂蝉英雄卡"
+          - "&7物品类型: &6卡牌"
+          - "&r"
+          - "&c攻击力: &f+20"
+          - "&b防御力: &f+15"
+          - "&e"
+          - "&6从高山上.........."
+
+      # ========== 魂珠兑换 ==========
+      火焰珠换冰珠:
+        Name: "&c火焰魂珠 &a→ &b寒冰魂珠"
+        Icon: "BLAZE_POWDER"
+        Slot: 20
+        Input:
+          - "SOULRING:BLAZE_POWDER:5@火焰"
+        Output:
+          - "SNOW_BALL:1@&b&l寒冰魂珠"
+          - "&7物品类型: &b魂珠"
+          - "&e魂珠ID: ice_ring"
+          - "&r"
+          - "&a防御力: +10"
+
+      # ========== 行内 | 分隔的写法 ==========
+      卡片回收:
+        Name: "&6卡片回收"
+        Icon: "GOLD_INGOT"
+        Slot: 21
+        Input:
+          - "SOULRING:PAPER:1@物品类型: 卡牌"
+        Output:
+          - "VAULT:1000"
+
+      # ========== 一次性奖励（含多行 Lore）==========
+      传说武器:
+        Name: "&c&l传说武器"
+        Icon: "DIAMOND_SWORD"
+        Slot: 22
+        Input:
+          - "SOULRING:DIRT:6400"
+        Output:
+          - "DIAMOND_SWORD:1@&c&l屠龙宝刀"
+          - "&7物品类型: &6武器"
+          - "&r"
+          - "&c攻击力: &f+500"
+          - "&6暴击機率: &f+20%"
+          - "&e暴击傷害: &f+200%"
+          - "&d"
+          - "&6传说中能够斩杀一切的神兵"
+        TotalLimit: 1
+
+  # ========== 另一个页 ==========
+  event:
+    Title: "&8&l✦ 活动兑换"
+    Permission: ""
+    Exchanges:
+
+      test:
+        Name: "&6活动测试"
+        Icon: "NETHER_STAR"
+        Slot: 13
+        Input:
+          - "SOULRING:DIRT:10"
+        Output:
+          - "DIAMOND:10"
+          - "&a活动奖励物品"
+          - "&e有效期至: 2026/12/31"
+        TotalLimit: 1

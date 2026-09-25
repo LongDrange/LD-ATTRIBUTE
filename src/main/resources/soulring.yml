@@ -1,0 +1,103 @@
+# ============================================================
+# 灵魂空间
+# ============================================================
+Title: "&8&l✦ 灵魂空间"
+SlotsPerPage: 45
+MaxStack: -1
+
+# ============================================================
+# 自动拾取
+# ============================================================
+AutoPickup:
+  # 全局开关（关掉后所有玩家都不自动拾取）
+  Enabled: true
+  # 允许玩家用 /ldsr autopickup 自己开关
+  PlayerToggle: true
+  # 新玩家默认开还是关
+  DefaultOn: true
+  # 拾取怪物掉落（EntityDeathEvent）
+  PickupMobDrops: true
+  # 拾取挖方块掉落（BlockBreakEvent）
+  PickupBlockDrops: true
+  # 每次拾取显示提示（怕刷屏默认关）
+  MessageOnPickup: false
+  # 过滤：命中规则的物品不会被自动拾取
+  Filter:
+    # 材质黑名单（大写，如 DIRT / COBBLESTONE）
+    MaterialBlacklist:
+      - "DIRT"
+      - "COBBLESTONE"
+      - "GRAVEL"
+      - "SAND"
+    # Lore 黑名单（剥色后包含就算）
+    LoreBlacklist: []
+    # 名字黑名单（DisplayName 剥色后包含就算）
+    NameBlacklist: []
+
+# ============================================================
+# 分类定义
+# ============================================================
+Categories:
+
+  all:
+    name: "&f全部"
+    icon: "CHEST"
+
+  weapon:
+    name: "&c武器"
+    icon: "DIAMOND_SWORD"
+    material-contains:
+      - "_SWORD"
+      - "_AXE"
+      - "BOW"
+      - "CROSSBOW"
+      - "TRIDENT"
+
+  armor:
+    name: "&b防具"
+    icon: "DIAMOND_CHESTPLATE"
+    material-contains:
+      - "_HELMET"
+      - "_CHESTPLATE"
+      - "_LEGGINGS"
+      - "_BOOTS"
+      - "SHIELD"
+      - "ELYTRA"
+
+  tool:
+    name: "&e工具"
+    icon: "DIAMOND_PICKAXE"
+    material-contains:
+      - "_PICKAXE"
+      - "_SHOVEL"
+      - "_HOE"
+      - "SHEARS"
+      - "FISHING_ROD"
+
+  food:
+    name: "&a食物"
+    icon: "COOKED_BEEF"
+    is-edible: true
+
+  block:
+    name: "&7方块"
+    icon: "BRICK"
+    is-block: true
+
+  card:
+    name: "&6卡片"
+    icon: "PAPER"
+    lore-contains:
+      - "物品类型: 卡牌"
+
+  ring:
+    name: "&d魂珠"
+    icon: "NETHER_STAR"
+    lore-contains:
+      - "物品类型: 魂珠"
+
+  jewel:
+    name: "&b饰品"
+    icon: "GOLD_INGOT"
+    lore-contains:
+      - "物品类型: 饰品"

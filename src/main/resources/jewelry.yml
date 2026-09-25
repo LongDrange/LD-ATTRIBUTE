@@ -1,0 +1,102 @@
+# ============================================================
+# 饰品背包配置（多页 + 完全自定义）
+#
+# Lore 识别规则：
+#   物品类型: 饰品
+#   饰品槽位: <对应 SlotDef 的 LoreKey>
+#
+# 结构：
+#   DefaultPage: <默认打开的页 id>
+#   Pages:
+#     <页id>:
+#       Title: "<GUI 标题>"
+#       Slots:
+#         <槽位id>:
+#           Name: "<显示名>"
+#           LoreKey: "<Lore里 饰品槽位: 后写的内容>"
+#           GuiSlot: <界面第几格 0-44>
+#           Icon: "<空槽材质>"
+#           Permission: ""              # 需要的权限，留空不校验
+#           CostPoints: 0               # 预留
+#           CostVault: 0                # 预留
+#           Items: []                   # 预留
+# ============================================================
+
+DefaultPage: "main"
+
+Pages:
+
+  # ============ 主装备页 ============
+  main:
+    Title: "&8&l✦ 饰品背包 &7- 主装备"
+    Slots:
+      helmet:
+        Name: "&6头盔"
+        LoreKey: "头盔"
+        GuiSlot: 11
+        Icon: "DIAMOND_HELMET"
+        Permission: ""
+      chestplate:
+        Name: "&6胸甲"
+        LoreKey: "胸甲"
+        GuiSlot: 13
+        Icon: "DIAMOND_CHESTPLATE"
+        Permission: ""
+      leggings:
+        Name: "&6护腿"
+        LoreKey: "护腿"
+        GuiSlot: 15
+        Icon: "DIAMOND_LEGGINGS"
+        Permission: ""
+      boots:
+        Name: "&6靴子"
+        LoreKey: "靴子"
+        GuiSlot: 17
+        Icon: "DIAMOND_BOOTS"
+        Permission: ""
+
+  # ============ 首饰页 ============
+  accessory:
+    Title: "&8&l✦ 饰品背包 &7- 首饰"
+    Slots:
+      necklace:
+        Name: "&b项链"
+        LoreKey: "项链"
+        GuiSlot: 10
+        Icon: "GOLD_NUGGET"
+        Permission: ""
+      ring:
+        Name: "&b戒指"
+        LoreKey: "戒指"
+        GuiSlot: 13
+        Icon: "GOLD_INGOT"
+        Permission: ""
+      bracelet:
+        Name: "&b手镯"
+        LoreKey: "手镯"
+        GuiSlot: 16
+        Icon: "GOLD_INGOT"
+        Permission: ""
+      wings:
+        Name: "&d翅膀"
+        LoreKey: "翅膀"
+        GuiSlot: 22
+        Icon: "ELYTRA"
+        Permission: ""
+
+  # ============ 特殊页（可以随便加） ============
+  special:
+    Title: "&8&l✦ 饰品背包 &7- 特殊"
+    Slots:
+      pet_stone:
+        Name: "&a宠物石"
+        LoreKey: "宠物石"
+        GuiSlot: 13
+        Icon: "EMERALD"
+        Permission: ""
+      talisman:
+        Name: "&5护符"
+        LoreKey: "护符"
+        GuiSlot: 15
+        Icon: "NETHER_STAR"
+        Permission: ""

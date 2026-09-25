@@ -1,0 +1,66 @@
+# ============================================
+# LD-Attribute 核心模块配置
+# 用于 魂珠/饰品/天赋/图鉴/自定义值/灵魂空间
+# ============================================
+
+storage:
+  # 可选: YAML / SQLITE / MYSQL
+  # 只影响新增模块数据，你原有的 players.yml 等不受影响
+  type: YAML
+
+  # 自动保存间隔(秒)，<=0 关闭
+  auto-save-seconds: 300
+
+  mysql:
+    host: 127.0.0.1
+    port: 3306
+    database: ldattribute
+    username: root
+    password: ""
+    table-prefix: "ldcore_"
+    useSSL: false
+    connect-timeout: 5000
+
+messages:
+  prefix: "&8[&bLD-Core&8] &r"
+  reload: "&a核心模块配置已重载"
+  no-permission: "&c你没有权限"
+  storage-current: "&7当前存储方式: &b%type%"
+  storage-unknown: "&c未知存储方式: &e%type%"
+  player-only: "&c该命令只能由玩家执行"
+# ============================================================
+# 头顶名字（需配合 PAPI 变量，默认关闭）
+# ============================================================
+nametag:
+  enabled: false
+  # 支持 PAPI 变量，如 &6[VIP] &f
+  prefix: "&6[&e玩家&6] &f"
+  # 名字下方显示（如血量/金币）
+  suffix: " &7[&a%ldvalue_info_体力%&7]"
+# ============================================================
+# 进服广播（默认关闭，需要时改 true）
+# ============================================================
+join:
+  enabled: true              # 总开关（关掉后个人+广播都不发）
+  personal-enabled: true     # 个人消息（只有进服玩家自己看到）
+  broadcast-enabled: false   # 全服广播（默认关闭，需要时改 true）
+
+  # 个人消息
+  personal:
+    - "&e欢迎回来，&a%player%&e！"
+    - "&7你的金币：&6%ldvalue_info_金币%"
+    - "&7你的声望：&d%ldvalue_info_声望%"
+
+  # 全服广播（当 broadcast-enabled: true 时才显示）
+  broadcast:
+    - "&8[&a+&8] &7玩家 &f%player% &7加入了服务器"
+    - "&7他有 &6%ldvalue_info_金币% &7金币"
+# ============================================================
+# 头顶名字（默认关闭，需要时改 true）
+# ============================================================
+nametag:
+  enabled: false
+  # 支持 PAPI 变量，如 &6[VIP] &f
+  prefix: "&6[&e玩家&6] &f"
+  # 名字下方显示（如血量/金币）
+  suffix: " &7[&a%ldvalue_info_体力%&7]"
