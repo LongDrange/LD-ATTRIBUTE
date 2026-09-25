@@ -1,37 +1,53 @@
-# Java / Maven
-target/
-*.class
-*.war
+name: Build
 
-# 允许提交 libs 里的小 jar（PlaceholderAPI / Vault）
-# 但排除大文件（paper 30MB）
-libs/*.jar
-!libs/PlaceholderAPI-2.9.2.jar
-!libs/Vault.jar
-!libs/paper-1.12.2.jar.dummy
+on:
+  push:
+    branches: [ main ]
+    tags: [ 'v*' ]
+  workflow_dispatch:
 
-# IDE
-.idea/
-*.iml
-.vscode/
-.settings/
-.classpath
-.project
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-# 日志
-*.log
-logs/
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-# 系统
-.DS_Store
-Thumbs.db
+      - name: Set up JDK 8
+        uses: actions/setup-java@v4
+        with:
+          java-version: '8'
+          distribution: 'temurin'
 
-# 敏感
-config.local.yml
-*.local.yml
-secrets.yml
+      - name: Cache Maven
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2-
 
-# 运行数据
-data/
-core-data/
-配置/
+      - name: Download paper-api (30MB, 不进仓库)
+        run: |
+          mkdir -p libs
+          curl -L -o libs/paper-1.12.2.jar https://api.papermc.io/v2/projects/paper/versions/1.12.2/builds/1620/downloads/paper-1.12.2-1620.jar
+          ls -lh libs/
+
+      - name: Build with Maven
+        run: mvn -B clean package --file pom.xml
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: LD-Attribute
+          path: target/LD-Attribute-*.jar
+          if-no-files-found: error
+
+      - name: Create Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/LD-Attribute-*.jar
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
