@@ -1,34 +1,37 @@
-name: Build
+# Java / Maven
+target/
+*.class
+*.war
 
-on:
-  push:
-    branches: [ main, master ]
-  pull_request:
-    branches: [ main, master ]
-  workflow_dispatch:
+# 允许提交 libs 里的小 jar（PlaceholderAPI / Vault）
+# 但排除大文件（paper 30MB）
+libs/*.jar
+!libs/PlaceholderAPI-2.9.2.jar
+!libs/Vault.jar
+!libs/paper-1.12.2.jar.dummy
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+# IDE
+.idea/
+*.iml
+.vscode/
+.settings/
+.classpath
+.project
 
-    steps:
-    - name: Checkout
-      uses: actions/checkout@v4
+# 日志
+*.log
+logs/
 
-    - name: Set up JDK 8
-      uses: actions/setup-java@v4
-      with:
-        java-version: '8'
-        distribution: 'temurin'
-        cache: maven
+# 系统
+.DS_Store
+Thumbs.db
 
-    - name: Build with Maven
-      run: mvn -B clean package -DskipTests
+# 敏感
+config.local.yml
+*.local.yml
+secrets.yml
 
-    - name: Upload JAR artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: LD-Attribute-JAR
-        path: target/*.jar
-        if-no-files-found: error
-        retention-days: 30
+# 运行数据
+data/
+core-data/
+配置/

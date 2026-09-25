@@ -1,17 +1,14 @@
 # Java / Maven
 target/
 *.class
-*.jar
 *.war
 
-# 但允许提交 Maven 包装器（保留）
-!mvnw
-!mvnw.cmd
-!.mvn/wrapper/maven-wrapper.jar
-
-# 本机依赖（不上传）
-libs/
-!libs/.gitkeep
+# 允许提交 libs 里的小 jar（PlaceholderAPI / Vault）
+# 但排除大文件（paper 30MB）
+libs/*.jar
+!libs/PlaceholderAPI-2.9.2.jar
+!libs/Vault.jar
+!libs/paper-1.12.2.jar.dummy
 
 # IDE
 .idea/
