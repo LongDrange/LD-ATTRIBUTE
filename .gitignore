@@ -3,12 +3,10 @@ target/
 *.class
 *.war
 
-# 允许提交 libs 里的小 jar（PlaceholderAPI / Vault）
-# 但排除大文件（paper 30MB）
+# libs：只允许 2 个小 jar 进仓库，paper 30MB 不进
 libs/*.jar
 !libs/PlaceholderAPI-2.9.2.jar
 !libs/Vault.jar
-!libs/paper-1.12.2.jar.dummy
 
 # IDE
 .idea/
@@ -18,17 +16,12 @@ libs/*.jar
 .classpath
 .project
 
-# 日志
+# 日志 / 系统 / 敏感
 *.log
 logs/
-
-# 系统
 .DS_Store
 Thumbs.db
-
-# 敏感
 config.local.yml
-*.local.yml
 secrets.yml
 
 # 运行数据
