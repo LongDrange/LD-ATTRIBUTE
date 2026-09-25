@@ -148,3 +148,48 @@ Pages:
           - "&a活动奖励物品"
           - "&e有效期至: 2026/12/31"
         TotalLimit: 1
+
+  # ========== 商店：用货币买物品 ==========
+  shop:
+    Title: "&8&l✦ 商店"
+    Permission: ""
+    Exchanges:
+
+      buy_diamond:
+        Name: "&b钻石 x1  &7(&65000 金币&7)"
+        Icon: "DIAMOND"
+        Slot: 10
+        Input:
+          - "VAULT:5000"
+        Output:
+          - "DIAMOND:1"
+
+      buy_netherite:
+        Name: "&4下界合金锭 x1  &7(&610万 金币&7)"
+        Icon: "NETHERITE_INGOT"
+        Slot: 11
+        Input:
+          - "VAULT:1000000"
+        Output:
+          - "NETHERITE_INGOT:1"
+
+      buy_prestige_item:
+        Name: "&6威望礼包  &7(&d1000 威望&7)"
+        Icon: "CHEST"
+        Slot: 12
+        Input:
+          - "VALUE:威望:1000"
+        Output:
+          - "DIAMOND:64"
+          - "EMERALD:32"
+
+      buy_talent_reset:
+        Name: "&d天赋重置券  &7(&630 天赋点&7)"
+        Icon: "PAPER"
+        Slot: 13
+        Input:
+          - "VALUE:天赋点:30"
+        Output:
+          - "PAPER:1@&d天赋重置券"
+          - "&7右键点击使用"
+          - "&7重置所有天赋点"

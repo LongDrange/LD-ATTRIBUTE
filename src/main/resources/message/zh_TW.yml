@@ -318,3 +318,32 @@ Attr:
   PVP防御: "&b&lPVP防禦"
   PVE防御: "&b&lPVE防禦"
   技能极速: "&e&l技能極速"
+
+# ================ 灵魂垃圾桶 ================
+SoulRing:
+  TrashTitle: "&4&l✦ 灵魂垃圾桶"
+  TrashBtn: "&c灵魂垃圾桶"
+  TrashBtnLore: "&7点击打开垃圾桶界面"
+  TrashBtnLore2: "&7批量删除不要的物品"
+  TrashDeleted: "&c已删除 &f{0} &c x{1}"
+  TrashFailed: "&c删除失败"
+  TrashNoPerm: "&c你没有权限使用垃圾桶"
+  TrashBack: "&7返回灵魂空间"
+  TrashInfo: "&6操作说明"
+  TrashInfoLine1: "&f左键 = 删 1"
+  TrashInfoLine2: "&f右键 = 删 16"
+  TrashInfoLine3: "&fShift+左键 = 删 64"
+  TrashInfoLine4: "&fShift+右键 = 删 全部"
+
+# ================ 快捷分解 ================
+Decompose:
+  NoPerm: "&c你没有权限使用此命令"
+  Usage: "&e用法（只处理玩家主背包）:"
+  UsageStar: "&e  /ldc decompose star <N>       分解 ≤N 星的卡"
+  UsageType: "&e  /ldc decompose type <T1,T2>  分解指定类型（逗号分隔）"
+  UsageId: "&e  /ldc decompose id <卡ID>     分解指定 ID"
+  InvalidStar: "&c星级必须是数字"
+  UnknownMode: "&e未知模式: &f{0}"
+  Success: "&a已分解 &e{0} &a张卡（来自玩家背包）"
+  GotPoints: "&7- 点券: &6{0}"
+  GotVault: "&7- 金币: &6{0}"

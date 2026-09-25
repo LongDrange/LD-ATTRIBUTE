@@ -67,6 +67,15 @@ public class SoulRingListener implements Listener {
         }
 
         // 分类切换
+        if (rawSlot == SoulRingGUI.BTN_TRASH) {
+            if (!player.hasPermission("ldattribute.soulring.trash") && !player.isOp()) {
+                player.sendMessage(ChatColor.RED + "你没有权限使用垃圾桶");
+                return;
+            }
+            plugin.getSoulRingTrashGUI().open(player);
+            return;
+        }
+
         if (rawSlot == SoulRingGUI.BTN_EXCHANGE) {
             plugin.getExchangeGUI().openDefault(player);
             return;

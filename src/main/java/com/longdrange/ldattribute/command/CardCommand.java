@@ -37,6 +37,9 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.UUID;
 import java.util.HashMap;
+import com.longdrange.ldattribute.card.DecomposeConfig;
+import com.longdrange.ldattribute.points.PointAPI;
+import java.util.LinkedHashMap;
 
 public class CardCommand implements CommandExecutor, TabCompleter {
 
@@ -78,7 +81,7 @@ public class CardCommand implements CommandExecutor, TabCompleter {
 
         try {
             if (sender instanceof Player
-                    && sender.hasPermission("ldattribute.command.admin")) {
+                    && sender.hasPermission("ldattribute.card.decompose")) {
                 com.longdrange.ldattribute.util.AuditLog.write(sender,
                         key, String.join(" ", args));
             }
@@ -105,6 +108,7 @@ public class CardCommand implements CommandExecutor, TabCompleter {
                 }
                 return onGive(sender, args);
             }
+            case "Decompose": return onDecompose(sender, args);
             case "Save": return onSave(sender, args);
             case "Damage": return onDamage(sender, args);
             case "Compare": return onCompare(sender, args);
@@ -1173,6 +1177,131 @@ public class CardCommand implements CommandExecutor, TabCompleter {
         player.sendMessage(msg(RecipeEngine.execute(player, r)));
         return true;
     }
+
+
+    // ==================== 快捷分解 ====================
+    // ==================== 快捷分解 ====================
+    // ==================== 快捷分解（只处理玩家主背包） ====================
+    private boolean onDecompose(CommandSender sender, String[] args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(Message.get("Command.Help.PlayerOnly"));
+            return true;
+        }
+        Player player = (Player) sender;
+        if (!player.hasPermission("ldattribute.command.admin") && !player.isOp()) {
+            player.sendMessage(Message.get("Decompose.NoPerm"));
+            return true;
+        }
+        if (args.length < 2) {
+            player.sendMessage(Message.get("Decompose.Usage"));
+            player.sendMessage(Message.get("Decompose.UsageStar"));
+            player.sendMessage(Message.get("Decompose.UsageType"));
+            player.sendMessage(Message.get("Decompose.UsageId"));
+            return true;
+        }
+        String mode = args[1].toLowerCase();
+        if (args.length < 3) {
+            player.sendMessage("§e用法: /ldc decompose " + mode + " <值>");
+            return true;
+        }
+        if (mode.equals("star")) {
+            int maxStar;
+            try { maxStar = Integer.parseInt(args[2]); } catch (Exception e) {
+                player.sendMessage(Message.get("Decompose.InvalidStar"));
+                return true;
+            }
+            doDecompose(player, maxStar, null, null);
+            return true;
+        }
+        if (mode.equals("type")) {
+            String[] types = args[2].split(",");
+            java.util.Set<String> typeSet = new java.util.HashSet<>();
+            for (String t : types) typeSet.add(t.trim().toUpperCase());
+            doDecompose(player, -1, null, typeSet);
+            return true;
+        }
+        if (mode.equals("id")) {
+            doDecompose(player, -1, args[2], null);
+            return true;
+        }
+        player.sendMessage(Message.get("Decompose.UnknownMode", mode));
+        return true;
+    }
+
+    private void doDecompose(Player player, int maxStar, String cardId, java.util.Set<String> typeFilter) {
+        org.bukkit.inventory.PlayerInventory inv = player.getInventory();
+        int total = 0;
+        int points = 0;
+        double vault = 0;
+        java.util.Map<String, Integer> itemRewards = new java.util.LinkedHashMap<>();
+
+        ItemStack[] contents = inv.getStorageContents();
+        for (int i = 0; i < contents.length; i++) {
+            ItemStack item = contents[i];
+            if (item == null || item.getType() == org.bukkit.Material.AIR) continue;
+            CardData card = CardDataManager.findCard(item);
+            if (card == null) continue;
+            if (cardId != null && !card.getId().equals(cardId)) continue;
+            if (typeFilter != null) {
+                String type = card.getType();
+                if (type == null || !typeFilter.contains(type.toUpperCase())) continue;
+            }
+            if (maxStar >= 0) {
+                int star = CardNBT.getStar(item);
+                if (star > maxStar) continue;
+            }
+            DecomposeConfig.Entry e = DecomposeConfig.get(card.getId());
+            if (e.disabled) continue;
+
+            points += e.points;
+            vault += e.vault;
+            for (String it : e.items) {
+                itemRewards.merge(it, 1, Integer::sum);
+            }
+            for (java.util.Map.Entry<String, Integer> r : e.random.entrySet()) {
+                if (Math.random() * 100 < r.getValue()) {
+                    CardData c2 = CardDataManager.getCard(r.getKey());
+                    if (c2 != null) {
+                        PlayerData.addCardToBag(player.getUniqueId(), c2.getItem());
+                    }
+                }
+            }
+            inv.setItem(i, null);
+            total++;
+        }
+
+        if (points > 0) PointAPI.addPlayerPoints(player.getName(), points);
+        if (vault > 0) {
+            try {
+                org.bukkit.plugin.RegisteredServiceProvider<net.milkbowl.vault.economy.Economy> rsp =
+                    Bukkit.getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+                if (rsp != null) rsp.getProvider().depositPlayer(player, vault);
+            } catch (Throwable ignored) {}
+        }
+        for (java.util.Map.Entry<String, Integer> re : itemRewards.entrySet()) {
+            String[] parts = re.getKey().split(":");
+            if (parts.length < 2) continue;
+            org.bukkit.Material mat = org.bukkit.Material.getMaterial(parts[0].toUpperCase());
+            if (mat == null) continue;
+            int per = 1;
+            try { per = Integer.parseInt(parts[1]); } catch (Exception ignored) {}
+            int totalAmt = per * re.getValue();
+            while (totalAmt > 0) {
+                int give = Math.min(totalAmt, 64);
+                player.getInventory().addItem(new ItemStack(mat, give));
+                totalAmt -= give;
+            }
+        }
+
+        try { com.longdrange.ldattribute.util.AuditLog.write(player, "Decompose", "分解 " + total + " 张卡 | 点券 " + points + " | 金币 " + (int) vault); } catch (Throwable ignored) {}
+        player.sendMessage(Message.get("Decompose.Success", total));
+        if (points > 0) player.sendMessage(Message.get("Decompose.GotPoints", points));
+        if (vault > 0) player.sendMessage(Message.get("Decompose.GotVault", (int) vault));
+    }
+
+
+
+
 
     private boolean onSave(CommandSender sender, String[] args) {
         if (!(sender instanceof Player)) {

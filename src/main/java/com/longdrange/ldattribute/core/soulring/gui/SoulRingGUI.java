@@ -23,6 +23,7 @@ public class SoulRingGUI {
     public static final int BTN_INFO = 49;
     public static final int BTN_SORT = 51;
     public static final int BTN_NEXT = 53;
+    public static final int BTN_TRASH = 48;
 
     private final LDAttribute plugin;
     public SoulRingGUI(LDAttribute plugin) { this.plugin = plugin; }
@@ -117,6 +118,12 @@ public class SoulRingGUI {
         catLore.add("");
         catLore.add(ChatColor.GRAY + "点击切换到下一个分类");
         inv.setItem(BTN_CAT, iconLore(catIcon, ChatColor.AQUA + "分类: " + cat.name, catLore));
+
+        // 垃圾桶按钮
+        inv.setItem(BTN_TRASH, icon(Material.LAVA_BUCKET,
+                ChatColor.RED + "灵魂垃圾桶 ",
+                ChatColor.GRAY + "点击打开垃圾桶界面",
+                ChatColor.GRAY + "批量删除不要的物品"));
 
         // 兑换按钮
         inv.setItem(BTN_EXCHANGE, icon(Material.EMERALD,

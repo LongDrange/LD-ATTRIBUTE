@@ -1,5 +1,5 @@
 ﻿name: LD-Attribute
-version: 1.3.0
+version: 1.4.0
 main: com.longdrange.ldattribute.LDAttribute
 api-version: "1.12"
 author: LongDrange
@@ -51,6 +51,15 @@ commands:
     description: 灵魂空间
     usage: /ldsr
 permissions:
+  ldattribute.soulring.trash:
+    description: 灵魂垃圾桶权限
+    default: op
+  ldattribute.card.decompose:
+    description: 快捷分解权限
+    default: op
+  ldattribute.exchange.shop:
+    description: 商店权限
+    default: true
   # ===== LD-Attribute 主功能 =====
   ldattribute.command.list:
     description: 允許使用 /lda list

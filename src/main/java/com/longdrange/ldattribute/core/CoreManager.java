@@ -44,6 +44,8 @@ import com.longdrange.ldattribute.core.soulring.rate.RateConfig;
 import com.longdrange.ldattribute.core.soulring.rate.RateManager;
 import com.longdrange.ldattribute.core.soulring.rate.MythicMobsRateListener;
 import com.longdrange.ldattribute.core.soulring.gui.SoulRingGUI;
+import com.longdrange.ldattribute.core.soulring.gui.SoulRingTrashGUI;
+import com.longdrange.ldattribute.core.soulring.listener.SoulRingTrashListener;
 import com.longdrange.ldattribute.core.soulring.listener.SoulRingListener;
 import com.longdrange.ldattribute.core.soulring.exchange.ExchangeConfig;
 import com.longdrange.ldattribute.core.soulring.exchange.gui.ExchangeGUI;
@@ -81,6 +83,7 @@ public class CoreManager {
     private ScoreboardManager scoreboardManager;
     private SoulRingManager soulRingManager;
     private SoulRingGUI soulRingGUI;
+    private SoulRingTrashGUI soulRingTrashGUI;
     private ExchangeGUI exchangeGUI;
     private RateManager rateManager;
 
@@ -184,6 +187,7 @@ public class CoreManager {
     public ScoreboardManager getScoreboardManager() { return scoreboardManager; }
     public SoulRingManager getSoulRingManager() { return soulRingManager; }
     public SoulRingGUI getSoulRingGUI() { return soulRingGUI; }
+    public SoulRingTrashGUI getSoulRingTrashGUI() { return soulRingTrashGUI; }
     public ExchangeGUI getExchangeGUI() { return exchangeGUI; }
     public RateManager getRateManager() { return rateManager; }
 
@@ -281,6 +285,8 @@ public class CoreManager {
         SoulRingConfig.load(plugin);
         this.soulRingManager = new SoulRingManager(plugin);
         this.soulRingGUI = new SoulRingGUI(plugin);
+        this.soulRingTrashGUI = new SoulRingTrashGUI(plugin);
+        Bukkit.getPluginManager().registerEvents(new SoulRingTrashListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents(new SoulRingListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents(new AutoPickupListener(plugin), plugin);
         ExchangeConfig.load(plugin);

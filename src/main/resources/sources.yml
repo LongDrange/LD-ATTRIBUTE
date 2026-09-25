@@ -9,20 +9,15 @@
 #
 # 方法返回的 List 每行格式："属性名: +数值"
 # 例如：["攻击力: +100", "防御力: +50"]
-#
-# 插件启动时会反射自动注册，无需改任何 Java 代码。
-# 也可以写自己的类放在其它包里，只要类名和方法名对上即可。
 # ============================================================
 
-Sources: []
-# 示例：
-# Sources:
-#   - Name: "宝石"
-#     Enabled: true
-#     Provider: "com.longdrange.ldattribute.core.gem.GemStatsProvider"
-#     Method: "getGemLore"
-#
-#   - Name: "宠物装备"
-#     Enabled: true
-#     Provider: "com.longdrange.ldattribute.core.petpet.PetPetProvider"
-#     Method: "getAttributes"
+Sources:
+  - Name: "SX-Attribute"
+    Enabled: true
+    Provider: "com.longdrange.ldattribute.core.compat.SXAttributeCompat"
+    Method: "getSXAttributes"
+
+  - Name: "AttributePlus"
+    Enabled: true
+    Provider: "com.longdrange.ldattribute.core.compat.AttributePlusCompat"
+    Method: "getAPAttributes"

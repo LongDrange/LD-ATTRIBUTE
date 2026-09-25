@@ -445,6 +445,7 @@ public class LDAttribute extends JavaPlugin {
     public com.longdrange.ldattribute.core.soulring.gui.SoulRingGUI getSoulRingGUI() {
         return coreManager == null ? null : coreManager.getSoulRingGUI();
     }
+    public com.longdrange.ldattribute.core.soulring.gui.SoulRingTrashGUI getSoulRingTrashGUI() { return coreManager == null ? null : coreManager.getSoulRingTrashGUI(); }
 
     public com.longdrange.ldattribute.core.soulring.rate.RateManager getRateManager() {
         return coreManager == null ? null : coreManager.getRateManager();
