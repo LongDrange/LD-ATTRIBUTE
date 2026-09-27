@@ -26,6 +26,11 @@ public class RuneConfig {
         public Material material;
         public int level;
         public List<String> attributes = new ArrayList<>();
+        // ===== 镶嵌消耗/几率 =====
+        public double successRate = 1.0;     // 0.0 ~ 1.0，1.0 = 100%
+        public String failAction = "KEEP";   // KEEP（保留）/ LOSE（消失）/ REFUND（返还）
+        public double costVault = 0;
+        public Map<String, Double> costValues = new LinkedHashMap<>();
     }
 
     private static final Map<String, Socket> sockets = new LinkedHashMap<>();
@@ -96,6 +101,19 @@ public class RuneConfig {
                     r.costPoints = rec.getInt("Points", 0);
                     java.util.List<String> items = rec.getStringList("Items");
                     if (items != null) r.costItems.addAll(items);
+                }
+                // 新字段
+                r.successRate = s.getDouble("SuccessRate", 1.0);
+                if (r.successRate < 0) r.successRate = 0;
+                if (r.successRate > 1) r.successRate = 1;
+                r.failAction = s.getString("FailAction", "KEEP").toUpperCase();
+                r.costVault = s.getDouble("CostVault", 0);
+                r.costPoints = s.getInt("CostPoints", 0);
+                ConfigurationSection cvs = s.getConfigurationSection("CostValues");
+                if (cvs != null) {
+                    for (String vk : cvs.getKeys(false)) {
+                        r.costValues.put(vk, cvs.getDouble(vk, 0));
+                    }
                 }
                 List<String> attrs = s.getStringList("Attributes");
                 if (attrs != null) r.attributes.addAll(attrs);

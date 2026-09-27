@@ -13,6 +13,8 @@ public class RingUpgradeConfig {
         public int points;
         public double vault;
         public List<String> items = new ArrayList<>();
+        public Double successRate;  // null = 继承类型
+        public String failAction;   // null = 继承类型
         public boolean isEmpty() { return points <= 0 && vault <= 0 && items.isEmpty(); }
     }
 
@@ -21,6 +23,8 @@ public class RingUpgradeConfig {
         public int maxLevel;
         public double bonusPerLevel;
         public final Map<Integer, Cost> costs = new HashMap<>();
+        public double successRate = 1.0;
+        public String failAction = "KEEP";
         public TypeUpgrade(String type) { this.type = type; }
     }
 
@@ -62,6 +66,10 @@ public class RingUpgradeConfig {
                 TypeUpgrade tu = new TypeUpgrade(key);
                 tu.maxLevel = Math.max(1, s.getInt("MaxLevel", defaultMaxLevel));
                 tu.bonusPerLevel = s.getDouble("BonusPerLevel", defaultBonusPerLevel);
+                tu.successRate = s.getDouble("SuccessRate", 1.0);
+                if (tu.successRate < 0) tu.successRate = 0;
+                if (tu.successRate > 1) tu.successRate = 1;
+                tu.failAction = s.getString("FailAction", "KEEP").toUpperCase();
 
                 ConfigurationSection cs = s.getConfigurationSection("Costs");
                 if (cs != null) {
@@ -86,6 +94,8 @@ public class RingUpgradeConfig {
         c.vault = s.getDouble("CostVault", 0);
         List<String> items = s.getStringList("Items");
         if (items != null) c.items.addAll(items);
+        if (s.isSet("SuccessRate")) c.successRate = s.getDouble("SuccessRate");
+        if (s.isSet("FailAction")) c.failAction = s.getString("FailAction").toUpperCase();
         return c;
     }
 
@@ -97,6 +107,28 @@ public class RingUpgradeConfig {
     public static double getBonusPerLevel(String type) {
         TypeUpgrade tu = types.get(type);
         return tu == null ? defaultBonusPerLevel : tu.bonusPerLevel;
+    }
+
+    /** 获取升级成功率（等级覆盖 > 类型 > 1.0） */
+    public static double getSuccessRate(String type, int targetLevel) {
+        TypeUpgrade tu = types.get(type);
+        if (tu != null) {
+            Cost c = tu.costs.get(targetLevel);
+            if (c != null && c.successRate != null) return c.successRate;
+            return tu.successRate;
+        }
+        return 1.0;
+    }
+
+    /** 获取失败处理（等级覆盖 > 类型 > KEEP） */
+    public static String getFailAction(String type, int targetLevel) {
+        TypeUpgrade tu = types.get(type);
+        if (tu != null) {
+            Cost c = tu.costs.get(targetLevel);
+            if (c != null && c.failAction != null) return c.failAction;
+            return tu.failAction;
+        }
+        return "KEEP";
     }
 
     /** 目标等级的成本；null = 无法升级到该等级 */

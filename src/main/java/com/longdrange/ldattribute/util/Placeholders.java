@@ -53,6 +53,33 @@ public class Placeholders extends PlaceholderExpansion {
 
         String p2 = params.toLowerCase();
 
+        // ===== 图鉴收藏分 / 称号 =====
+        if (p2.equals("guide_score") || p2.equals("收藏分")) {
+            try {
+                com.longdrange.ldattribute.core.guide.GuideScoreManager sm =
+                        plugin.getCoreManager().getGuideScoreManager();
+                return sm == null ? "0" : String.valueOf(sm.getScore(player));
+            } catch (Throwable t) { return "0"; }
+        }
+        if (p2.equals("guide_title") || p2.equals("称号")) {
+            try {
+                com.longdrange.ldattribute.core.guide.GuideScoreManager sm =
+                        plugin.getCoreManager().getGuideScoreManager();
+                if (sm == null) return "";
+                com.longdrange.ldattribute.core.guide.GuideScoreConfig.TitleDef t = sm.getCurrentTitle(player);
+                return t == null ? "" : t.plainName;
+            } catch (Throwable t) { return ""; }
+        }
+        if (p2.equals("guide_prefix") || p2.equals("称号前缀")) {
+            try {
+                com.longdrange.ldattribute.core.guide.GuideScoreManager sm =
+                        plugin.getCoreManager().getGuideScoreManager();
+                if (sm == null) return "";
+                com.longdrange.ldattribute.core.guide.GuideScoreConfig.TitleDef t = sm.getCurrentTitle(player);
+                return t == null ? "" : t.prefix;
+            } catch (Throwable t) { return ""; }
+        }
+
         // ===== 排行榜占位符 =====
         if (p2.startsWith("top_cards_") || p2.startsWith("top_points_") ||
             p2.startsWith("top_pets_") || p2.startsWith("top_runes_")) {
@@ -280,7 +307,7 @@ public class Placeholders extends PlaceholderExpansion {
         }
 
         // 讀取玩家的屬性資料
-        LDAttributeData data = loadEntityData(player);
+        LDAttributeData data = com.longdrange.ldattribute.card.StatsDataRead.loadPlayerStats(player);
 
         // 找出對應的屬性實例
         LDSubAttribute targetAttr = null;

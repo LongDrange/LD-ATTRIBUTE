@@ -1,5 +1,5 @@
-﻿name: LD-Attribute
-version: 1.4.0
+name: LD-Attribute
+version: 1.5.0
 main: com.longdrange.ldattribute.LDAttribute
 api-version: "1.12"
 author: LongDrange
@@ -36,6 +36,8 @@ commands:
     usage: /ldtalent [页id]
   ldguide:
     aliases: [guide, gd]
+  lddungeon:
+    aliases: [dungeon, dg, fuben]
     description: 怪物图鉴
     usage: /ldguide
   ldvalue:
@@ -120,6 +122,9 @@ permissions:
   # ===== 怪物图鉴 =====
   ldattribute.guide.admin:
     description: 图鉴管理权限
+  ldattribute.dungeon.admin:
+    description: 副本系统管理权限
+    default: op
     default: op
   # ===== 自定义值 =====
   ldattribute.value.admin:

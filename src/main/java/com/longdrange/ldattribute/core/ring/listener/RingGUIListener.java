@@ -188,9 +188,7 @@ public class RingGUIListener implements Listener {
         }
         RingCost.pay(player, "", cost.points, cost.vault, reqs);
 
-        // ===== 消耗魂珠 =====
-        // 剩余 = 上限 - (上限×30% + 上限×10%×BonusPerLevel)
-        // 消耗 = 上限 - 剩余 = 上限×30% + 上限×10%×BonusPerLevel
+        // ===== 计算要消耗的魂珠数量 =====
         double bonus = RingUpgradeConfig.getBonusPerLevel(slot.ringType);
         double remainDouble = slot.maxStack - (slot.maxStack * 0.30 + slot.maxStack * 0.10 * bonus);
         int remainAfter = (int) Math.floor(remainDouble);
@@ -198,8 +196,43 @@ public class RingGUIListener implements Listener {
         int consumeAmount = slot.maxStack - remainAfter;
         if (consumeAmount < 0) consumeAmount = 0;
         if (consumeAmount > slot.count) consumeAmount = slot.count;
-        int consumed = data.consumeFromSlot(slotId, consumeAmount);
 
+        // ===== 掷骰 =====
+        double rate = RingUpgradeConfig.getSuccessRate(slot.ringType, targetLv);
+        String failAction = RingUpgradeConfig.getFailAction(slot.ringType, targetLv);
+        boolean success = Math.random() < rate;
+
+        if (!success) {
+            // 失败处理
+            if ("REFUND".equals(failAction)) {
+                try {
+                    if (cost.points > 0) com.longdrange.ldattribute.points.PointAPI.addPlayerPoints(player.getName(), cost.points);
+                } catch (Throwable ignored) {}
+                try {
+                    if (cost.vault > 0) {
+                        org.bukkit.plugin.RegisteredServiceProvider<net.milkbowl.vault.economy.Economy> rsp =
+                                org.bukkit.Bukkit.getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+                        if (rsp != null) rsp.getProvider().depositPlayer(player, cost.vault);
+                    }
+                } catch (Throwable ignored) {}
+                for (RingCost.ItemReq req : reqs) {
+                    try { player.getInventory().addItem(new org.bukkit.inventory.ItemStack(req.material, req.count, req.data)); } catch (Throwable ignored) {}
+                }
+                player.sendMessage(ChatColor.RED + "\u2716 升级失败！" + ChatColor.GRAY + "消耗已返还（成功率 " + String.format("%.0f%%", rate * 100) + "）");
+            } else if ("LOSE".equals(failAction)) {
+                int consumed2 = data.consumeFromSlot(slotId, consumeAmount);
+                data.save();
+                player.sendMessage(ChatColor.RED + "\u2716 升级失败！" + ChatColor.GRAY + "魂珠消失 " + consumed2 + " 个（成功率 " + String.format("%.0f%%", rate * 100) + "）");
+            } else {
+                player.sendMessage(ChatColor.RED + "\u2716 升级失败！" + ChatColor.GRAY + "魂珠已保留（成功率 " + String.format("%.0f%%", rate * 100) + "）");
+            }
+            player.playSound(player.getLocation(), Sound.BLOCK_ANVIL_LAND, 0.8f, 0.5f);
+            new RingUpgradeGUI(plugin).open(player, slotId, holder.backPage);
+            return;
+        }
+
+        // ===== 成功 =====
+        int consumed = data.consumeFromSlot(slotId, consumeAmount);
         data.setLevel(slotId, targetLv);
         data.save();
         player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1.3f);

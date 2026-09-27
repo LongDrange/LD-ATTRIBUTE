@@ -1021,11 +1021,108 @@ if (slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_BAC
             return;
         }
 
-        // 按 NBT 精确扣一个符文
+        // ===== 1. 检查符文数量 =====
         if (findRuneSlot(player, runeId) < 0) {
             player.sendMessage("§c背包裡沒有此符文");
             return;
         }
+
+        // ===== 2. 检查消耗 =====
+        if (rn.costVault > 0) {
+            try {
+                org.bukkit.plugin.RegisteredServiceProvider<net.milkbowl.vault.economy.Economy> rsp =
+                        org.bukkit.Bukkit.getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+                if (rsp == null || !rsp.getProvider().has(player, rn.costVault)) {
+                    player.sendMessage("§c金幣不足（需要 §e" + (long) rn.costVault + "§c）");
+                    return;
+                }
+            } catch (Throwable ignored) {}
+        }
+        if (rn.costPoints > 0) {
+            try {
+                int cur_pts = com.longdrange.ldattribute.points.PointAPI.getPlayerPoints(player.getName());
+                if (cur_pts < rn.costPoints) {
+                    player.sendMessage("§c點券不足（需要 §e" + rn.costPoints + "§c，你有 §e" + cur_pts + "§c）");
+                    return;
+                }
+            } catch (Throwable ignored) {}
+        }
+        for (java.util.Map.Entry<String, Double> cve : rn.costValues.entrySet()) {
+            try {
+                double cur_v = com.longdrange.ldattribute.core.value.ValueExpression.look(player, cve.getKey());
+                if (cur_v < cve.getValue()) {
+                    player.sendMessage("§c" + cve.getKey() + " 不足（需要 §e" + cve.getValue() + "§c）");
+                    return;
+                }
+            } catch (Throwable ignored) {}
+        }
+
+        // ===== 3. 扣消耗 =====
+        boolean consumed = false;
+        if (rn.costVault > 0) {
+            try {
+                org.bukkit.plugin.RegisteredServiceProvider<net.milkbowl.vault.economy.Economy> rsp =
+                        org.bukkit.Bukkit.getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+                if (rsp != null) rsp.getProvider().withdrawPlayer(player, rn.costVault);
+                consumed = true;
+            } catch (Throwable ignored) {}
+        }
+        if (rn.costPoints > 0) {
+            try {
+                com.longdrange.ldattribute.points.PointAPI.takePlayerPoints(player.getName(), rn.costPoints);
+                consumed = true;
+            } catch (Throwable ignored) {}
+        }
+        for (java.util.Map.Entry<String, Double> cve : rn.costValues.entrySet()) {
+            try {
+                com.longdrange.ldattribute.core.value.ValueExpression.take(player, cve.getKey(), cve.getValue());
+                consumed = true;
+            } catch (Throwable ignored) {}
+        }
+
+        // ===== 4. 掷骰：成功/失败 =====
+        boolean success = Math.random() < rn.successRate;
+
+        if (!success) {
+            // 失败处理
+            String action = rn.failAction == null ? "KEEP" : rn.failAction.toUpperCase();
+            if ("LOSE".equals(action)) {
+                // 符文消失
+                if (!takeRune(player, runeId, 1)) {
+                    player.sendMessage("§c扣除符文失敗");
+                    return;
+                }
+                player.sendMessage("§c✦ 鑲嵌失敗！§f" + rn.name + " §c已消失");
+            } else if ("REFUND".equals(action)) {
+                // 返还消耗
+                if (rn.costVault > 0) {
+                    try {
+                        org.bukkit.plugin.RegisteredServiceProvider<net.milkbowl.vault.economy.Economy> rsp =
+                                org.bukkit.Bukkit.getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+                        if (rsp != null) rsp.getProvider().depositPlayer(player, rn.costVault);
+                    } catch (Throwable ignored) {}
+                }
+                if (rn.costPoints > 0) {
+                    try {
+                        com.longdrange.ldattribute.points.PointAPI.addPlayerPoints(player.getName(), rn.costPoints);
+                    } catch (Throwable ignored) {}
+                }
+                for (java.util.Map.Entry<String, Double> cve : rn.costValues.entrySet()) {
+                    try {
+                        com.longdrange.ldattribute.core.value.ValueExpression.add(player, cve.getKey(), cve.getValue());
+                    } catch (Throwable ignored) {}
+                }
+                player.sendMessage("§c✦ 鑲嵌失敗！§f" + rn.name + " §a消耗已返還");
+            } else {
+                // KEEP：符文保留
+                player.sendMessage("§c✦ 鑲嵌失敗！§f" + rn.name + " §7符文保留");
+            }
+            try { player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_ANVIL_LAND, 0.7f, 0.5f); } catch (Throwable ignored) {}
+            player.closeInventory();
+            return;
+        }
+
+        // ===== 5. 成功：扣符文 + 镶嵌 =====
         if (!takeRune(player, runeId, 1)) {
             player.sendMessage("§c扣除符文失敗");
             return;
@@ -1043,7 +1140,6 @@ if (slot == com.longdrange.ldattribute.pet.inventory.PetDetailInventory.SLOT_BAC
             try { player.playSound(player.getLocation(), org.bukkit.Sound.BLOCK_ENCHANTMENT_TABLE_USE, 1f, 1.5f); } catch (Throwable ignored) {}
             com.longdrange.ldattribute.rune.RuneInventory.open(player, cd, newCard);
         } else {
-            // 卡片找不到 → 把符文还回去
             player.getInventory().addItem(com.longdrange.ldattribute.rune.RuneItem.create(rn, 1));
             player.sendMessage("§c卡片背包裡找不到這張卡");
         }

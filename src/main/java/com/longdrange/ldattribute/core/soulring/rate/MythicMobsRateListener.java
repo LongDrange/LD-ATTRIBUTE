@@ -64,25 +64,56 @@ public class MythicMobsRateListener implements Listener {
             if (!(killerObj instanceof Player)) return;
             Player killer = (Player) killerObj;
 
-            // 2. 拿 drops
+            // 2. 拿怪物内名
+            String mobId = null;
+            org.bukkit.entity.LivingEntity killedMob = null;
+            try {
+                Method getEntity = event.getClass().getMethod("getEntity");
+                Object entObj = getEntity.invoke(event);
+                if (entObj instanceof org.bukkit.entity.Entity) {
+                    mobId = com.longdrange.ldattribute.core.guide.MythicMobsHelper.getMobId((org.bukkit.entity.Entity) entObj);
+                    if (entObj instanceof org.bukkit.entity.LivingEntity) killedMob = (org.bukkit.entity.LivingEntity) entObj;
+                }
+            } catch (Throwable ignored) {}
+
+            // 3. 拿原 drops（用于兼容）
             Method getDrops = event.getClass().getMethod("getDrops");
             Object dropsObj = getDrops.invoke(event);
-            if (!(dropsObj instanceof List)) return;
-            List<ItemStack> drops = (List<ItemStack>) dropsObj;
-            if (drops.isEmpty()) return;
+            List<ItemStack> drops = (dropsObj instanceof List) ? (List<ItemStack>) dropsObj : new ArrayList<>();
 
-            // 3. 应用倍率
-            double rate = RateManager.getRate(killer);
-            List<ItemStack> boosted = new ArrayList<>();
-            for (ItemStack drop : drops) {
-                if (drop == null) continue;
-                int newAmount = (int) Math.max(1, Math.round(drop.getAmount() * rate));
-                ItemStack copy = drop.clone();
-                copy.setAmount(newAmount);
-                boosted.add(copy);
+            // 4. 用 DropTableManager 重算（LD 表 or MM 缓存 + 爆率）
+            List<ItemStack> newDrops = new ArrayList<>();
+            if (mobId != null) {
+                try {
+                    newDrops = plugin.getCoreManager().getDropTableManager().processDrops(killer, mobId, killedMob);
+                } catch (Throwable t) {
+                    plugin.getLogger().warning("[Rate] processDrops 失败: " + t.getMessage());
+                }
             }
 
-            // 4. 自动拾取
+            // 5. 决定最终掉落
+            List<ItemStack> finalDrops;
+            boolean useNew = mobId != null && (com.longdrange.ldattribute.core.drop.DropTableConfig.hasTable(mobId)
+                    || com.longdrange.ldattribute.core.drop.MMDropsCache.has(mobId));
+
+            if (useNew) {
+                // 清空 MM 原生，用重算的
+                finalDrops = newDrops;
+            } else {
+                // 没有配置 → 保留 MM 原生 + 倍率（兼容旧行为）
+                double rate = RateManager.getRate(killer);
+                finalDrops = new ArrayList<>();
+                for (ItemStack drop : drops) {
+                    if (drop == null) continue;
+                    int baseAmount = (int) Math.max(1, Math.round(drop.getAmount() * rate));
+                    int newAmount = RateManager.applyDropBonus(killer, baseAmount);
+                    ItemStack copy = drop.clone();
+                    copy.setAmount(newAmount);
+                    finalDrops.add(copy);
+                }
+            }
+
+            // 6. 自动拾取
             SoulRingData data = plugin.getSoulRingManager().get(killer);
             boolean doPickup = SoulRingConfig.isAutoPickupEnabled()
                     && SoulRingConfig.isAutoPickupMobDrops()
@@ -92,11 +123,8 @@ public class MythicMobsRateListener implements Listener {
             List<ItemStack> leftover = new ArrayList<>();
 
             if (doPickup) {
-                for (ItemStack item : boosted) {
-                    if (SoulRingConfig.isFiltered(item)) {
-                        leftover.add(item);
-                        continue;
-                    }
+                for (ItemStack item : finalDrops) {
+                    if (SoulRingConfig.isFiltered(item)) { leftover.add(item); continue; }
                     long added = data.deposit(item, item.getAmount());
                     if (added >= item.getAmount()) {
                         totalPicked += added;
@@ -110,25 +138,23 @@ public class MythicMobsRateListener implements Listener {
                     }
                 }
             } else {
-                leftover.addAll(boosted);
+                leftover.addAll(finalDrops);
             }
 
-            // 5. 写回 drops
+            // 7. 写回 drops
             try {
                 Method setDrops = event.getClass().getMethod("setDrops", List.class);
                 setDrops.invoke(event, leftover);
             } catch (Throwable ignored) {
-                // 如果 MM 没 setDrops，就清空原 drops 并自然生成
                 drops.clear();
                 drops.addAll(leftover);
             }
 
-            // 6. 提示
+            // 8. 提示
             if (totalPicked > 0 && SoulRingConfig.isAutoPickupMessage()) {
-                String rateText = rate > 1 ? ChatColor.GOLD + " x" + String.format("%.2f", rate) : "";
                 killer.sendMessage(ChatColor.DARK_GRAY + "[" + ChatColor.LIGHT_PURPLE + "灵魂空间"
                         + ChatColor.DARK_GRAY + "] " + ChatColor.GREEN + "自动拾取 " + ChatColor.WHITE
-                        + totalPicked + ChatColor.GREEN + " 个物品" + rateText);
+                        + totalPicked + ChatColor.GREEN + " 个物品");
             }
         } catch (Throwable t) {
             plugin.getLogger().warning("[Rate] MM 掉落处理失败: " + t.getClass().getSimpleName()

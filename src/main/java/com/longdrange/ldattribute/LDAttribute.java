@@ -111,6 +111,11 @@ public class LDAttribute extends JavaPlugin {
         getCommand("ldguide").setExecutor(gdCmd);
         getCommand("ldguide").setTabCompleter(gdCmd);
 
+        // 副本命令
+        com.longdrange.ldattribute.core.dungeon.command.DungeonCommand dgCmd = new com.longdrange.ldattribute.core.dungeon.command.DungeonCommand(this);
+        getCommand("lddungeon").setExecutor(dgCmd);
+        getCommand("lddungeon").setTabCompleter(dgCmd);
+
         // ===== 自定义值（批次5）=====
         ValueCommand valCmd = new ValueCommand(this);
         getCommand("ldvalue").setExecutor(valCmd);
@@ -236,6 +241,7 @@ public class LDAttribute extends JavaPlugin {
         new HealthAttribute().register(this);
         new SpeedAttribute().register(this);
         new SpeedPercentAttribute().register(this);
+        try { new com.longdrange.ldattribute.data.attribute.sub.other.DropRateAttribute().register(this); } catch (Throwable t) {}
 
         // ==================== 擴展屬性 ====================
         // 攻擊類
@@ -429,6 +435,15 @@ public class LDAttribute extends JavaPlugin {
     public com.longdrange.ldattribute.core.guide.gui.GuideGUI getGuideGUI() {
         return coreManager == null ? null : coreManager.getGuideGUI();
     }
+    public com.longdrange.ldattribute.core.guide.gui.GuideOverviewGUI getGuideOverviewGUI() { return coreManager == null ? null : coreManager.getGuideOverviewGUI(); }
+    public com.longdrange.ldattribute.core.dungeon.DungeonManager getDungeonManager() { return coreManager == null ? null : coreManager.getDungeonManager(); }
+    public com.longdrange.ldattribute.core.dungeon.DungeonTeamManager getDungeonTeamManager() { return coreManager == null ? null : coreManager.getDungeonTeamManager(); }
+    public com.longdrange.ldattribute.core.dungeon.DungeonRankManager getDungeonRankManager() { return coreManager == null ? null : coreManager.getDungeonRankManager(); }
+    public com.longdrange.ldattribute.core.dungeon.gui.DungeonRankGUI getDungeonRankGUI() { return coreManager == null ? null : coreManager.getDungeonRankGUI(); }
+    public com.longdrange.ldattribute.core.dungeon.DungeonAchievementManager getDungeonAchievementManager() { return coreManager == null ? null : coreManager.getDungeonAchievementManager(); }
+    public com.longdrange.ldattribute.core.dungeon.gui.DungeonAchievementGUI getDungeonAchievementGUI() { return coreManager == null ? null : coreManager.getDungeonAchievementGUI(); }
+    public com.longdrange.ldattribute.core.dungeon.gui.DungeonGUI getDungeonGUI() { return coreManager == null ? null : coreManager.getDungeonGUI(); }
+    public com.longdrange.ldattribute.core.dungeon.gui.TeamGUI getDungeonTeamGUI() { return coreManager == null ? null : coreManager.getTeamGUI(); }
 
     public com.longdrange.ldattribute.core.value.ValueManager getValueManager() {
         return coreManager == null ? null : coreManager.getValueManager();
@@ -445,7 +460,6 @@ public class LDAttribute extends JavaPlugin {
     public com.longdrange.ldattribute.core.soulring.gui.SoulRingGUI getSoulRingGUI() {
         return coreManager == null ? null : coreManager.getSoulRingGUI();
     }
-    public com.longdrange.ldattribute.core.soulring.gui.SoulRingTrashGUI getSoulRingTrashGUI() { return coreManager == null ? null : coreManager.getSoulRingTrashGUI(); }
 
     public com.longdrange.ldattribute.core.soulring.rate.RateManager getRateManager() {
         return coreManager == null ? null : coreManager.getRateManager();

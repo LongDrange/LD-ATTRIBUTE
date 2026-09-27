@@ -84,6 +84,39 @@ public class RateManager {
         return net / RateConfig.getLuckDivisor();
     }
 
+    /** 取玩家爆率属性值（百分数，如 50 = +50%） */
+    public static double getDropRate(Player player) {
+        if (player == null) return 0;
+        try {
+            com.longdrange.ldattribute.data.attribute.LDAttributeData data =
+                    com.longdrange.ldattribute.card.StatsDataRead.loadPlayerStats(player);
+            if (data == null) return 0;
+            double total = 0;
+            for (String n : new String[]{"爆率","掉落几率","掉宝率","掉落率"}) {
+                LDSubAttribute a = data.getSubAttribute(n);
+                if (a != null) total += a.getValue();
+            }
+            return total;
+        } catch (Throwable t) { return 0; }
+    }
+
+    /**
+     * 按爆率放大掉落份数
+     * 爆率 50 → 50% 几率多掉 1 份（平均 +0.5）
+     * 爆率 150 → 必然多 1 份 + 50% 再多 1 份（平均 +1.5）
+     */
+    public static int applyDropBonus(Player player, int originalAmount) {
+        if (originalAmount <= 0) return 0;
+        double rate = getDropRate(player);
+        if (rate <= 0) return originalAmount;
+        double copies = rate / 100.0;
+        int full = (int) Math.floor(copies);
+        double frac = copies - full;
+        int extra = full;
+        if (frac > 0 && Math.random() < frac) extra++;
+        return originalAmount * (1 + extra);
+    }
+
     /** 最终倍率 = 基础倍率 + 幸运加成 */
     public static double getRate(Player player) {
         double base = getBaseRate(player);

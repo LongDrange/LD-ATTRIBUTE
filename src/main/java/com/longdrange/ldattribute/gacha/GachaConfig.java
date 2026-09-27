@@ -84,14 +84,20 @@ public class GachaConfig {
     }
 
     /** 解析 "卡片ID:权重" 或 "rune:符文ID:权重" */
+    /** 解析 "卡片ID:权重" / "rune:符文ID:权重" / "ring:魂珠ID:权重" */
     private static PoolEntry parsePool(String raw) {
         if (raw == null || raw.isEmpty()) return null;
         String[] parts = raw.split(":");
         if (parts.length < 2) return null;
         PoolEntry pe = new PoolEntry();
         pe.raw = raw;
-        if (parts[0].equalsIgnoreCase("rune") && parts.length >= 3) {
+        String head = parts[0].toLowerCase();
+        if (head.equals("rune") && parts.length >= 3) {
             pe.kind = "rune";
+            pe.id = parts[1];
+            try { pe.weight = Integer.parseInt(parts[2]); } catch (Exception e) { return null; }
+        } else if (head.equals("ring") && parts.length >= 3) {
+            pe.kind = "ring";
             pe.id = parts[1];
             try { pe.weight = Integer.parseInt(parts[2]); } catch (Exception e) { return null; }
         } else {

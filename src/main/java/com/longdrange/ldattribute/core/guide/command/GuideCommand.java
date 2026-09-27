@@ -20,7 +20,7 @@ public class GuideCommand implements CommandExecutor, TabCompleter {
         String prefix = plugin.getCoreManager().prefix();
         if (args.length == 0) {
             if (!(sender instanceof Player)) { sender.sendMessage(prefix + ChatColor.RED + "只能由玩家执行"); return true; }
-            plugin.getGuideGUI().open((Player) sender);
+            plugin.getGuideOverviewGUI().open((Player) sender);
             return true;
         }
         String sub = args[0].toLowerCase();
@@ -47,6 +47,7 @@ public class GuideCommand implements CommandExecutor, TabCompleter {
                 GuideData d = plugin.getGuideManager().get(t);
                 d.setUnlocked(def.id, true);
                 try { com.longdrange.ldattribute.card.StatsDataRead.updatePlayer(t); } catch (Throwable ignored) {}
+                try { plugin.getCoreManager().getGuideScoreManager().refresh(t); } catch (Throwable ignored) {}
                 sender.sendMessage(prefix + ChatColor.GREEN + "已解锁 " + t.getName() + " 的 " + def.name);
                 return true;
             }
@@ -64,6 +65,7 @@ public class GuideCommand implements CommandExecutor, TabCompleter {
                 if (cur >= def.requiredKills && !d.isUnlocked(def.id)) {
                     d.setUnlocked(def.id, true);
                     try { com.longdrange.ldattribute.card.StatsDataRead.updatePlayer(t); } catch (Throwable ignored) {}
+                try { plugin.getCoreManager().getGuideScoreManager().refresh(t); } catch (Throwable ignored) {}
                     sender.sendMessage(prefix + ChatColor.GREEN + "击杀已达 " + cur + "，" + def.name + " 已解锁");
                 } else {
                     sender.sendMessage(prefix + ChatColor.GREEN + "击杀数更新: " + cur + "/" + def.requiredKills);

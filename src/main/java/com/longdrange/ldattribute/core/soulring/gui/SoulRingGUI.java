@@ -23,12 +23,23 @@ public class SoulRingGUI {
     public static final int BTN_INFO = 49;
     public static final int BTN_SORT = 51;
     public static final int BTN_NEXT = 53;
-    public static final int BTN_TRASH = 48;
+    public static final int BTN_MODE = 50;
 
     private final LDAttribute plugin;
     public SoulRingGUI(LDAttribute plugin) { this.plugin = plugin; }
 
     public void open(Player player) { open(player, 0, null); }
+
+    public void openWithMode(Player player, SoulRingHolder.Mode mode) {
+        String title = SoulRingConfig.getTitle();
+        SoulRingData data = plugin.getSoulRingManager().get(player);
+        SoulRingHolder holder = new SoulRingHolder(player.getUniqueId(), 0, null);
+        holder.setMode(mode);
+        org.bukkit.inventory.Inventory inv = org.bukkit.Bukkit.createInventory(holder, 54, title);
+        holder.setInventory(inv);
+        render(holder, data);
+        player.openInventory(inv);
+    }
 
     public void open(Player player, int page, String filter) {
         String title = SoulRingConfig.getTitle();
@@ -119,16 +130,28 @@ public class SoulRingGUI {
         catLore.add(ChatColor.GRAY + "点击切换到下一个分类");
         inv.setItem(BTN_CAT, iconLore(catIcon, ChatColor.AQUA + "分类: " + cat.name, catLore));
 
-        // 垃圾桶按钮
-        inv.setItem(BTN_TRASH, icon(Material.LAVA_BUCKET,
-                ChatColor.RED + "灵魂垃圾桶 ",
-                ChatColor.GRAY + "点击打开垃圾桶界面",
-                ChatColor.GRAY + "批量删除不要的物品"));
-
         // 兑换按钮
         inv.setItem(BTN_EXCHANGE, icon(Material.EMERALD,
                 ChatColor.AQUA + "灵魂兑换 ",
                 ChatColor.GRAY + "点击打开兑换界面"));
+
+        // 模式切换按钮
+        Material modeIcon;
+        String modeName;
+        switch (holder.getMode()) {
+            case DECOMPOSE: modeIcon = Material.IRON_PICKAXE; modeName = ChatColor.RED + "分解模式"; break;
+            case DELETE:    modeIcon = Material.LAVA_BUCKET;  modeName = ChatColor.DARK_RED + "删除模式"; break;
+            default:        modeIcon = Material.CHEST;        modeName = ChatColor.GREEN + "存储模式"; break;
+        }
+        List<String> modeLore = new ArrayList<>();
+        modeLore.add(ChatColor.YELLOW + "当前: " + modeName);
+        modeLore.add("");
+        modeLore.add(ChatColor.GRAY + "存储 - 正常存入/取出");
+        modeLore.add(ChatColor.GRAY + "分解 - 点击物品分解成奖励");
+        modeLore.add(ChatColor.GRAY + "删除 - 点击物品直接删除");
+        modeLore.add("");
+        modeLore.add(ChatColor.GRAY + "点击切换模式");
+        inv.setItem(BTN_MODE, iconLore(modeIcon, ChatColor.AQUA + "模式切换", modeLore));
 
         // 排序按钮
         List<String> sortLore = new ArrayList<>();

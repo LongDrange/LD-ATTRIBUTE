@@ -131,6 +131,11 @@ public class GachaManager {
             RuneConfig.Rune r = RuneConfig.getRune(pe.id);
             if (r == null) return null;
             return RuneItem.create(r, 1);
+        } else if ("ring".equals(pe.kind)) {
+            com.longdrange.ldattribute.core.ring.RingTypeConfig.Def def =
+                    com.longdrange.ldattribute.core.ring.RingTypeConfig.get(pe.id);
+            if (def == null) return null;
+            return com.longdrange.ldattribute.core.ring.RingTypeConfig.createItem(pe.id, 1);
         } else {
             CardData cd = CardDataManager.getCard(pe.id);
             if (cd == null) return null;

@@ -137,9 +137,52 @@ public class SoulRingCommand implements CommandExecutor, TabCompleter {
                 if (!sender.hasPermission("ldattribute.soulring.admin")) { sender.sendMessage(prefix + ChatColor.RED + "权限不足"); return true; }
                 plugin.getSoulRingManager().reload();
                 plugin.getRateManager().reload();
+                com.longdrange.ldattribute.core.ring.RingTypeConfig.load(plugin);
+                try { com.longdrange.ldattribute.core.soulring.exchange.ExchangeConfig.load(plugin); } catch (Throwable ignored) {}
                 sender.sendMessage(prefix + ChatColor.GREEN + "灵魂空间 & 倍率配置已重载");
                 return true;
             }
+            case "mode": {
+                if (!(sender instanceof Player)) {
+                    sender.sendMessage("\u00a7c只有玩家能用");
+                    return true;
+                }
+                Player p = (Player) sender;
+                if (args.length < 2) {
+                    p.sendMessage("\u00a7e用法: /ldsr mode <storage|decompose|delete>");
+                    return true;
+                }
+                String m = args[1].toLowerCase();
+                com.longdrange.ldattribute.core.soulring.gui.SoulRingHolder.Mode mode;
+                if (m.startsWith("dec")) mode = com.longdrange.ldattribute.core.soulring.gui.SoulRingHolder.Mode.DECOMPOSE;
+                else if (m.startsWith("del")) mode = com.longdrange.ldattribute.core.soulring.gui.SoulRingHolder.Mode.DELETE;
+                else mode = com.longdrange.ldattribute.core.soulring.gui.SoulRingHolder.Mode.STORAGE;
+                // 直接打开 GUI（模式通过 holder 传递）
+                plugin.getSoulRingGUI().openWithMode(p, mode);
+                return true;
+            }
+
+            case "log": {
+                if (args.length < 2) {
+                    sender.sendMessage("\u00a7e用法: /ldsr log <玩家名或UUID> [行数]");
+                    return true;
+                }
+                String key = args[1];
+                int tail = 50;
+                if (args.length >= 3) {
+                    try { tail = Integer.parseInt(args[2]); } catch (Throwable ignored) {}
+                }
+                java.io.File file = com.longdrange.ldattribute.core.soulring.SoulRingLog.findLogFile(key);
+                if (file == null) {
+                    sender.sendMessage("\u00a7c找不到 " + key + " 的日志");
+                    return true;
+                }
+                sender.sendMessage("\u00a76===== " + file.getName() + " 末尾 " + tail + " 行 =====");
+                java.util.List<String> logLines = com.longdrange.ldattribute.core.soulring.SoulRingLog.tail(file, tail);
+                for (String l : logLines) sender.sendMessage("\u00a77" + l);
+                return true;
+            }
+
             case "help":
             default: {
                 sender.sendMessage(ChatColor.GOLD + "==== 灵魂空间 ====");

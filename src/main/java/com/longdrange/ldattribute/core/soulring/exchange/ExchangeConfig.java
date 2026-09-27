@@ -326,6 +326,7 @@ public class ExchangeConfig {
         if (first.equals("SOULRING") || first.equals("INVENTORY")
                 || first.equals("VAULT") || first.equals("POINT")
                 || first.equals("VALUE") || first.equals("CMD")) return true;
+        if (first.equals("RING") || first.equals("CARD") || first.equals("RUNE")) return true;
         Material m = Material.getMaterial(first);
         if (m == null) return false;
         try { Integer.parseInt(parts[1].trim()); return true; }
@@ -382,6 +383,11 @@ public class ExchangeConfig {
             }
             return null;
         } else {
+            if (first.equals("RING") || first.equals("CARD") || first.equals("RUNE")) {
+                if (parts.length < 2) return null;
+                int amt = parts.length >= 3 ? parseInt(parts[2], 1) : 1;
+                return new ItemLine(SourceType.VALUE, null, amt, (short) 0, first + ":" + parts[1], raw, nameHint, lore);
+            }
             if (first.equals("VAULT")) return new ItemLine(SourceType.VAULT, null, parseInt(parts[1], 0), (short) 0, null, raw, nameHint, lore);
             if (first.equals("POINT")) return new ItemLine(SourceType.POINT, null, parseInt(parts[1], 0), (short) 0, null, raw, nameHint, lore);
             if (first.equals("VALUE")) {

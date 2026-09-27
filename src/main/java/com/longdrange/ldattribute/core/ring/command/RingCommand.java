@@ -30,6 +30,8 @@ public class RingCommand implements CommandExecutor, TabCompleter {
                 sender.sendMessage(ChatColor.YELLOW + "/ldring reload " + ChatColor.GRAY + "- 重载");
                 sender.sendMessage(ChatColor.YELLOW + "/ldring unlock <玩家> <槽位> " + ChatColor.GRAY + "- 解锁");
                 sender.sendMessage(ChatColor.YELLOW + "/ldring take <玩家> <类型> [数量] " + ChatColor.GRAY + "- 取出");
+                sender.sendMessage(ChatColor.YELLOW + "/ldring give <玩家> <ID> [数量] " + ChatColor.GRAY + "- 发魂珠");
+                sender.sendMessage(ChatColor.YELLOW + "/ldring list " + ChatColor.GRAY + "- 列出所有魂珠ID");
                 sender.sendMessage(ChatColor.YELLOW + "/ldring attrs " + ChatColor.GRAY + "- 列出属性名");
                 return true;
             case "reload":
@@ -70,6 +72,40 @@ public class RingCommand implements CommandExecutor, TabCompleter {
                 sender.sendMessage(prefix + ChatColor.GREEN + "已取出 " + take + " 个给 " + t.getName());
                 return true;
             }
+            case "give": {
+                if (!sender.hasPermission("ldattribute.ring.admin")) { sender.sendMessage(prefix + ChatColor.RED + "权限不足"); return true; }
+                if (args.length < 3) { sender.sendMessage(prefix + ChatColor.RED + "用法: /ldring give <玩家> <魂珠ID> [数量]"); return true; }
+                Player t = plugin.getServer().getPlayerExact(args[1]);
+                if (t == null) { sender.sendMessage(prefix + ChatColor.RED + "玩家不在线"); return true; }
+                String rid = args[2];
+                com.longdrange.ldattribute.core.ring.RingTypeConfig.Def def =
+                        com.longdrange.ldattribute.core.ring.RingTypeConfig.get(rid);
+                if (def == null) { sender.sendMessage(prefix + ChatColor.RED + "未知魂珠ID: " + rid + "（用 /ldring list 查看）"); return true; }
+                int amt = 1;
+                if (args.length >= 4) { try { amt = Math.max(1, Integer.parseInt(args[3])); } catch (Throwable ignored) {} }
+                ItemStack it = com.longdrange.ldattribute.core.ring.RingTypeConfig.createItem(rid, amt);
+                if (it == null) { sender.sendMessage(prefix + ChatColor.RED + "创建失败"); return true; }
+                t.getInventory().addItem(it);
+                sender.sendMessage(prefix + ChatColor.GREEN + "已给予 " + t.getName() + " " + ChatColor.WHITE + rid + ChatColor.GREEN + " x" + amt);
+                t.sendMessage(ChatColor.GREEN + "获得魂珠: " + def.name + ChatColor.GRAY + " x" + amt);
+                return true;
+            }
+            case "list": {
+                sender.sendMessage(ChatColor.GOLD + "==== 已配置魂珠 ====");
+                java.util.Set<String> ids = com.longdrange.ldattribute.core.ring.RingTypeConfig.ids();
+                if (ids.isEmpty()) { sender.sendMessage(ChatColor.RED + "还没有配置任何魂珠"); return true; }
+                StringBuilder sb = new StringBuilder();
+                int idx2 = 0;
+                for (String id : ids) {
+                    if (idx2 % 4 == 0) { if (idx2 > 0) sender.sendMessage(sb.toString()); sb = new StringBuilder("  "); }
+                    sb.append(ChatColor.GREEN).append(id).append("    ");
+                    idx2++;
+                }
+                if (sb.length() > 0) sender.sendMessage(sb.toString());
+                sender.sendMessage(ChatColor.GRAY + "共 " + ids.size() + " 个（/ldring give <玩家> <ID>）");
+                return true;
+            }
+
             case "attrs": {
                 sender.sendMessage(ChatColor.GOLD + "==== 已注册属性 ====");
                 List<String> names = RingStatsProvider.listAllRegistered();
@@ -93,11 +129,14 @@ public class RingCommand implements CommandExecutor, TabCompleter {
     public List<String> onTabComplete(CommandSender sender, Command cmd, String alias, String[] args) {
         List<String> out = new ArrayList<>();
         if (args.length == 1) {
-            for (String s : Arrays.asList("help", "reload", "unlock", "take", "attrs"))
+            for (String s : Arrays.asList("help", "reload", "unlock", "take", "attrs", "give", "list"))
                 if (s.startsWith(args[0].toLowerCase())) out.add(s);
         } else if (args.length == 2) {
             for (Player p : plugin.getServer().getOnlinePlayers())
                 if (p.getName().toLowerCase().startsWith(args[1].toLowerCase())) out.add(p.getName());
+        } else if (args.length == 3 && args[0].equalsIgnoreCase("give")) {
+            for (String id : com.longdrange.ldattribute.core.ring.RingTypeConfig.ids())
+                if (id.toLowerCase().startsWith(args[2].toLowerCase())) out.add(id);
         }
         return out;
     }

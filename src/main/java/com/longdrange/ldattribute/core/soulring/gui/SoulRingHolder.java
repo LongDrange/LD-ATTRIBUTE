@@ -26,11 +26,24 @@ public class SoulRingHolder implements InventoryHolder {
         }
     }
 
+    public enum Mode {
+        STORAGE("存储"),
+        DECOMPOSE("分解"),
+        DELETE("删除");
+        public final String label;
+        Mode(String label) { this.label = label; }
+        public Mode next() {
+            Mode[] arr = values();
+            return arr[(ordinal() + 1) % arr.length];
+        }
+    }
+
     private final UUID owner;
     private int page;
     private final String filter;
     private int categoryIndex = 0;
     private SortMode sortMode = SortMode.DEFAULT;
+    private Mode mode = Mode.STORAGE;
     private Inventory inv;
     private List<SoulRingData.Entry> pageEntries = new ArrayList<>();
 
@@ -45,6 +58,8 @@ public class SoulRingHolder implements InventoryHolder {
     public int getCategoryIndex() { return categoryIndex; }
     public void setCategoryIndex(int i) { this.categoryIndex = i; }
     public SortMode getSortMode() { return sortMode; }
+    public Mode getMode() { return mode; }
+    public void setMode(Mode m) { this.mode = m; }
     public void setSortMode(SortMode s) { this.sortMode = s; }
     public List<SoulRingData.Entry> getPageEntries() { return pageEntries; }
     public void setPageEntries(List<SoulRingData.Entry> list) { this.pageEntries = list; }

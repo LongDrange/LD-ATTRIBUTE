@@ -5,7 +5,24 @@ import com.longdrange.ldattribute.core.api.AttributeSourceRegistry;
 import com.longdrange.ldattribute.core.data.ModuleDataManager;
 import com.longdrange.ldattribute.core.guide.GuideConfig;
 import com.longdrange.ldattribute.core.guide.GuideManager;
+import com.longdrange.ldattribute.core.guide.GuideScoreManager;
 import com.longdrange.ldattribute.core.guide.gui.GuideGUI;
+import com.longdrange.ldattribute.core.dungeon.DungeonConfig;
+import com.longdrange.ldattribute.core.dungeon.DungeonManager;
+import com.longdrange.ldattribute.core.dungeon.DungeonTeamManager;
+import com.longdrange.ldattribute.core.dungeon.DungeonRankManager;
+import com.longdrange.ldattribute.core.dungeon.DungeonAchievementConfig;
+import com.longdrange.ldattribute.core.dungeon.DungeonAchievementManager;
+import com.longdrange.ldattribute.core.dungeon.gui.DungeonGUI;
+import com.longdrange.ldattribute.core.dungeon.gui.TeamGUI;
+import com.longdrange.ldattribute.core.dungeon.gui.DungeonRankGUI;
+import com.longdrange.ldattribute.core.dungeon.gui.DungeonAchievementGUI;
+import com.longdrange.ldattribute.core.dungeon.listener.DungeonGUIListener;
+import com.longdrange.ldattribute.core.dungeon.listener.DungeonListener;
+import com.longdrange.ldattribute.core.dungeon.listener.TeamGUIListener;
+import com.longdrange.ldattribute.core.dungeon.listener.DungeonRankListener;
+import com.longdrange.ldattribute.core.dungeon.listener.DungeonAchievementListener;
+import com.longdrange.ldattribute.core.guide.gui.GuideOverviewGUI;
 import com.longdrange.ldattribute.core.guide.listener.GuideGUIListener;
 import com.longdrange.ldattribute.core.guide.listener.GuideKillListener;
 import com.longdrange.ldattribute.core.guide.listener.GuideUnlockItemListener;
@@ -44,8 +61,6 @@ import com.longdrange.ldattribute.core.soulring.rate.RateConfig;
 import com.longdrange.ldattribute.core.soulring.rate.RateManager;
 import com.longdrange.ldattribute.core.soulring.rate.MythicMobsRateListener;
 import com.longdrange.ldattribute.core.soulring.gui.SoulRingGUI;
-import com.longdrange.ldattribute.core.soulring.gui.SoulRingTrashGUI;
-import com.longdrange.ldattribute.core.soulring.listener.SoulRingTrashListener;
 import com.longdrange.ldattribute.core.soulring.listener.SoulRingListener;
 import com.longdrange.ldattribute.core.soulring.exchange.ExchangeConfig;
 import com.longdrange.ldattribute.core.soulring.exchange.gui.ExchangeGUI;
@@ -77,13 +92,23 @@ public class CoreManager {
     private TalentGUI talentGUI;
 
     private GuideManager guideManager;
+    private GuideScoreManager guideScoreManager;
+    private com.longdrange.ldattribute.core.drop.DropTableManager dropTableManager;
     private GuideGUI guideGUI;
+    private DungeonManager dungeonManager;
+    private DungeonTeamManager dungeonTeamManager;
+    private DungeonRankManager dungeonRankManager;
+    private DungeonRankGUI dungeonRankGUI;
+    private DungeonAchievementManager dungeonAchievementManager;
+    private DungeonAchievementGUI dungeonAchievementGUI;
+    private DungeonGUI dungeonGUI;
+    private TeamGUI teamGUI;
+    private GuideOverviewGUI guideOverviewGUI;
 
     private ValueManager valueManager;
     private ScoreboardManager scoreboardManager;
     private SoulRingManager soulRingManager;
     private SoulRingGUI soulRingGUI;
-    private SoulRingTrashGUI soulRingTrashGUI;
     private ExchangeGUI exchangeGUI;
     private RateManager rateManager;
 
@@ -113,6 +138,7 @@ public class CoreManager {
         enableJewelry();
         enableTalent();
         enableGuide();
+        enableDungeon();
         enableValue();
         enableScoreboard();
         enableSoulRing();
@@ -153,6 +179,8 @@ public class CoreManager {
         if (jewelryManager != null) jewelryManager.reload();
         if (talentManager != null) talentManager.reload();
         if (guideManager != null) guideManager.reload();
+        if (guideScoreManager != null) guideScoreManager.reload();
+        if (dropTableManager != null) dropTableManager.reload();
         if (valueManager != null) {
             valueManager.stopRegen();
             valueManager.reload();
@@ -160,6 +188,7 @@ public class CoreManager {
         }
         if (scoreboardManager != null) scoreboardManager.reload();
         if (soulRingManager != null) soulRingManager.reload();
+        com.longdrange.ldattribute.core.soulring.SoulRingDecomposeConfig.load(plugin);
         if (rateManager != null) rateManager.reload();
         registerAttributeSources();
     }
@@ -182,12 +211,22 @@ public class CoreManager {
     public TalentManager getTalentManager() { return talentManager; }
     public TalentGUI getTalentGUI() { return talentGUI; }
     public GuideManager getGuideManager() { return guideManager; }
+    public GuideScoreManager getGuideScoreManager() { return guideScoreManager; }
+    public com.longdrange.ldattribute.core.drop.DropTableManager getDropTableManager() { return dropTableManager; }
     public GuideGUI getGuideGUI() { return guideGUI; }
+    public DungeonManager getDungeonManager() { return dungeonManager; }
+    public DungeonTeamManager getDungeonTeamManager() { return dungeonTeamManager; }
+    public DungeonRankManager getDungeonRankManager() { return dungeonRankManager; }
+    public DungeonRankGUI getDungeonRankGUI() { return dungeonRankGUI; }
+    public DungeonAchievementManager getDungeonAchievementManager() { return dungeonAchievementManager; }
+    public DungeonAchievementGUI getDungeonAchievementGUI() { return dungeonAchievementGUI; }
+    public DungeonGUI getDungeonGUI() { return dungeonGUI; }
+    public TeamGUI getTeamGUI() { return teamGUI; }
+    public GuideOverviewGUI getGuideOverviewGUI() { return guideOverviewGUI; }
     public ValueManager getValueManager() { return valueManager; }
     public ScoreboardManager getScoreboardManager() { return scoreboardManager; }
     public SoulRingManager getSoulRingManager() { return soulRingManager; }
     public SoulRingGUI getSoulRingGUI() { return soulRingGUI; }
-    public SoulRingTrashGUI getSoulRingTrashGUI() { return soulRingTrashGUI; }
     public ExchangeGUI getExchangeGUI() { return exchangeGUI; }
     public RateManager getRateManager() { return rateManager; }
 
@@ -202,6 +241,7 @@ public class CoreManager {
 
     private void enableRing() {
         RingConfig.load(plugin);
+        com.longdrange.ldattribute.core.ring.RingTypeConfig.load(plugin);
         RingSlotConfig.load(plugin);
         RingSetConfig.load(plugin);
         RingUpgradeConfig.load(plugin);
@@ -231,11 +271,34 @@ public class CoreManager {
     private void enableGuide() {
         GuideConfig.load(plugin);
         this.guideManager = new GuideManager(plugin);
+        this.guideScoreManager = new GuideScoreManager(plugin);
+        this.guideScoreManager.reload();
         this.guideGUI = new GuideGUI(plugin);
+        this.guideOverviewGUI = new GuideOverviewGUI(plugin);
         Bukkit.getPluginManager().registerEvents(new GuideGUIListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents(new GuideKillListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents(new GuideUnlockItemListener(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new com.longdrange.ldattribute.core.guide.listener.GuideChatListener(plugin), plugin);
         plugin.getLogger().info("[Guide] 怪物图鉴已启用");
+    }
+
+    private void enableDungeon() {
+        DungeonConfig.load(plugin);
+        this.dungeonManager = new DungeonManager(plugin);
+        this.dungeonTeamManager = new DungeonTeamManager();
+        this.dungeonRankManager = new DungeonRankManager(plugin);
+        this.dungeonRankGUI = new DungeonRankGUI(plugin);
+        DungeonAchievementConfig.load(plugin);
+        this.dungeonAchievementManager = new DungeonAchievementManager(plugin);
+        this.dungeonAchievementGUI = new DungeonAchievementGUI(plugin);
+        Bukkit.getPluginManager().registerEvents(new DungeonAchievementListener(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new DungeonRankListener(plugin), plugin);
+        this.dungeonGUI = new DungeonGUI(plugin);
+        this.teamGUI = new TeamGUI(plugin);
+        Bukkit.getPluginManager().registerEvents(new TeamGUIListener(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new DungeonGUIListener(plugin), plugin);
+        Bukkit.getPluginManager().registerEvents(new DungeonListener(plugin), plugin);
+        plugin.getLogger().info("[Dungeon] 副本系统已启用");
     }
 
     private void enableValue() {
@@ -283,10 +346,12 @@ public class CoreManager {
 
     private void enableSoulRing() {
         SoulRingConfig.load(plugin);
+        this.dropTableManager = new com.longdrange.ldattribute.core.drop.DropTableManager(plugin);
+        this.dropTableManager.reload();
+        com.longdrange.ldattribute.core.soulring.SoulRingLog.init(plugin);
+        com.longdrange.ldattribute.core.soulring.SoulRingDecomposeConfig.load(plugin);
         this.soulRingManager = new SoulRingManager(plugin);
         this.soulRingGUI = new SoulRingGUI(plugin);
-        this.soulRingTrashGUI = new SoulRingTrashGUI(plugin);
-        Bukkit.getPluginManager().registerEvents(new SoulRingTrashListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents(new SoulRingListener(plugin), plugin);
         Bukkit.getPluginManager().registerEvents(new AutoPickupListener(plugin), plugin);
         ExchangeConfig.load(plugin);

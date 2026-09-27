@@ -1,0 +1,34 @@
+# ============================================================
+# 魂珠类型定义 - T3（高级）
+# ============================================================
+
+dragon_ring:
+  Name: '&6&l龙魂珠 &7[T3]'
+  Material: DRAGON_EGG
+  MaxStack: 50
+  Lore:
+    - '&6物品类型: &6魂珠'
+    - '&e魂珠ID: dragon_ring'
+    - '&e上限: 50'
+    - '&r'
+    - '&6攻击力: +25'
+    - '&6暴击機率: +8'
+    - '&6暴击伤害: +15'
+    - '&6龙焰几率: +10'
+  Enchant: true
+  Unbreakable: true
+
+god_ring:
+  Name: '&d&l神之魂珠 &7[T3]'
+  Material: NETHER_STAR
+  MaxStack: 50
+  Lore:
+    - '&6物品类型: &d魂珠'
+    - '&e魂珠ID: god_ring'
+    - '&e上限: 50'
+    - '&r'
+    - '&d全属性: +10'
+    - '&d暴击機率: +10'
+    - '&d吸血: +5'
+  Enchant: true
+  Unbreakable: true

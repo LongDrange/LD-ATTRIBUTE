@@ -69,9 +69,22 @@ public class ScoreboardManager {
         if (!ScoreboardConfig.isEnabled()) return;
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (p == null || !p.isOnline()) continue;
+            // 副本世界：跳过（不覆盖副本计分板）
+            if (isInDungeonWorld(p)) continue;
             apply(p);
             applyHf(p);
         }
+    }
+
+    /** 玩家是否在副本世界 */
+    private boolean isInDungeonWorld(Player p) {
+        try {
+            for (com.longdrange.ldattribute.core.dungeon.DungeonConfig.DungeonDef d
+                    : com.longdrange.ldattribute.core.dungeon.DungeonConfig.all()) {
+                if (d.worldName.equals(p.getWorld().getName())) return true;
+            }
+        } catch (Throwable ignored) {}
+        return false;
     }
 
     private ScoreboardConfig.BoardDef pickBoard(Player player) {

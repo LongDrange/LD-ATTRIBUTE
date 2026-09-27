@@ -21,6 +21,13 @@ public class GuideStatsProvider {
                 if (!data.isUnlocked(def.id)) continue;
                 for (String line : def.attribute) out.add(line);
             }
+
+            // 集齐分组 + 称号属性
+            GuideScoreManager sm = plugin.getCoreManager().getGuideScoreManager();
+            if (sm != null) {
+                out.addAll(sm.getSetAttributes(player));
+                out.addAll(sm.getTitleAttributes(player));
+            }
         } catch (Throwable ignored) {}
         return out;
     }

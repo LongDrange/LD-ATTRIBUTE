@@ -170,6 +170,16 @@ public class ExchangeManager {
             }
             case POINT: { addPoints(player, out.amount); return; }
             case VALUE: {
+                // 优先检测特殊前缀（RING/CARD/RUNE）
+                if (out.valueId != null && com.longdrange.ldattribute.util.ItemResolver.hasSpecialPrefix(out.valueId)) {
+                    com.longdrange.ldattribute.util.ItemResolver.Result r =
+                            com.longdrange.ldattribute.util.ItemResolver.resolveEx(out.valueId, Math.max(1, out.amount));
+                    if (r.item != null) {
+                        player.getInventory().addItem(r.item);
+                        given.add(r.item.clone());
+                    }
+                    return;
+                }
                 if (out.valueId != null && out.valueId.startsWith("CMD:")) {
                     String cmd = out.valueId.substring(4).replace("%player%", player.getName());
                     final String finalCmd = cmd;

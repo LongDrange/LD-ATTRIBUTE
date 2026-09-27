@@ -1,0 +1,31 @@
+# ============================================================
+# T2 魂珠 - 第 3 组（暗影系）
+# ============================================================
+
+shadow_ring:
+  Name: '&5&l暗影魂珠 &7[T2]'
+  Material: ENDER_PEARL
+  MaxStack: 35
+  Lore:
+    - '&6物品类型: &5魂珠'
+    - '&e魂珠ID: shadow_ring'
+    - '&e上限: 35'
+    - '&r'
+    - '&5暗影伤害: +12'
+    - '&5吸血: +3'
+  Enchant: true
+  Unbreakable: true
+
+poison_ring:
+  Name: '&2&l剧毒魂珠 &7[T2]'
+  Material: SLIME_BALL
+  MaxStack: 35
+  Lore:
+    - '&6物品类型: &2魂珠'
+    - '&e魂珠ID: poison_ring'
+    - '&e上限: 35'
+    - '&r'
+    - '&2中毒几率: +8'
+    - '&2中毒伤害: +5'
+  Enchant: true
+  Unbreakable: true

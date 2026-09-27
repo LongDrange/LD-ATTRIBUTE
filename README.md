@@ -105,7 +105,7 @@
 | /ldsp | /jewelry | 飾品背包 |
 | /ldtalent | /tl | 天賦加點 |
 | /ldguide | /gd | 怪物圖鑑 |
-| /ldvalue | /val / yeevalue | 自訂義值 |
+| /ldvalue | /val | 自訂義值 |
 | /ldsb | /sb | 側邊欄開關 |
 | /ldsr | /sr | 靈魂空間 |
 | /ldcore | /lcore | 核心管理 |

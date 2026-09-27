@@ -19,6 +19,7 @@ public class RingManager {
         cache.clear();
         RingConfig.load(plugin);
         RingSlotConfig.load(plugin);
+        RingTypeConfig.load(plugin);
     }
 
     public RingData get(Player player) {

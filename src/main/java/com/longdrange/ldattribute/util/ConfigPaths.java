@@ -79,6 +79,11 @@ public class ConfigPaths {
             case "stats_gui.yml":
             case "page.yml":
                 return "界面";
+            case "rings.yml":
+            case "ring-slots.yml":
+            case "ring-sets.yml":
+            case "ring-upgrade.yml":
+                return "魂珠";
             case "config.yml":
             case "command.yml":
                 return "系统";

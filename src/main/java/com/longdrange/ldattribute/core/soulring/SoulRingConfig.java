@@ -10,6 +10,12 @@ import java.util.*;
 
 public class SoulRingConfig {
 
+    public enum MatchMode {
+        CONTAINS,   // 包含
+        EXACT,      // 完全匹配
+        REGEX       // 正则
+    }
+
     public static class CategoryDef {
         public final String id;
         public final String name;
@@ -53,15 +59,20 @@ public class SoulRingConfig {
     private static boolean autoPickupMobDrops = true;
     private static boolean autoPickupBlockDrops = true;
     private static boolean autoPickupMessage = false;
-    private static final Set<String> pickupMaterialBlacklist = new HashSet<>();
-    private static final List<String> pickupLoreBlacklist = new ArrayList<>();
-    private static final List<String> pickupNameBlacklist = new ArrayList<>();
+    // ===== 过滤（白名单 + 黑名单）=====
+    private static MatchMode whitelistMode = MatchMode.CONTAINS;
+    private static MatchMode blacklistMode = MatchMode.CONTAINS;
+    private static final List<String> wlMaterial = new ArrayList<>();
+    private static final List<String> wlLore = new ArrayList<>();
+    private static final List<String> wlName = new ArrayList<>();
+    private static final List<String> blMaterial = new ArrayList<>();
+    private static final List<String> blLore = new ArrayList<>();
+    private static final List<String> blName = new ArrayList<>();
 
     public static void load(LDAttribute plugin) {
         categories.clear();
-        pickupMaterialBlacklist.clear();
-        pickupLoreBlacklist.clear();
-        pickupNameBlacklist.clear();
+        wlMaterial.clear(); wlLore.clear(); wlName.clear();
+        blMaterial.clear(); blLore.clear(); blName.clear();
 
         File f = new File(plugin.getDataFolder(), "soulring.yml");
         if (!f.exists()) { try { plugin.saveResource("soulring.yml", false); } catch (Throwable ignored) {} }
@@ -81,16 +92,21 @@ public class SoulRingConfig {
             autoPickupBlockDrops = ap.getBoolean("PickupBlockDrops", true);
             autoPickupMessage = ap.getBoolean("MessageOnPickup", false);
 
-            ConfigurationSection filter = ap.getConfigurationSection("Filter");
+ConfigurationSection filter = ap.getConfigurationSection("Filter");
             if (filter != null) {
-                for (String s : filter.getStringList("MaterialBlacklist")) {
-                    if (s != null && !s.isEmpty()) pickupMaterialBlacklist.add(s.toUpperCase());
+                ConfigurationSection wl = filter.getConfigurationSection("Whitelist");
+                if (wl != null) {
+                    whitelistMode = parseMode(wl.getString("MatchMode", "CONTAINS"));
+                    wlMaterial.addAll(upperList(wl.getStringList("Material")));
+                    wlLore.addAll(wl.getStringList("Lore"));
+                    wlName.addAll(wl.getStringList("Name"));
                 }
-                for (String s : filter.getStringList("LoreBlacklist")) {
-                    if (s != null && !s.isEmpty()) pickupLoreBlacklist.add(s);
-                }
-                for (String s : filter.getStringList("NameBlacklist")) {
-                    if (s != null && !s.isEmpty()) pickupNameBlacklist.add(s);
+                ConfigurationSection bl = filter.getConfigurationSection("Blacklist");
+                if (bl != null) {
+                    blacklistMode = parseMode(bl.getString("MatchMode", "CONTAINS"));
+                    blMaterial.addAll(upperList(bl.getStringList("Material")));
+                    blLore.addAll(bl.getStringList("Lore"));
+                    blName.addAll(bl.getStringList("Name"));
                 }
             }
         }
@@ -139,24 +155,87 @@ public class SoulRingConfig {
     public static boolean isAutoPickupMessage() { return autoPickupMessage; }
 
     /** 判断物品是否应该被过滤（不拾取） */
+    /** 判断物品是否应该被过滤（不拾取/不存入） */
     public static boolean isFiltered(org.bukkit.inventory.ItemStack stack) {
         if (stack == null) return true;
-        if (pickupMaterialBlacklist.contains(stack.getType().name().toUpperCase())) return true;
+
+        String mat = stack.getType().name().toUpperCase();
+        String display = "";
+        List<String> loreLines = new ArrayList<>();
 
         if (stack.hasItemMeta()) {
             org.bukkit.inventory.meta.ItemMeta meta = stack.getItemMeta();
-            if (meta.hasDisplayName() && !pickupNameBlacklist.isEmpty()) {
-                String dn = ChatColor.stripColor(meta.getDisplayName());
-                for (String k : pickupNameBlacklist) if (dn.contains(k)) return true;
+            if (meta.hasDisplayName()) display = ChatColor.stripColor(meta.getDisplayName());
+            if (meta.hasLore()) {
+                for (String l : meta.getLore()) loreLines.add(ChatColor.stripColor(l));
             }
-            if (meta.hasLore() && !pickupLoreBlacklist.isEmpty()) {
-                for (String line : meta.getLore()) {
-                    String plain = ChatColor.stripColor(line);
-                    for (String k : pickupLoreBlacklist) if (plain.contains(k)) return true;
-                }
+        }
+
+        // 1. 白名单优先：匹配则允许
+        if (matchEntry(whitelistMode, mat, display, loreLines, wlMaterial, wlLore, wlName)) {
+            return false;
+        }
+
+        // 2. 黑名单：匹配则拒绝
+        if (matchEntry(blacklistMode, mat, display, loreLines, blMaterial, blLore, blName)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /** 匹配材质/名字/Lore */
+    private static boolean matchEntry(MatchMode mode,
+                                       String mat, String display, List<String> loreLines,
+                                       List<String> matList, List<String> loreList, List<String> nameList) {
+        // 材质
+        for (String k : matList) {
+            if (matchOne(mode, mat, k)) return true;
+        }
+        // 名字
+        for (String k : nameList) {
+            if (matchOne(mode, display, k)) return true;
+        }
+        // Lore
+        for (String line : loreLines) {
+            for (String k : loreList) {
+                if (matchOne(mode, line, k)) return true;
             }
         }
         return false;
+    }
+
+    /** 单条匹配 */
+    private static boolean matchOne(MatchMode mode, String text, String pattern) {
+        if (text == null || pattern == null) return false;
+        try {
+            switch (mode) {
+                case EXACT:
+                    return text.equalsIgnoreCase(pattern);
+                case REGEX:
+                    return text.matches(pattern);
+                case CONTAINS:
+                default:
+                    return text.toLowerCase().contains(pattern.toLowerCase());
+            }
+        } catch (Throwable t) {
+            return false;
+        }
+    }
+
+    private static MatchMode parseMode(String s) {
+        if (s == null) return MatchMode.CONTAINS;
+        s = s.toUpperCase();
+        try { return MatchMode.valueOf(s); } catch (Throwable t) { return MatchMode.CONTAINS; }
+    }
+
+    private static List<String> upperList(List<String> list) {
+        List<String> out = new ArrayList<>();
+        if (list == null) return out;
+        for (String s : list) {
+            if (s != null && !s.isEmpty()) out.add(s.toUpperCase());
+        }
+        return out;
     }
 
     public static List<CategoryDef> getCategories() { return categories; }

@@ -61,5 +61,6 @@ public class GuideKillListener implements Listener {
                 + ChatColor.GRAY + " (" + reason + ")");
         try { player.playSound(player.getLocation(), Sound.ENTITY_PLAYER_LEVELUP, 1f, 1.5f); } catch (Throwable ignored) {}
         try { com.longdrange.ldattribute.card.StatsDataRead.updatePlayer(player); } catch (Throwable ignored) {}
+        try { com.longdrange.ldattribute.LDAttribute.getInstance().getCoreManager().getGuideScoreManager().refresh(player); } catch (Throwable ignored) {}
     }
 }

@@ -1,0 +1,32 @@
+# ============================================================
+# T2 魂珠 - 第 1 组（雷霆系）
+# ============================================================
+
+thunder_ring:
+  Name: '&e&l雷霆魂珠 &7[T2]'
+  Material: GLOWSTONE_DUST
+  MaxStack: 30
+  Lore:
+    - '&6物品类型: &e魂珠'
+    - '&e魂珠ID: thunder_ring'
+    - '&e上限: 30'
+    - '&r'
+    - '&e暴击機率: +5'
+    - '&e雷霆几率: +10'
+    - '&e速度: +3'
+  Enchant: true
+  Unbreakable: true
+
+lightning_ring:
+  Name: '&f&l闪电魂珠 &7[T2]'
+  Material: REDSTONE
+  MaxStack: 30
+  Lore:
+    - '&6物品类型: &f魂珠'
+    - '&e魂珠ID: lightning_ring'
+    - '&e上限: 30'
+    - '&r'
+    - '&e攻速: +5'
+    - '&e雷霆伤害: +8'
+  Enchant: true
+  Unbreakable: true

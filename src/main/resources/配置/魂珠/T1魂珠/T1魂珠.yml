@@ -1,0 +1,42 @@
+# ============================================================
+# 魂珠类型定义 - T1（入门级）
+# ============================================================
+# 顶层 key = 魂珠ID（用于 /ldring give <玩家> <ID>）
+# 一个 yml 可放多个魂珠；一个文件夹可放多个 yml
+# 字段：
+#   Name:        显示名（& 色码）
+#   Material:    材质名（如 BLAZE_POWDER）或 ID: 339 数字ID
+#   Data:        附加值（默认 0）
+#   MaxStack:    堆叠上限
+#   Lore:        Lore 列表
+#   Enchant:     是否有附魔光效
+#   Unbreakable: 是否不可破坏
+# ============================================================
+
+fire_ring:
+  Name: '&c&l火焰魂珠 &7[T1]'
+  Material: BLAZE_POWDER
+  MaxStack: 20
+  Lore:
+    - '&6物品类型: &c魂珠'
+    - '&e魂珠ID: fire_ring'
+    - '&e上限: 20'
+    - '&r'
+    - '&c攻击力: +5'
+    - '&e暴击機率: +2'
+  Enchant: true
+  Unbreakable: true
+
+ice_ring:
+  Name: '&b&l寒冰魂珠 &7[T1]'
+  Material: SNOW_BALL
+  MaxStack: 20
+  Lore:
+    - '&6物品类型: &b魂珠'
+    - '&e魂珠ID: ice_ring'
+    - '&e上限: 20'
+    - '&r'
+    - '&b防御力: +5'
+    - '&b生命上限: +30'
+  Enchant: true
+  Unbreakable: true

@@ -1,0 +1,31 @@
+# ============================================================
+# T2 魂珠 - 第 2 组（自然系）
+# ============================================================
+
+nature_ring:
+  Name: '&a&l自然魂珠 &7[T2]'
+  Material: LEAVES
+  MaxStack: 40
+  Lore:
+    - '&6物品类型: &a魂珠'
+    - '&e魂珠ID: nature_ring'
+    - '&e上限: 40'
+    - '&r'
+    - '&a生命上限: +80'
+    - '&a生命恢复: +2'
+  Enchant: true
+  Unbreakable: true
+
+wind_ring:
+  Name: '&f&l疾风魂珠 &7[T2]'
+  Material: FEATHER
+  MaxStack: 40
+  Lore:
+    - '&6物品类型: &f魂珠'
+    - '&e魂珠ID: wind_ring'
+    - '&e上限: 40'
+    - '&r'
+    - '&f闪避几率: +5'
+    - '&f移动速度: +5'
+  Enchant: true
+  Unbreakable: true
