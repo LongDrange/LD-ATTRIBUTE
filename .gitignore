@@ -26,3 +26,8 @@ secrets.yml
 /data/
 /core-data/
 /配置/
+
+# 备份文件
+*.bak
+*.bak_*
+
