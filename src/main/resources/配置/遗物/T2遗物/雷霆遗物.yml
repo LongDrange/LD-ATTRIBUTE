@@ -1,0 +1,25 @@
+# T2 遗物（传统 Relics 段写法）
+
+Relics:
+  thunder_helm:
+    Name: "&e雷霆头盔"
+    Slot: head
+    Icon: "GOLD_HELMET"
+    Star: 3
+    MainValue: "2000~3500"
+    SubCount: 5
+    SubPool:
+      - "攻击力: 50~100"
+      - "暴击機率: 3~8"
+      - "爆率: 5~15"
+
+  thunder_chest:
+    Name: "&e雷霆铠甲"
+    Slot: body
+    Icon: "GOLD_CHESTPLATE"
+    Star: 3
+    MainValue: "150~250"
+    SubFixed:
+      - "防御力: 50"
+      - "生命上限: 500"
+      - "暴击抵抗: 10"

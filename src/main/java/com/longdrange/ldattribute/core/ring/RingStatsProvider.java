@@ -32,13 +32,8 @@ public class RingStatsProvider {
     private static void put(char tw, char cn) { T2S.put(tw, cn); }
 
     private static String toSimplified(String s) {
-        if (s == null) return null;
-        StringBuilder sb = new StringBuilder(s.length());
-        for (int i = 0; i < s.length(); i++) {
-            Character sub = T2S.get(s.charAt(i));
-            sb.append(sub == null ? s.charAt(i) : sub);
-        }
-        return sb.toString();
+        // 用中央工具类（更完整）
+        return com.longdrange.ldattribute.util.ChineseConverter.toSimplified(s);
     }
 
     /** 属性名归一化：先走映射表，再走简繁归一化，再走已注册表 */

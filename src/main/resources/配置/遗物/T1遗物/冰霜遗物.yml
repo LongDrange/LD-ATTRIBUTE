@@ -1,0 +1,23 @@
+# T1 遗物 - 冰霜系
+
+ice_helm:
+  Name: "&b冰霜头盔"
+  Slot: head
+  Icon: "GOLD_HELMET"
+  Set: ice
+  Star: 2
+  MainValue: "1500~2500"
+  SubCount: 4
+  SubPool:
+    - "防御力: 20~40"
+    - "生命上限: 300~800"
+    - "韧性: 5~15"
+
+ice_chest:
+  Name: "&b冰霜铠甲"
+  Slot: body
+  Icon: "GOLD_CHESTPLATE"
+  Set: ice
+  Star: 2
+  MainValue: "120~180"
+  SubCount: 4

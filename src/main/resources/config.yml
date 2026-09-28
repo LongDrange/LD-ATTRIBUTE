@@ -111,3 +111,11 @@ Backup:
   IntervalMinutes: 60
   # 保留最近 N 份（1 天 = 24 份）
   MaxBackups: 24
+
+# 数字缩写
+NumberAbbrev:
+  Enabled: true
+  Decimals: 2
+  Wan: 10000
+  Yi: 100000000
+  Zhao: 1000000000000

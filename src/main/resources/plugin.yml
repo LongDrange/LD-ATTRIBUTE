@@ -1,5 +1,5 @@
 name: LD-Attribute
-version: 1.5.0
+version: 1.6.0
 main: com.longdrange.ldattribute.LDAttribute
 api-version: "1.12"
 author: LongDrange
@@ -10,6 +10,14 @@ softdepend:
   - MythicMobs
   - Vault
 commands:
+  laa:
+    aliases: [autoattack]
+    description: 杀戮系统
+    usage: /laa
+  ldrelic:
+    aliases: [relic, yw]
+    description: 遗物系统
+    usage: /ldrelic
   ldattribute:
     aliases: [lda, ldattr]
     description: LD-Attribute 主指令

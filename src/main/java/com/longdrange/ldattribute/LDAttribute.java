@@ -94,6 +94,12 @@ public class LDAttribute extends JavaPlugin {
         // ===== 魂珠空间（批次 2-1）=====
         RingCommand ringCmd = new RingCommand(this);
         getCommand("ldring").setExecutor(ringCmd);
+        try {
+            com.longdrange.ldattribute.core.relic.command.RelicCommand relicCmd = new com.longdrange.ldattribute.core.relic.command.RelicCommand(this);
+            getCommand("ldrelic").setExecutor(relicCmd);
+            getCommand("ldrelic").setTabCompleter(relicCmd);
+            org.bukkit.Bukkit.getPluginManager().registerEvents(new com.longdrange.ldattribute.core.relic.listener.RelicGUIListener(this), this);
+        } catch (Throwable t) { getLogger().warning("遗物命令注册失败: " + t.getMessage()); }
         getCommand("ldring").setTabCompleter(ringCmd);
 
         // ===== 饰品背包（批次3-2）=====
@@ -195,6 +201,12 @@ public class LDAttribute extends JavaPlugin {
             getLogger().info("已註冊 PlaceholderAPI 佔位符！");
         }
 
+        try {
+            com.longdrange.ldattribute.core.autoattack.command.AutoAttackCommand aaCmd = new com.longdrange.ldattribute.core.autoattack.command.AutoAttackCommand(this);
+            getCommand("laa").setExecutor(aaCmd);
+            getCommand("laa").setTabCompleter(aaCmd);
+        } catch (Throwable t) { getLogger().warning("杀戮命令注册失败: " + t.getMessage()); }
+
         // 註冊 Bukkit Service（給 TCardStats 等插件用）
         getServer().getServicesManager().register(
                 LDAttributeAPI.class, api, this, ServicePriority.Normal);
@@ -217,6 +229,19 @@ public class LDAttribute extends JavaPlugin {
     }
 
     private void registerAllAttributes() {
+        // 初始化数字缩写
+        try {
+            org.bukkit.configuration.ConfigurationSection na = getConfig().getConfigurationSection("NumberAbbrev");
+            if (na != null) {
+                com.longdrange.ldattribute.util.NumberAbbrev.setEnabled(na.getBoolean("Enabled", true));
+                com.longdrange.ldattribute.util.NumberAbbrev.setDecimals(na.getInt("Decimals", 2));
+                com.longdrange.ldattribute.util.NumberAbbrev.setThresholds(
+                        na.getDouble("Wan", 10000),
+                        na.getDouble("Yi", 100000000),
+                        na.getDouble("Zhao", 1000000000000L));
+            }
+        } catch (Throwable ignored) {}
+
         new DamageAttribute().register(this);
         // new CritAttribute().register(this);  // 舊暴擊已停用
         new ArmorPenAttribute().register(this);

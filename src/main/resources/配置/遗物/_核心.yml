@@ -1,0 +1,68 @@
+# ============================================================
+# 遗物系统 - 核心配置
+# ============================================================
+# Slots 段：定义所有装备槽位（想加几个就加几个）
+#   Name:       显示名
+#   Icon:       图标材质
+#   MainAttr:   主属性名
+#   MainValue:  主属性取值范围
+#   GuiSlot:    GUI 里的格子号（0~53，留空自动居中排版）
+#   Order:      排序（越小越前）
+# ============================================================
+
+Slots:
+  head:
+    Name: "&6头盔"
+    Icon: "GOLD_HELMET"
+    MainAttr: "生命上限"
+    MainValue: "500~2000"
+    GuiSlot: 10
+    Order: 1
+  hand:
+    Name: "&6护手"
+    Icon: "GOLD_BOOTS"
+    MainAttr: "攻击力"
+    MainValue: "50~200"
+    GuiSlot: 12
+    Order: 2
+  body:
+    Name: "&6铠甲"
+    Icon: "GOLD_CHESTPLATE"
+    MainAttr: "防御力"
+    MainValue: "30~150"
+    GuiSlot: 14
+    Order: 3
+  foot:
+    Name: "&6战靴"
+    Icon: "GOLD_BOOTS"
+    MainAttr: "移动速度"
+    MainValue: "5~15"
+    GuiSlot: 28
+    Order: 4
+  ring:
+    Name: "&6指环"
+    Icon: "GOLD_INGOT"
+    MainAttr: "暴击機率"
+    MainValue: "2~10"
+    GuiSlot: 30
+    Order: 5
+  charm:
+    Name: "&6护符"
+    Icon: "NETHER_STAR"
+    MainAttr: "暴擊傷害"
+    MainValue: "10~50"
+    GuiSlot: 32
+    Order: 6
+
+SubPool:
+  - "攻击力: 20~50"
+  - "防御力: 10~30"
+  - "生命上限: 100~500"
+  - "暴击機率: 1~5"
+  - "暴擊傷害: 5~20"
+  - "命中率: 1~5"
+  - "閃避: 1~5"
+  - "幸运: 5~20"
+  - "爆率: 5~20"
+
+# 套装配置已移至 套装.yml

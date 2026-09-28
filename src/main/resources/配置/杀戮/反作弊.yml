@@ -1,0 +1,21 @@
+# ============================================================
+# 攻速反作弊
+# ============================================================
+# Enabled:            是否启用
+# MaxAPS:             每秒最大攻击次数（超过判定为外挂）
+# WarnTimes:          累计违规几次踢出
+# ResetAfterMs:       多久没违规自动重置计数（毫秒）
+# ExemptPermission:   有此权限的玩家跳过检测
+# Broadcast:          踢出时是否全服广播
+# ============================================================
+
+Enabled: true
+MaxAPS: 20
+WarnTimes: 3
+ResetAfterMs: 60000
+ExemptPermission: "ldattribute.anticheat.exempt"
+
+WarnMessage: "&c⚠ 攻速异常 %cur%/%max% (警告 %n%/%total%)"
+KickMessage: "&c检测到使用外挂（攻速异常），已踢出服务器"
+Broadcast: true
+BroadcastMessage: "&c%player% 因攻速异常被踢出服务器"

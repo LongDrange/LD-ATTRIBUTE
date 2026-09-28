@@ -1,0 +1,41 @@
+# ============================================================
+# 杀戮系统配置
+# ============================================================
+# Default: 全局默认参数
+# Groups:  权限组（玩家有该权限则用这组，多组取"范围最大"的）
+# Players: 独立玩家配置（管理员用 /laa set 命令写入，存在 玩家.yml）
+# ============================================================
+
+Default:
+  Enabled: false              # 默认是否开启
+  Range: 2.5
+  Interval: 20
+  MaxTargets: 1
+  AntiKnockback: true
+  AutoRotate: false
+  Animation: true             # 发送攻击动画
+  UseEvent: true              # true=走事件（兼容其他插件）/ false=直接damage（更快）
+  MessageOnEnable: "&a⚔ 杀戮已开启"
+  MessageOnDisable: "&c⚔ 杀戮已关闭"
+  OnEnableCommands: []
+  OnDisableCommands: []
+
+# ============================================================
+# 权限组
+# ============================================================
+# 玩家有多个组权限时，取"范围最大"的那组
+# 没写的字段用 Default 的值
+# ============================================================
+Groups:
+  vip:
+    Permission: "ldattribute.autoattack.vip"
+    Range: 6.0
+    Interval: 8
+    MaxTargets: 3
+
+  svip:
+    Permission: "ldattribute.autoattack.svip"
+    Range: 8.0
+    Interval: 5
+    MaxTargets: 5
+    AntiKnockback: true

@@ -119,10 +119,20 @@ public class CardCommand implements CommandExecutor, TabCompleter {
             case "Find": return onFind(sender, args);
             case "Overview": return onOverview(sender, args);
             case "Export": return onExport(sender, args);
+                case "Refresh": {
+                    int n = com.longdrange.ldattribute.card.CardRefresher.refreshAll();
+                    sender.sendMessage("§a[卡片] 已刷新 §e" + n + "§a 张卡片（所有在线玩家）");
+                    return true;
+                }
             case "Reload": {
                 String _only = (args.length >= 2) ? args[1] : "all";
                 plugin.reloadAll(_only);
                 sender.sendMessage(Message.get("Command.Reload.Success") + " §7[" + _only + "§7]");
+                // 自动刷新所有在线玩家的卡片
+                try {
+                    int _n = com.longdrange.ldattribute.card.CardRefresher.refreshAll();
+                    if (_n > 0) sender.sendMessage("§a[卡片] 已同步更新 §e" + _n + "§a 张卡片");
+                } catch (Throwable ignored) {}
                 return true;
             }
             case "Version":

@@ -94,6 +94,9 @@ public class CoreManager {
     private GuideManager guideManager;
     private GuideScoreManager guideScoreManager;
     private com.longdrange.ldattribute.core.drop.DropTableManager dropTableManager;
+    private com.longdrange.ldattribute.core.relic.RelicManager relicManager;
+    private com.longdrange.ldattribute.core.autoattack.AutoAttackManager autoAttackManager;
+    private com.longdrange.ldattribute.core.autoattack.AntiCheatManager antiCheatManager;
     private GuideGUI guideGUI;
     private DungeonManager dungeonManager;
     private DungeonTeamManager dungeonTeamManager;
@@ -150,6 +153,7 @@ public class CoreManager {
     }
 
     public void disable() {
+        if (autoAttackManager != null) autoAttackManager.stop();
         if (valueManager != null) valueManager.stopRegen();
         if (scoreboardManager != null) scoreboardManager.stop();
         if (soulRingManager != null) soulRingManager.saveAll();
@@ -181,6 +185,8 @@ public class CoreManager {
         if (guideManager != null) guideManager.reload();
         if (guideScoreManager != null) guideScoreManager.reload();
         if (dropTableManager != null) dropTableManager.reload();
+        if (relicManager != null) relicManager.reload();
+        if (autoAttackManager != null) autoAttackManager.reload();
         if (valueManager != null) {
             valueManager.stopRegen();
             valueManager.reload();
@@ -213,6 +219,9 @@ public class CoreManager {
     public GuideManager getGuideManager() { return guideManager; }
     public GuideScoreManager getGuideScoreManager() { return guideScoreManager; }
     public com.longdrange.ldattribute.core.drop.DropTableManager getDropTableManager() { return dropTableManager; }
+    public com.longdrange.ldattribute.core.relic.RelicManager getRelicManager() { return relicManager; }
+    public com.longdrange.ldattribute.core.autoattack.AutoAttackManager getAutoAttackManager() { return autoAttackManager; }
+    public com.longdrange.ldattribute.core.autoattack.AntiCheatManager getAntiCheatManager() { return antiCheatManager; }
     public GuideGUI getGuideGUI() { return guideGUI; }
     public DungeonManager getDungeonManager() { return dungeonManager; }
     public DungeonTeamManager getDungeonTeamManager() { return dungeonTeamManager; }
@@ -331,6 +340,7 @@ public class CoreManager {
         AttributeSourceRegistry.register(new RuneSource());
         AttributeSourceRegistry.register(new SuitSource());
         AttributeSourceRegistry.register(new SynergySource());
+        AttributeSourceRegistry.register(new com.longdrange.ldattribute.core.source.RelicSource());
 
         AttributeSourceRegistry.loadFromConfig(plugin);
 
@@ -348,6 +358,18 @@ public class CoreManager {
         SoulRingConfig.load(plugin);
         this.dropTableManager = new com.longdrange.ldattribute.core.drop.DropTableManager(plugin);
         this.dropTableManager.reload();
+        this.relicManager = new com.longdrange.ldattribute.core.relic.RelicManager(plugin);
+
+        // ===== 杀戮系统 =====
+        com.longdrange.ldattribute.core.autoattack.AutoAttackConfig.load(plugin);
+        com.longdrange.ldattribute.core.autoattack.AntiCheatConfig.load(plugin);
+        this.autoAttackManager = new com.longdrange.ldattribute.core.autoattack.AutoAttackManager(plugin);
+        this.antiCheatManager = new com.longdrange.ldattribute.core.autoattack.AntiCheatManager(plugin);
+        this.autoAttackManager.start();
+        Bukkit.getPluginManager().registerEvents(this.antiCheatManager, plugin);
+        Bukkit.getPluginManager().registerEvents(new com.longdrange.ldattribute.core.autoattack.listener.AutoAttackListener(plugin), plugin);
+        plugin.getLogger().info("[AutoAttack] 杀戮系统已启用");
+        com.longdrange.ldattribute.core.relic.RelicConfig.load(plugin);
         com.longdrange.ldattribute.core.soulring.SoulRingLog.init(plugin);
         com.longdrange.ldattribute.core.soulring.SoulRingDecomposeConfig.load(plugin);
         this.soulRingManager = new SoulRingManager(plugin);

@@ -52,6 +52,7 @@ public class CardDataManager {
 
             // 标记物品类型
             item = com.longdrange.ldattribute.item.ItemTypeNBT.setType(item, com.longdrange.ldattribute.item.ItemType.CARD);
+            item = CardNBT.setCardId(item, id);
 
             // 初始化等級 NBT + 動態 Lore
             if (CardLevelConfig.isUpgradable(id)) {

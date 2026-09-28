@@ -323,7 +323,15 @@ public class Placeholders extends PlaceholderExpansion {
         }
 
 
-        return targetAttr.getPlaceholder(player, subParam);
+        String _out = targetAttr.getPlaceholder(player, subParam);
+        // 纯数值占位符 → 数字缩写
+        if (subParam == null) {
+            try {
+                double _v = Double.parseDouble(_out.replace("", "").replace("%", "").trim());
+                return com.longdrange.ldattribute.util.NumberAbbrev.format(_v);
+            } catch (Throwable ignored) {}
+        }
+        return _out;
     }
 
     /** 读玩家完整属性（含卡片/符文/宠物/共鸣），用于排行榜 */

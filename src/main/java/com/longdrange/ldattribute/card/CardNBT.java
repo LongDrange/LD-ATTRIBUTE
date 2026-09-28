@@ -117,6 +117,10 @@ public class CardNBT {
     public static int getStar(ItemStack item) { return getInt(item, "star", 0); }
     public static ItemStack setStar(ItemStack item, int star) { return setInt(item, "star", Math.max(0, star)); }
 
+    /** 卡片ID（用于 /ldc refresh 识别） */
+    public static String getCardId(ItemStack item) { return getString(item, "cardId", ""); }
+    public static ItemStack setCardId(ItemStack item, String cardId) { return setString(item, "cardId", cardId == null ? "" : cardId); }
+
     // ===== 法術書 =====
     public static String getSpell(ItemStack item) { return getString(item, "spell", ""); }
     public static ItemStack setSpell(ItemStack item, String spellId) { return setString(item, "spell", spellId); }

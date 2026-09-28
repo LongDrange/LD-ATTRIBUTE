@@ -1,0 +1,40 @@
+# T1 遗物 - 火焰系
+
+flame_helm:
+  Name: "&c火焰头盔"
+  Slot: head
+  Icon: "GOLD_HELMET"
+  Set: flame
+  Star: 1
+  MainValue: "1000~1500"
+  # 自定义副属性池（4 条从下面这个池子随机抽）
+  SubCount: 4
+  SubPool:
+    - "攻击力: 20~50"
+    - "暴击機率: 1~5"
+    - "生命上限: 100~500"
+    - "命中率: 1~3"
+    - "幸运: 5~15"
+
+flame_boots:
+  Name: "&c火焰战靴"
+  Slot: foot
+  Icon: "GOLD_BOOTS"
+  Set: flame
+  Star: 1
+  MainValue: "8~12"
+  # 用全局 SubPool（不写 SubPool）
+  SubCount: 3
+
+flame_chest:
+  Name: "&c火焰铠甲"
+  Slot: body
+  Icon: "GOLD_CHESTPLATE"
+  Set: flame
+  Star: 1
+  MainValue: "80~120"
+  # 固定副属性（不走随机）
+  SubFixed:
+    - "攻击力: 30"
+    - "防御力: 25"
+    - "生命上限: 200"
